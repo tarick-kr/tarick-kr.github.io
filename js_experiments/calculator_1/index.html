@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>calc_1</title>
+	<meta name="description" content="">
+
+	<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="libs/bootstrap-4.0.0-dist/css/bootstrap-grid.css">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+	<!-- Custom HTML -->
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h1>calculator</h1>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-auto buttons">
+				<input type="text" name="num1">
+				<input class="action" type="button" name="plus" value="+" data-op="+">
+				<input class="action" type="button" name="minus" value="-" data-op="-">
+				<input class="action" type="button" name="times" value="x" data-op="*">
+				<input class="action" type="button" name="divid" value="/" data-op="/">
+				<input type="text" name="num2">
+ 			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-auto result">
+				<span class="res"></span>				
+ 			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-auto text">
+				<h3>Инструкция</h3>
+				<ol>1. Впишите в левое поле первое число</ol>
+				<ol>2. Впишите в правое поле второе число</ol>
+				<ol>3. Укажите какое арифметическое действие нужно произвести</ol>
+				<ol>4. Вуаля!!!</ol>
+			</div>
+		</div>
+	</div>
+
+	<script	src="js/script.js"></script>
+</body>
+</html>
