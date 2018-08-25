@@ -15,3 +15,7 @@ h1 {
 p {
 	text-align: center;
 }
+
+.block {
+	padding-top: 50px;
+}
