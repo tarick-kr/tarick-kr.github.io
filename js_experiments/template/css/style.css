@@ -19,3 +19,7 @@ p {
 .block {
 	padding-top: 50px;
 }
+
+.fa-border {
+    border: solid 0.08em #df1818;
+}
