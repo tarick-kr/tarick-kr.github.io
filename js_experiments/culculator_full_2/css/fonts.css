@@ -1,0 +1,47 @@
+@font-face {
+	font-family: M_PLUS_Rounded_1c; /* Имя шрифта */
+	src: url(../fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Thin.ttf); /* Путь к файлу со шрифтом */
+	font-weight: 100;
+	font-style: normal;
+	}
+@font-face {
+	font-family: M_PLUS_Rounded_1c; /* Имя шрифта */
+	src: url(../fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Light.ttf); /* Путь к файлу со шрифтом */
+	font-weight: 300;
+	font-style: normal;
+	}
+
+@font-face {
+	font-family: M_PLUS_Rounded_1c; /* Имя шрифта */
+	src: url(../fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Regular.ttf); /* Путь к файлу со шрифтом */
+	font-weight: 400;
+	font-style: normal;
+	}
+
+@font-face {
+	font-family: M_PLUS_Rounded_1c; /* Имя шрифта */
+	src: url(../fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Medium.ttf); /* Путь к файлу со шрифтом */
+	font-weight: 500;
+	font-style: normal;
+	}
+
+@font-face {
+	font-family: M_PLUS_Rounded_1c; /* Имя шрифта */
+	src: url(../fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Bold.ttf); /* Путь к файлу со шрифтом */
+	font-weight: 700;
+	font-style: normal;
+	}
+
+@font-face {
+	font-family: M_PLUS_Rounded_1c; /* Имя шрифта */
+	src: url(../fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-ExtraBold.ttf); /* Путь к файлу со шрифтом */
+	font-weight: 800;
+	font-style: normal;
+	}
+
+@font-face {
+	font-family: M_PLUS_Rounded_1c; /* Имя шрифта */
+	src: url(../fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Black.ttf); /* Путь к файлу со шрифтом */
+	font-weight: 900;
+	font-style: normal;
+	}
