@@ -21,7 +21,7 @@
 	<!-- Custom Browsers Color End -->
 
 	<!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <link rel="stylesheet" href="libs/bootstrap-4.0.0-dist/css/bootstrap-grid.css">
 
 	<!-- Custom CSS -->
 <!-- 	<link rel="stylesheet" href="css/main.css"> -->
@@ -29,7 +29,15 @@
 
 <body>
 	<!-- Custom HTML -->
-
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-auto">
+				<canvas>
+					
+				</canvas>
+ 			</div>
+		</div>
+	</div>
 
 
 
@@ -37,7 +45,7 @@
 
 	<script	type="text/javascript">
 
-		var pjs = new PointJS('2d', 400, 400);
+		var pjs = new PointJS('2d', 1600, 600);
 		pjs.system.initFullPage();
 
 		var game = pjs.game;
@@ -61,7 +69,7 @@
 
 		var sea1 = game.newImageObject({
 			x : 0, y : 0,
-			file : 'asset/bgSea.png',
+			file : 'asset/bgSea2.png',
 			h : height,
 			onload : function(){
 				sea2.x = sea1.x+sea1.w
@@ -69,13 +77,12 @@
 		})		
 		var sea2 = game.newImageObject({
 			x : sea1.x+sea1.w, y : 0,
-			file : 'asset/bgSea.png',
+			file : 'asset/bgSea2.png',
 			h : height
-		})
-
+		})		
 		var sky1 = game.newImageObject({
 			x : 0, y : 0,
-			file : 'asset/bgSky.png',
+			file : 'asset/bgSky2.png',
 			h : height,
 			onload : function(){
 				sky2.x = sky1.x+sky1.w
@@ -84,10 +91,9 @@
 
 		var sky2 = game.newImageObject({
 			x : sky1.x+sky1.w, y : 0,
-			file : 'asset/bgSky.png',
+			file : 'asset/bgSky2.png',
 			h : height			
-		})
-
+		})		
 		var submarine = game.newAnimationObject({
 			x : 0, y : 250,
 			h : 60, w : 80,
@@ -107,38 +113,40 @@
 			}
 			if (sea2.x + sea2.w < 0){
 				sea2.x = sea1.x + sea1.w;
-			}
+			}			
 			if (sky1.x + sky1.w < 0){
 				sky1.x = sky2.x + sky2.w;
 			}
 			if (sky2.x + sky2.w < 0){
 				sky2.x = sky1.x + sky1.w;
-			}
+			}			
 		};
 
 		game.newLoop('game', function(){
-			game.fill('#D9D9D9');
+			// game.fill('#D9D9D9');
 
 			// pjs.presets.bgСycle(sea, -3, 0, 0, 0);
 
 			if (key.isDown('RIGHT') || key.isDown('D')){
-				submarine.move(point(1, 0));
+				submarine.move(point(2, 0));
 			}
 			if (key.isDown('LEFT') || key.isDown('A')){
-				submarine.move(point(-1, 0));
+				submarine.move(point(-2, 0));
 			}			
 			if (key.isDown('UP') || key.isDown('W')){
-				submarine.move(point(0, -1));
-			}			
+				submarine.move(point(0, -2));
+			}
 			if (key.isDown('DOWN') || key.isDown('S')){
-				submarine.move(point(0, 1));
+				submarine.move(point(0, 2));
 			}
 
 
 			sea1.draw();
 			sea2.draw();
+
 			sky1.draw();
 			sky2.draw();
+
 
 			submarine.draw();
 
