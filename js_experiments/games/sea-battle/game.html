@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>Sea Battle</title>
+	<meta name="description" content="">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+	<!-- Template Basic Images Start -->
+	<meta property="og:image" content="path/to/image.jpg">
+<!-- 	<link rel="icon" href="img/favicon/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon-180x180.png"> -->
+	<!-- Template Basic Images End -->
+	
+	<!-- Custom Browsers Color Start -->
+	<meta name="theme-color" content="#000">
+	<!-- Custom Browsers Color End -->
+
+	<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+
+	<!-- Custom CSS -->
+<!-- 	<link rel="stylesheet" href="css/main.css"> -->
+</head>
+
+<body>
+	<!-- Custom HTML -->
+
+
+
+
+	<script type="text/javascript" src="pointjs_0.2.0.0_demo.js"></script>
+
+	<script	type="text/javascript">
+
+		var pjs = new PointJS('2d', 400, 400);
+		pjs.system.initFullPage();
+
+		var game = pjs.game;
+		var key = pjs.keyControl;
+		var vector = pjs.vector;		
+		var point = vector.point;
+
+
+		var log = pjs.system.log;
+
+		var size = vector.size;
+		var camera = pjs.camera;
+		var brush = pjs.brush;
+		var OOP = pjs.OOP;
+ 
+		var height = game.getWH().h;
+		var width = game.getWH().w;
+
+
+		key.initControl();
+
+		var sea1 = game.newImageObject({
+			x : 0, y : 0,
+			file : 'asset/bgSea.png',
+			h : height,
+			onload : function(){
+				sea2.x = sea1.x+sea1.w
+			}
+		})		
+		var sea2 = game.newImageObject({
+			x : sea1.x+sea1.w, y : 0,
+			file : 'asset/bgSea.png',
+			h : height
+		})
+
+		var sky1 = game.newImageObject({
+			x : 0, y : 0,
+			file : 'asset/bgSky.png',
+			h : height,
+			onload : function(){
+				sky2.x = sky1.x+sky1.w
+			}			
+		})		
+
+		var sky2 = game.newImageObject({
+			x : sky1.x+sky1.w, y : 0,
+			file : 'asset/bgSky.png',
+			h : height			
+		})
+
+		var submarine = game.newAnimationObject({
+			x : 0, y : 250,
+			h : 60, w : 80,
+			delay : -5,
+			animation : pjs.tiles.newAnimation('asset/submarine.png', 80, 60, 9)			
+		})
+
+		var moveBackGround = function(s){
+			sea1.move(point(-s, 0));
+			sea2.move(point(-s, 0));
+
+			sky1.move(point(-s/2, 0));
+			sky2.move(point(-s/2, 0));
+
+			if (sea1.x + sea1.w < 0){
+				sea1.x = sea2.x + sea2.w;
+			}
+			if (sea2.x + sea2.w < 0){
+				sea2.x = sea1.x + sea1.w;
+			}
+			if (sky1.x + sky1.w < 0){
+				sky1.x = sky2.x + sky2.w;
+			}
+			if (sky2.x + sky2.w < 0){
+				sky2.x = sky1.x + sky1.w;
+			}
+		};
+
+		game.newLoop('game', function(){
+			game.fill('#D9D9D9');
+
+			// pjs.presets.bgСycle(sea, -3, 0, 0, 0);
+
+			if (key.isDown('RIGHT') || key.isDown('D')){
+				submarine.move(point(1, 0));
+			}
+			if (key.isDown('LEFT') || key.isDown('A')){
+				submarine.move(point(-1, 0));
+			}			
+			if (key.isDown('UP') || key.isDown('W')){
+				submarine.move(point(0, -1));
+			}			
+			if (key.isDown('DOWN') || key.isDown('S')){
+				submarine.move(point(0, 1));
+			}
+
+
+			sea1.draw();
+			sea2.draw();
+			sky1.draw();
+			sky2.draw();
+
+			submarine.draw();
+
+			moveBackGround(3);
+
+		});
+
+		game.startLoop('game');
+		
+
+
+
+	</script>
+</body>
+</html>
