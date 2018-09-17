@@ -45,7 +45,7 @@
 
 	<script	type="text/javascript">
 
-		var pjs = new PointJS('2d', 1600, 600);
+		var pjs = new PointJS('2d', 800, 600);
 		pjs.system.initFullPage();
 
 		var game = pjs.game;
@@ -60,6 +60,7 @@
 		var camera = pjs.camera;
 		var brush = pjs.brush;
 		var OOP = pjs.OOP;
+		var rand = pjs.math.random;
  
 		var height = game.getWH().h;
 		var width = game.getWH().w;
@@ -94,7 +95,7 @@
 			file : 'asset/bgSky2.png',
 			h : height			
 		})		
-		var submarine = game.newAnimationObject({
+		var mySubmarine = game.newAnimationObject({
 			x : 0, y : 250,
 			h : 60, w : 80,
 			delay : -5,
@@ -122,24 +123,60 @@
 			}			
 		};
 
+		var dy = 0; // падение лодки
+		// var dx = 0; // перемещение противников
+
+		var enemys = [];
+
+		var DX = 0; //сдвиг противников по оси Х 
+		var DY = 0; //сдвиг противников по оси Y
+
+		for (var i = 0; i < 5; i++) {
+			DX += rand(300, 700);
+			DY = rand(90, height-80);
+
+			enemys.push(
+				game.newAnimationObject({
+					x : DX + width, 
+					y : DY,
+					h : 60, w : 80,
+					delay : -5,
+					animation : pjs.tiles.newAnimation('asset/enemys.png', 80, 60, 9)
+				})
+
+			);
+		};
+
+
+
+		// Игровой цикл ======================================
+
 		game.newLoop('game', function(){
 			// game.fill('#D9D9D9');
 
 			// pjs.presets.bgСycle(sea, -3, 0, 0, 0);
 
 			if (key.isDown('RIGHT') || key.isDown('D')){
-				submarine.move(point(2, 0));
+				mySubmarine.move(point(2, 0));
 			}
 			if (key.isDown('LEFT') || key.isDown('A')){
-				submarine.move(point(-2, 0));
+				mySubmarine.move(point(-2, 0));
 			}			
 			if (key.isDown('UP') || key.isDown('W')){
-				submarine.move(point(0, -2));
-			}
+				mySubmarine.move(point(0, -2));
+				dy = 0;
+			}			
 			if (key.isDown('DOWN') || key.isDown('S')){
-				submarine.move(point(0, 2));
+				mySubmarine.move(point(0, 2));
 			}
 
+			// dy += 0.001;
+			// mySubmarine.y += dy;
+
+			// dx -= 0.005;
+			// for (var i in enemys){
+			// 	enemys[i].x += dx;
+			// }
 
 			sea1.draw();
 			sea2.draw();
@@ -148,13 +185,26 @@
 			sky2.draw();
 
 
-			submarine.draw();
+			mySubmarine.draw();
 
-			moveBackGround(3);
+			for (var i in enemys){
+				var dY = rand(90, height-80);
+				enemys[i].x -= 2.2;
+				// console.log(enemys[i].x);
+				if (enemys[i].x + enemys[i].w < 0) {
+					enemys[i].x = 2500;
+					enemys[i].y = dY;
+				}
+				enemys[i].draw();
+			}
+
+			moveBackGround(2);
 
 		});
 
-		game.startLoop('game');
+		// game.startLoop('game');
+		game.setLoop('game');
+		game.start();
 		
 
 
