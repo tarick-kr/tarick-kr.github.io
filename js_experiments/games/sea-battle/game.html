@@ -95,7 +95,7 @@
 			h : height			
 		})		
 		var mySubmarine = game.newAnimationObject({
-			x : 0, y : 250,
+			x : 50, y : 250,
 			h : 60, w : 80,
 			delay : -5,
 			animation : pjs.tiles.newAnimation('asset/submarine.png', 80, 60, 9)			
@@ -193,7 +193,6 @@
 
 
 		game.newLoop('game', function(){
-
 			
 			if (key.isDown('LEFT') || key.isDown('A')){
 				mySubmarine.move(point(-2, 0));
@@ -216,6 +215,7 @@
 			moveBackGround(2);
 
 			mySubmarine.draw();
+
 
 			for (var i in enemys){
 				var dY = rand(90, height-80);
