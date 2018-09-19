@@ -89,7 +89,6 @@
 				sky2.x = sky1.x+sky1.w
 			}			
 		})		
-
 		var sky2 = game.newImageObject({
 			x : sky1.x+sky1.w, y : 0,
 			file : 'asset/bgSky2.png',
@@ -124,41 +123,78 @@
 		};
 
 		var dy = 0; // падение лодки
-		// var dx = 0; // перемещение противников
 
 		var enemys = [];
 
 		var DX = 0; //сдвиг противников по оси Х 
 		var DY = 0; //сдвиг противников по оси Y
 
-		for (var i = 0; i < 5; i++) {
-			DX += rand(300, 700);
-			DY = rand(90, height-80);
 
-			enemys.push(
-				game.newAnimationObject({
-					x : DX + width, 
-					y : DY,
-					h : 60, w : 80,
-					delay : -5,
-					animation : pjs.tiles.newAnimation('asset/enemys.png', 80, 60, 9)
-				})
+		var generateEnemys = function(){
+			for (var i = 0; i < 5; i++) {
+				DX += rand(300, 700);
+				DY = rand(90, height-80);
 
-			);
-		};
+				enemys.push(
+					game.newAnimationObject({
+						x : DX + width, 
+						y : DY,
+						h : 60, w : 80,
+						delay : -5,
+						animation : pjs.tiles.newAnimation('asset/enemys.png', 80, 60, 9)
+					}));
+			};
+		};	// var generateEnemys = function()
 
 
 
-		// Игровой цикл ======================================
+		// Игровой цикл 'menu' ======================================
+
+		game.newLoop('menu', function(){
+			sea1.draw();
+			sea2.draw();
+
+			sky1.draw();
+			sky2.draw();
+
+			mySubmarine.draw();
+
+			enemys = [];
+
+			pjs.brush.drawText({
+				text : "Для старта нажмите пробел",
+				font : "roboto", 
+				x : 20, y : 20, 
+				color : "black",
+				size : 25
+			});
+			pjs.brush.drawText({
+				text : "Управление: клавишами A D W S или стрелками",
+				font : "roboto", 
+				x : 20, y : 60, 
+				color : "black",
+				size : 25
+			});
+
+			if (key.isDown('SPACE')){
+				DX = 0;
+				DY = 0;
+				generateEnemys();
+				game.setLoop('game');
+			}
+
+		});	// Закончился игровой цикл 'menu'	
+
+
+
+		
+
+		// Игровой цикл 'game' ======================================
+
 
 		game.newLoop('game', function(){
-			// game.fill('#D9D9D9');
 
-			// pjs.presets.bgСycle(sea, -3, 0, 0, 0);
-
-			if (key.isDown('RIGHT') || key.isDown('D')){
-				mySubmarine.move(point(2, 0));
-			}
+			
 			if (key.isDown('LEFT') || key.isDown('A')){
 				mySubmarine.move(point(-2, 0));
 			}			
@@ -169,41 +205,91 @@
 			if (key.isDown('DOWN') || key.isDown('S')){
 				mySubmarine.move(point(0, 2));
 			}
-
-			// dy += 0.001;
-			// mySubmarine.y += dy;
-
-			// dx -= 0.005;
-			// for (var i in enemys){
-			// 	enemys[i].x += dx;
-			// }
+			if (key.isDown('RIGHT') || key.isDown('D')){
+				mySubmarine.move(point(2, 0));
+			}
 
 			sea1.draw();
 			sea2.draw();
-
 			sky1.draw();
 			sky2.draw();
-
+			moveBackGround(2);
 
 			mySubmarine.draw();
 
 			for (var i in enemys){
 				var dY = rand(90, height-80);
 				enemys[i].x -= 2.2;
-				// console.log(enemys[i].x);
+
 				if (enemys[i].x + enemys[i].w < 0) {
 					enemys[i].x = 2500;
 					enemys[i].y = dY;
 				}
+
+
+				if (mySubmarine.isIntersect(enemys[i])){
+					game.setLoop('menu');
+				} 
+					
+
 				enemys[i].draw();
 			}
 
-			moveBackGround(2);
+			if (mySubmarine.y <= 86){
+				pjs.brush.drawText({
+				text : "Лодки не летают",
+				font : "roboto", 
+				x : 20, y : 40, 
+				color : "black",
+				size : 25
+				});
+				mySubmarine.y = 86;				
+			}
+			if (mySubmarine.y >= height-80){
+				pjs.brush.drawText({
+				text : "Там уже дно",
+				font : "roboto", 
+				x : 20, y : 40, 
+				color : "black",
+				size : 25
+				});
+				mySubmarine.y = height-80;				
+			}
+			if (mySubmarine.x < 0){
+				pjs.brush.drawText({
+				text : "Туда нельзя",
+				font : "roboto", 
+				x : 20, y : 40, 
+				color : "black",
+				size : 25
+				});
+				mySubmarine.x = 0;				
+			}
+			if (mySubmarine.x >= width - mySubmarine.w){
+				pjs.brush.drawText({
+				text : "Туда нельзя",
+				font : "roboto", 
+				x : 20, y : 40, 
+				color : "black",
+				size : 25
+				});
+				mySubmarine.x = width - mySubmarine.w;				
+			}	
 
-		});
 
-		// game.startLoop('game');
-		game.setLoop('game');
+
+		});		// Закончился игровой цикл 'game'
+
+
+
+		
+
+
+
+
+
+
+		game.setLoop('menu');
 		game.start();
 		
 
