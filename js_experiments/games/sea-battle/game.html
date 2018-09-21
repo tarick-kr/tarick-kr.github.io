@@ -95,10 +95,10 @@
 			h : height			
 		})		
 		var mySubmarine = game.newAnimationObject({
-			x : 50, y : 250,
-			h : 60, w : 80,
+			x : 50, y : 300,
+			h : 45, w : 78,
 			delay : -5,
-			animation : pjs.tiles.newAnimation('asset/submarine.png', 80, 60, 9)			
+			animation : pjs.tiles.newAnimation('asset/submarine.png', 78, 45, 9)			
 		})
 
 		var moveBackGround = function(s){
@@ -139,12 +139,22 @@
 					game.newAnimationObject({
 						x : DX + width, 
 						y : DY,
-						h : 60, w : 80,
+						h : 45, w : 78,
 						delay : -5,
-						animation : pjs.tiles.newAnimation('asset/enemys.png', 80, 60, 9)
+						animation : pjs.tiles.newAnimation('asset/enemys.png', 78, 45, 9)
 					}));
 			};
 		};	// var generateEnemys = function()
+
+		// var torpedo = null;
+
+		var shoot = function(){
+			torpedo = game.newImageObject({
+			x : 150, 
+			y : 200,
+			file : 'asset/torpedo.png'
+			})
+		};
 
 
 
@@ -159,10 +169,11 @@
 
 			mySubmarine.draw();
 
-			enemys = [];
+			mySubmarine.x = 50;
+			mySubmarine.y = 300;
 
 			pjs.brush.drawText({
-				text : "Для старта нажмите пробел",
+				text : "Для старта нажмите ENTER",
 				font : "roboto", 
 				x : 20, y : 20, 
 				color : "black",
@@ -176,12 +187,15 @@
 				size : 25
 			});
 
-			if (key.isDown('SPACE')){
+			if (key.isDown('ENTER')){
+				enemys = [];
 				DX = 0;
 				DY = 0;
 				generateEnemys();
 				game.setLoop('game');
 			}
+
+
 
 		});	// Закончился игровой цикл 'menu'	
 
@@ -193,7 +207,15 @@
 
 
 		game.newLoop('game', function(){
-			
+
+			if (key.isDown('ESC')){
+				game.setLoop('menu');
+			}
+			if (key.isPress('SPACE')){
+				shoot();
+				torpedo.draw();
+				console.log('hjgjhjhgj'); 
+			}
 			if (key.isDown('LEFT') || key.isDown('A')){
 				mySubmarine.move(point(-2, 0));
 			}			
@@ -225,13 +247,10 @@
 					enemys[i].x = 2500;
 					enemys[i].y = dY;
 				}
-
-
 				if (mySubmarine.isIntersect(enemys[i])){
 					game.setLoop('menu');
 				} 
-					
-
+			
 				enemys[i].draw();
 			}
 
