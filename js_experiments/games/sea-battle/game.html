@@ -131,7 +131,7 @@
 
 
 		var generateEnemys = function(){
-			for (var i = 0; i < 5; i++) {
+			for (var i = 0; i < 10; i++) {
 				DX += rand(300, 700);
 				DY = rand(90, height-80);
 
@@ -146,14 +146,15 @@
 			};
 		};	// var generateEnemys = function()
 
-		// var torpedo = null;
+		var torpeds = [];
 
 		var shoot = function(){
-			torpedo = game.newImageObject({
-			x : 150, 
-			y : 200,
-			file : 'asset/torpedo.png'
-			})
+			torpeds.push(
+				game.newImageObject({
+				x : mySubmarine.x + mySubmarine.w / 4, 
+				y : mySubmarine.y + mySubmarine.h / 1.6 ,
+				file : 'asset/torpedo.png',
+			}));
 		};
 
 
@@ -189,6 +190,7 @@
 
 			if (key.isDown('ENTER')){
 				enemys = [];
+				torpeds = [];
 				DX = 0;
 				DY = 0;
 				generateEnemys();
@@ -213,8 +215,6 @@
 			}
 			if (key.isPress('SPACE')){
 				shoot();
-				torpedo.draw();
-				console.log('hjgjhjhgj'); 
 			}
 			if (key.isDown('LEFT') || key.isDown('A')){
 				mySubmarine.move(point(-2, 0));
@@ -230,29 +230,7 @@
 				mySubmarine.move(point(2, 0));
 			}
 
-			sea1.draw();
-			sea2.draw();
-			sky1.draw();
-			sky2.draw();
-			moveBackGround(2);
 
-			mySubmarine.draw();
-
-
-			for (var i in enemys){
-				var dY = rand(90, height-80);
-				enemys[i].x -= 2.2;
-
-				if (enemys[i].x + enemys[i].w < 0) {
-					enemys[i].x = 2500;
-					enemys[i].y = dY;
-				}
-				if (mySubmarine.isIntersect(enemys[i])){
-					game.setLoop('menu');
-				} 
-			
-				enemys[i].draw();
-			}
 
 			if (mySubmarine.y <= 86){
 				pjs.brush.drawText({
@@ -293,8 +271,46 @@
 				size : 25
 				});
 				mySubmarine.x = width - mySubmarine.w;				
-			}	
+			}
 
+
+			sea1.draw();
+			sea2.draw();
+			sky1.draw();
+			sky2.draw();
+			moveBackGround(2);
+
+			for (var i in enemys){
+				var dY = rand(90, height-80);
+				enemys[i].x -= 2.2;
+
+				if (enemys[i].x + enemys[i].w < 0) {
+					enemys[i].x = 2500;
+					enemys[i].y = dY;
+				}
+				if (mySubmarine.isIntersect(enemys[i])){
+					game.setLoop('menu');
+				} 
+			
+				enemys[i].draw();
+			}
+
+			for (var i in torpeds){
+				torpeds[i].x += 3;
+				torpeds[i].rotateForAngle(180, 1000);
+
+				if (torpeds[i].isIntersect(enemys[i])){
+					console.log('babah');
+					torpeds[i].x += width;
+				}
+				// if (torpeds[i].x > width){
+				// 	torpeds.shift();
+				// }
+
+				torpeds[i].draw();
+			}
+			
+			mySubmarine.draw();
 
 
 		});		// Закончился игровой цикл 'game'
