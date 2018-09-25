@@ -45,6 +45,8 @@
 
 	<script	type="text/javascript">
 
+		'use strict'
+
 		var pjs = new PointJS('2d', 800, 600);
 		pjs.system.initFullPage();
 
@@ -122,29 +124,23 @@
 			}			
 		};
 
-		var dy = 0; // падение лодки
-
 		var enemys = [];
-
-		var DX = 0; //сдвиг противников по оси Х 
-		var DY = 0; //сдвиг противников по оси Y
-
+		var t = 8000;
+		var idInt;
 
 		var generateEnemys = function(){
-			for (var i = 0; i < 10; i++) {
-				DX += rand(300, 700);
-				DY = rand(90, height-80);
-
+			idInt = setInterval(function() {
 				enemys.push(
 					game.newAnimationObject({
-						x : DX + width, 
-						y : DY,
+						x : width, 
+						y : rand(height - (height - 86), height-80),
 						h : 45, w : 78,
 						delay : -5,
-						animation : pjs.tiles.newAnimation('asset/enemys.png', 78, 45, 9)
+						animation : pjs.tiles.newAnimation('asset/enemys.png', 78, 45, 9),
 					}));
-			};
-		};	// var generateEnemys = function()
+			}, t);
+		}    //var generateEnemys = function()
+
 
 		var torpeds = [];
 
@@ -156,8 +152,6 @@
 				file : 'asset/torpedo.png',
 			}));
 		};
-
-
 
 		// Игровой цикл 'menu' ======================================
 
@@ -191,8 +185,8 @@
 			if (key.isDown('ENTER')){
 				enemys = [];
 				torpeds = [];
-				DX = 0;
-				DY = 0;
+				// DX = 0;
+				// DY = 0;
 				generateEnemys();
 				game.setLoop('game');
 			}
@@ -210,7 +204,10 @@
 
 		game.newLoop('game', function(){
 
+			//  блок управления
+
 			if (key.isDown('ESC')){
+				clearInterval(idInt);
 				game.setLoop('menu');
 			}
 			if (key.isPress('SPACE')){
@@ -221,7 +218,6 @@
 			}			
 			if (key.isDown('UP') || key.isDown('W')){
 				mySubmarine.move(point(0, -2));
-				dy = 0;
 			}			
 			if (key.isDown('DOWN') || key.isDown('S')){
 				mySubmarine.move(point(0, 2));
@@ -230,97 +226,127 @@
 				mySubmarine.move(point(2, 0));
 			}
 
-
-
-			if (mySubmarine.y <= 86){
-				pjs.brush.drawText({
-				text : "Лодки не летают",
-				font : "roboto", 
-				x : 20, y : 40, 
-				color : "black",
-				size : 25
-				});
-				mySubmarine.y = 86;				
-			}
-			if (mySubmarine.y >= height-80){
-				pjs.brush.drawText({
-				text : "Там уже дно",
-				font : "roboto", 
-				x : 20, y : 40, 
-				color : "black",
-				size : 25
-				});
-				mySubmarine.y = height-80;				
-			}
-			if (mySubmarine.x < 0){
-				pjs.brush.drawText({
-				text : "Туда нельзя",
-				font : "roboto", 
-				x : 20, y : 40, 
-				color : "black",
-				size : 25
-				});
-				mySubmarine.x = 0;				
-			}
-			if (mySubmarine.x >= width - mySubmarine.w){
-				pjs.brush.drawText({
-				text : "Туда нельзя",
-				font : "roboto", 
-				x : 20, y : 40, 
-				color : "black",
-				size : 25
-				});
-				mySubmarine.x = width - mySubmarine.w;				
-			}
-
-
 			sea1.draw();
 			sea2.draw();
 			sky1.draw();
 			sky2.draw();
 			moveBackGround(2);
 
-			for (var i in enemys){
-				var dY = rand(90, height-80);
-				enemys[i].x -= 2.2;
 
-				if (enemys[i].x + enemys[i].w < 0) {
-					enemys[i].x = 2500;
-					enemys[i].y = dY;
-				}
-				if (mySubmarine.isIntersect(enemys[i])){
-					game.setLoop('menu');
-				} 
-			
-				enemys[i].draw();
+			// ограничение перемещения по экрану
+
+			if (mySubmarine.y <= (height - (height - 86))){
+				// pjs.brush.drawText({
+				// text : "Лодки не летают",
+				// font : "roboto", 
+				// x : 20, y : 40, 
+				// color : "black",
+				// size : 25
+				// });
+				mySubmarine.y = height - (height - 86);				
 			}
+			if (mySubmarine.y >= height-80){
+				// pjs.brush.drawText({
+				// text : "Там уже дно",
+				// font : "roboto", 
+				// x : 20, y : 40, 
+				// color : "black",
+				// size : 25
+				// });
+				mySubmarine.y = height-80;				
+			}
+			if (mySubmarine.x < 0){
+				// pjs.brush.drawText({
+				// text : "Туда нельзя",
+				// font : "roboto", 
+				// x : 20, y : 40, 
+				// color : "black",
+				// size : 25
+				// });
+				mySubmarine.x = 0;				
+			}
+			if (mySubmarine.x >= width - mySubmarine.w){
+				// pjs.brush.drawText({
+				// text : "Туда нельзя",
+				// font : "roboto", 
+				// x : 20, y : 40, 
+				// color : "black",
+				// size : 25
+				// });
+				mySubmarine.x = width - mySubmarine.w;				
+			}
+
+
+
+			//  отрисовка противников
+
+
+			for (var j in enemys) {
+				enemys[j].x -= 2.2;
+
+				// if (enemys[j] != null && torpeds[i] != null) {
+
+				// 	if (enemys[j].isIntersect(torpeds[i])){
+				// 		enemys.shift();
+				// 	}
+				// }
+
+				if (enemys[j].x + enemys[j].w < 0){
+					// enemys.shift();
+					enemys.delete();
+				}
+
+
+				if (enemys[j] != null ) {
+					enemys[j].draw();
+				}
+
+
+				if (mySubmarine.isIntersect(enemys[j])){
+					game.setLoop('menu');
+				}
+
+			
+			}
+
+			//  отрисовка торпед
 
 			for (var i in torpeds){
 				torpeds[i].x += 3;
 				torpeds[i].rotateForAngle(180, 1000);
 
-				if (torpeds[i].isIntersect(enemys[i])){
-					console.log('babah');
-					torpeds[i].x += width;
-				}
-				// if (torpeds[i].x > width){
-				// 	torpeds.shift();
-				// }
 
-				torpeds[i].draw();
+				if (torpeds[i].x > width){
+					torpeds.shift();
+				}	
+
+				if (enemys[j] != null && torpeds[i] != null) {
+
+					if (torpeds[i].isIntersect(enemys[j])){
+						torpeds.shift();
+						enemys.shift();
+					}
+				}
+
+				if (torpeds[i] != null ) {
+					torpeds[i].draw();
+				}
 			}
+
+			// if (enemys[j] != null && torpeds[i] != null) {
+
+			// 	if (enemys[j].isIntersect(torpeds[i])){
+			// 		console.log('Babah')
+			// 		enemys.shift();
+			// 	}
+			// }
 			
 			mySubmarine.draw();
 
 
+
+
 		});		// Закончился игровой цикл 'game'
-
-
-
-		
-
-
-
 
 
 
