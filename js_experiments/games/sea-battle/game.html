@@ -284,13 +284,6 @@
 			for (var j in enemys) {
 				enemys[j].x -= 2.2;
 
-				// if (enemys[j] != null && torpeds[i] != null) {
-
-				// 	if (enemys[j].isIntersect(torpeds[i])){
-				// 		enemys.shift();
-				// 	}
-				// }
-
 				if (enemys[j].x + enemys[j].w < 0){
 					enemys.shift();
 				}
@@ -327,19 +320,11 @@
 					}
 				}
 
-				if (torpeds[i] != null ) {
+				if (torpeds[i] != null || torpeds[i] != undefined) {
 					torpeds[i].draw();
 				}
 			}
 
-			// if (enemys[j] != null && torpeds[i] != null) {
-
-			// 	if (enemys[j].isIntersect(torpeds[i])){
-			// 		console.log('Babah')
-			// 		enemys.shift();
-			// 	}
-			// }
-			
 			mySubmarine.draw();
 
 
