@@ -23,13 +23,8 @@
 	<!-- Bootstrap CSS -->
     <link rel="stylesheet" href="libs/bootstrap-4.0.0-dist/css/bootstrap-grid.css">
 
-	<!-- Custom CSS -->
-<!-- 	<link rel="stylesheet" href="css/main.css"> -->
 	<style>
 		body { 
-/*			padding: 0; 
-			margin: 0; */
-
 			width: 100%;
 			height: 100%;
 			position: absolute;
@@ -38,11 +33,7 @@
 			overflow: hidden;
 		} 
 		canvas {
-/*			margin: 0 auto;
-			width: 100VW;*/
 			height: 100VH;
-/*			width: 250px;
-			height: 250px;*/
 			position: absolute;
 			top: 0;
 			right: 0;
@@ -62,7 +53,8 @@
 
 <script	type="text/javascript">
 
-
+// глобальная переменная
+// описание её свойств и методов
 var game = {
 	width: 640,
 	height: 360,
@@ -86,19 +78,6 @@ var game = {
 		this.ctx.font = "25px Arial";
 		this.ctx.fillStyle = "#000";
 
-		// function fullScreen(element) {
-		//   if(element.requestFullscreen) {
-		//     element.requestFullscreen();
-		//   } else if(element.webkitrequestFullscreen) {
-		//     element.webkitRequestFullscreen();
-		//   } else if(element.mozRequestFullscreen) {
-		//     element.mozRequestFullScreen();
-		//   }
-		// };
-
-		// var canvas = document.getElementById('mycanvas');
-		// 	fullScreen(canvas);
-
 		window.addEventListener('keydown', function(e){
 			if ( e.keyCode == 37 ) {
 				game.platform.dx = -game.platform.velocity;
@@ -108,17 +87,22 @@ var game = {
 				game.platform.releaseBall();
 			}	
 		});
+
 		window.addEventListener('keyup', function(e){
 			game.platform.stop();
 
 		});		
 	},
+
+	//метод загузки спрайтов
 	load: function(){
 		for ( var key in this.sprites ) {
 			this.sprites[key] = new Image();
 			this.sprites[key].src = 'asset/' + key + '.png';		
 		}
 	},
+
+	// метод создания блоков
 	create: function(){
 		for ( var row = 0; row < this.rows; row++ ) {
 			for ( var col = 0; col < this.cols; col++ ) {
@@ -138,6 +122,8 @@ var game = {
 		this.create();
 		this.run();
 	},
+
+	// метод отрисовки объектов игры
 	render: function(){
 		this.ctx.clearRect(0, 0, this.width, this.height);
 
@@ -197,8 +183,6 @@ game.ball = {
 	width: 30,
 	height: 30,
 	frame: 0,
-	// x: 623,
-	// y: 665,	
 	x: 305,
 	y: 290,
 	dx: 0,
@@ -271,8 +255,6 @@ game.ball = {
 };
 
 game.platform = {
-	// x: 540,
-	// y: 700,	
 	x: 260,
 	y: 320,
 	velocity: 8,
@@ -287,9 +269,17 @@ game.platform = {
 		if ( x <= 0 ){
 			this.x = 0;
 			this.dx = 0;
+			if ( this.ball ) {
+				game.ball.x = 45;
+				game.ball.dx = 0;				
+			}
 		} else if ( x + this.width > game.width ){
 			this.x = game.width - this.width;
 			this.dx = 0;
+			if ( this.ball ) {
+				game.ball.x = 565;
+				game.ball.dx = 0;	
+			}
 		}
 	},	
 	releaseBall: function(){
