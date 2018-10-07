@@ -289,7 +289,7 @@
 				}
 
 
-				if (enemys[j] != null ) {
+				if (enemys[j] != null) {
 					enemys[j].draw();
 				}
 
@@ -307,11 +307,13 @@
 				torpeds[i].x += 3;
 				torpeds[i].rotateForAngle(180, 1000);
 
+				// console.log(torpeds[i].getID);
+
 
 				if (torpeds[i].x > width){
 					torpeds.shift();
 				}	
-
+ 
 				if (enemys[j] != null && torpeds[i] != null) {
 
 					if (torpeds[i].isIntersect(enemys[j])){

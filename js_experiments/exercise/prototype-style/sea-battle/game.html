@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>Sea Battle</title>
+	<meta name="description" content="">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+	<!-- Template Basic Images Start -->
+	<meta property="og:image" content="path/to/image.jpg">
+<!-- 	<link rel="icon" href="img/favicon/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon-180x180.png"> -->
+	<!-- Template Basic Images End -->
+	
+	<!-- Custom Browsers Color Start -->
+	<meta name="theme-color" content="#000">
+	<!-- Custom Browsers Color End -->
+
+	<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="libs/bootstrap-4.0.0-dist/css/bootstrap-grid.css">
+
+	<!-- Custom CSS -->
+<!-- 	<link rel="stylesheet" href="css/main.css"> -->
+	<style>
+		body { 
+/*			padding: 0; 
+			margin: 50 0;*/ 
+		} 
+		canvas {
+			border: 1px solid red;
+/*			background: #eee; 
+			display: block; 
+			margin: 0 auto; */
+		}
+	</style>
+
+</head>
+
+<body>
+	<!-- Custom HTML -->
+	<canvas id="myCanvas" width="655" height="491"></canvas>
+
+
+
+<script	type="text/javascript">
+
+'use strict'
+
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+
+// _____________________________________________________________________
+
+// var width = 78;
+// var height = 45;
+// var frames = 8;
+// var currentFrame = 0;
+
+// var image = new Image();
+//   image.src = 'asset/submarine.png';
+
+// var draw = function() {
+//   ctx.clearRect(0, 0, width, height);
+//   ctx.drawImage(image, width * currentFrame, 0, width, height, 0, 0, width, height);
+
+//   if (currentFrame == frames) {
+//     currentFrame = 0;
+//   } else {
+//     currentFrame++;
+//   }
+// }
+// setInterval(draw, 30);
+
+// _____________________________________________________________________
+
+// ======================================================================
+
+// var objectRendering = function(obj, w, h, f, t) {
+// 	var obj = obj
+// 	var width = w;
+// 	var height = h;
+// 	var frames = f;
+// 	var currentFrame = 0;
+
+// 	var image = new Image();
+// 		if (obj == 'mySubmarine') {
+// 		image.src = 'asset/submarine.png';
+// 		}
+// 		if (obj == 'submarine') {
+// 		image.src = 'asset/enemys.png';
+// 		}			
+
+// 	var draw = function() {
+// 		ctx.clearRect(0, 0, width, height);
+// 		ctx.drawImage(image, width * currentFrame, 0, width, height, 0, 0, width, height);
+
+// 		if (currentFrame == frames) {
+// 		currentFrame = 0;
+// 		} else {
+// 		currentFrame++;
+// 		}
+// 	}
+// 	setInterval(draw, t);
+// }
+
+// // objectRendering('mySubmarine', 78, 45, 8, 30);
+// objectRendering('submarine', 78, 45, 8, 30);
+
+
+// ===============================================================
+
+
+
+
+
+// ================= ОПИСАНИЕ ОБЪЕКТОВ ИГРЫ ======================
+
+// --------- Описание  Класса - Родителя 'ObjectsGame'------------
+
+// Конструктор родителя
+
+function ObjectsGame() {
+	// свойства
+	this.image;
+	this.width;
+	this.height;
+	this.currentFrame;
+	this.frames;
+	this.x;
+	this.y;
+	this.life;
+	this.t;
+		console.log(this.currentFrame);	
+}
+
+// Методы которые хранятся в прототипе
+
+ObjectsGame.prototype.move = function() {
+	console.log('метод мув');
+}
+
+ObjectsGame.prototype.objectRendering = function() {
+
+	var that = this;
+	that.draw = function() {
+
+		ctx.clearRect(0, 0, that.width, that.height);
+
+		ctx.drawImage(that.image, that.width * that.currentFrame, 0, that.width, that.height, 0, 0, that.width, that.height);
+
+		if (that.currentFrame == that.frames) {
+
+			that.currentFrame++;
+			
+		} else {
+		that.currentFrame;
+		console.log(that.currentFrame);
+		}
+	}
+	setInterval(that.draw, 500);
+}
+
+// ---- Конец описания Класса - Родителя 'ObjectsGame' ----
+//_________________________________________________________
+
+
+// ------ Описание класса-потомока 'Boat' --------
+// ------ наследует всё от Класса 'ObjectsGame' ----------------
+
+// Конструктор потомка
+
+function Boat() {
+	ObjectsGame.apply(this, arguments);
+}
+
+// Унаследовать всё от родителя
+Boat.prototype = Object.create(ObjectsGame.prototype);
+
+// Сохраняю constructor
+Boat.prototype.constructor = Boat;
+
+
+// Методы потомка ________________________________________
+
+Boat.prototype.shoot = function() {
+	console.log('Судно стреляет');	
+}
+Boat.prototype.death = function() {
+	console.log('Судно уничтожено');
+}
+Boat.prototype.touching = function() {
+	console.log('Судно столкнулось');
+}
+Boat.prototype.move = function() {
+	// Вызов метода родителя внутри своего (переопределение метода)
+	ObjectsGame.prototype.move.apply(this);
+  
+};
+
+// -------- Конец описания Класса-потомка 'Boat' ----------
+//_________________________________________________________
+
+
+// ------ Описание класса-потомока 'MySubmarine' --------
+// ------ наследует всё от Класса 'Boat' ----------------
+
+// Конструктор потомка
+function MySubmarine() {
+	Boat.apply(this, arguments);
+	this.life = 100;
+	this.x = 50;
+	this.y = 50;
+	this.width = 78;
+	this.height = 45;
+	this.frames = 8;
+	this.currentFrame = 0;
+	this.t = 30;
+	this.image = new Image();
+		this.image.src = 'asset/submarine.png';
+}
+
+// Унаследовать всё от родителя
+MySubmarine.prototype = Object.create(Boat.prototype);
+
+// Сохраняю constructor
+MySubmarine.prototype.constructor = MySubmarine;
+
+
+// Методы потомка ________________________________________
+
+MySubmarine.prototype.control = function() {
+
+}
+MySubmarine.prototype.move = function() {
+  // Вызов метода родителя внутри своего (переопределение метода)
+  Boat.prototype.move.apply(this);
+  
+};
+MySubmarine.prototype.shoot = function() {
+  // Вызов метода родителя внутри своего (переопределение метода)
+  Boat.prototype.shoot.apply(this);
+  
+};
+MySubmarine.prototype.touching = function() {
+  // Вызов метода родителя внутри своего (переопределение метода)
+  Boat.prototype.touching.apply(this);
+  
+};
+
+// ---- Конец описания Класса-потомка 'MySubmarine' -----
+// _________________________________________________________
+
+// ------ Описание класса-потомока 'Enemys' -------------
+// ------ наследует всё от Класса 'Boat' ----------------
+
+// Конструктор потомка
+function Enemys() {
+  Boat.apply(this, arguments);
+}
+
+// Унаследовать всё от родителя
+Enemys.prototype = Object.create(Boat.prototype);
+
+// Сохраняю constructor
+Enemys.prototype.constructor = Enemys;
+
+
+// Методы потомка ________________________________________
+
+Enemys.prototype.move = function() {
+  // Вызов метода родителя внутри своего (переопределение метода)
+  Boat.prototype.move.apply(this);
+  
+};
+Enemys.prototype.shoot = function() {
+  // Вызов метода родителя внутри своего (переопределение метода)
+  Boat.prototype.shoot.apply(this);
+  
+};
+Enemys.prototype.touching = function() {
+  // Вызов метода родителя внутри своего (переопределение метода)
+  Boat.prototype.touching.apply(this);
+  
+};
+
+// ------- Конец описания Класса-потомка 'Enemys' -------
+// _________________________________________________________
+
+// ------ Описание класса-потомока 'Submaine' -----------
+// ------ наследует всё от Класса 'Enemys' --------------
+
+// Конструктор потомка
+function Submaine() {
+  Enemys.apply(this, arguments);
+}
+
+// Унаследовать всё от родителя
+Submaine.prototype = Object.create(Enemys.prototype);
+
+// Сохраняю constructor
+Submaine.prototype.constructor = Submaine;
+
+
+// Методы потомка ________________________________________
+
+Submaine.prototype.move = function() {
+  // Вызов метода родителя внутри своего (переопределение метода)
+  Enemys.prototype.move.apply(this);
+  
+};
+Submaine.prototype.shoot = function() {
+  // Вызов метода родителя внутри своего (переопределение метода)
+  Enemys.prototype.shoot.apply(this);
+  
+};
+Submaine.prototype.touching = function() {
+  // Вызов метода родителя внутри своего (переопределение метода)
+  Enemys.prototype.touching.apply(this);
+  
+};
+
+// ------ Конец описания Класса-потомка 'Submaine' ------
+//_________________________________________________________
+
+// ------ Описание класса-потомока 'Ship' -----------
+// ------ наследует всё от Класса 'Enemys' --------------
+
+// Конструктор потомка
+function Ship() {
+  Enemys.apply(this, arguments);
+}
+
+// Унаследовать всё от родителя
+Ship.prototype = Object.create(Enemys.prototype);
+
+// Сохраняю constructor
+Ship.prototype.constructor = Ship;
+
+// Методы потомка ________________________________________
+
+Ship.prototype.move = function() {
+  // Вызов метода родителя внутри своего (переопределение метода)
+  Enemys.prototype.move.apply(this);
+  
+};
+Ship.prototype.shoot = function() {
+  // Вызов метода родителя внутри своего (переопределение метода)
+  Enemys.prototype.shoot.apply(this);
+  
+};
+Ship.prototype.touching = function() {
+  // Вызов метода родителя внутри своего (переопределение метода)
+  Enemys.prototype.touching.apply(this);
+  
+};
+
+// ------ Конец описания Класса-потомка 'Ship' ------
+//_________________________________________________________
+
+
+// ------ Описание класса-потомока 'Weapons' --------
+// ------ наследует всё от Класса 'ObjectsGame' ----------------
+
+// Конструктор потомка
+
+function Weapons() {
+	ObjectsGame.apply(this, arguments);
+	this.recharge = 55;
+}
+
+// Унаследовать всё от родителя
+Weapons.prototype = Object.create(ObjectsGame.prototype);
+
+// Сохраняю constructor
+Weapons.prototype.constructor = Weapons;
+
+
+// Методы потомка ________________________________________
+
+Weapons.prototype.touching = function() {
+	console.log('Судно столкнулось');
+}
+Weapons.prototype.move = function() {
+	// Вызов метода родителя внутри своего (переопределение метода)
+	ObjectsGame.prototype.move.apply(this);
+  
+};
+
+
+// ---- Конец описания Класса - потомка 'Weapons' ------
+// _________________________________________________________
+
+
+// ------ Описание класса-потомока 'Torpeda' --------
+// ------ наследует всё от Класса 'Weapons' ----------------
+
+// Конструктор потомка
+
+function Torpeda() {
+	Weapons.apply(this, arguments);
+	this.recharge = 55;
+}
+
+// Унаследовать всё от родителя
+Torpeda.prototype = Object.create(Weapons.prototype);
+
+// Сохраняю constructor
+Torpeda.prototype.constructor = Torpeda;
+
+
+// Методы потомка ________________________________________
+
+Torpeda.prototype.touching = function() {
+	console.log('Судно столкнулось');
+}
+Torpeda.prototype.move = function() {
+	// Вызов метода родителя внутри своего (переопределение метода)
+	Weapons.prototype.move.apply(this);
+  
+};
+
+
+// ---- Конец описания Класса - потомка 'Torpeda' ------
+// _________________________________________________________
+
+
+
+var obj = new ObjectsGame();
+var boat = new Boat();
+var sub = new MySubmarine();
+var ship = new Ship();
+var wea = new Weapons();
+var tor = new Torpeda();
+
+
+sub.objectRendering();
+
+</script>
+</body>
+</html>
