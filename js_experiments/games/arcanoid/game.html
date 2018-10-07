@@ -27,19 +27,35 @@
 <!-- 	<link rel="stylesheet" href="css/main.css"> -->
 	<style>
 		body { 
-			padding: 0; 
-			margin: 0; 
+/*			padding: 0; 
+			margin: 0; */
+
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			overflow: hidden;
 		} 
 		canvas {
-			/*width: 100%;*/
-			/*height: 100%;*/
+/*			margin: 0 auto;
+			width: 100VW;*/
+			height: 100VH;
+/*			width: 250px;
+			height: 250px;*/
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			margin: auto;
 		}
 	</style>
 
 </head>
 
 <body>
-	<!-- Custom HTML -->
+	
 	<canvas id="myCanvas" width="640" height="360"></canvas>
 
 
@@ -48,8 +64,6 @@
 
 
 var game = {
-	// width: 1280,
-	// height: 780,	
 	width: 640,
 	height: 360,
 	ctx: undefined,
@@ -71,6 +85,19 @@ var game = {
 		this.ctx = canvas.getContext("2d");
 		this.ctx.font = "25px Arial";
 		this.ctx.fillStyle = "#000";
+
+		// function fullScreen(element) {
+		//   if(element.requestFullscreen) {
+		//     element.requestFullscreen();
+		//   } else if(element.webkitrequestFullscreen) {
+		//     element.webkitRequestFullscreen();
+		//   } else if(element.mozRequestFullscreen) {
+		//     element.mozRequestFullScreen();
+		//   }
+		// };
+
+		// var canvas = document.getElementById('mycanvas');
+		// 	fullScreen(canvas);
 
 		window.addEventListener('keydown', function(e){
 			if ( e.keyCode == 37 ) {
@@ -148,13 +175,6 @@ var game = {
 
 		this.ball.checkBounds();
 		this.platform.checkBounds();
-
-		// if ( this.platform.x <= 0 ) {
-		// 	this.platform.stop();
-		// }
-		// if ( this.platform.x + this.platform.width > game.width ) {
-		// 	this.platform.stop();
-		// }	
 	},
 	run: function(){
 		this.update();
@@ -293,8 +313,6 @@ game.platform = {
 		}
 	}
 };
-
-
 
 window.addEventListener('load', function(){
 	game.start();	
