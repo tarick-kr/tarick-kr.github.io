@@ -23,23 +23,7 @@
 	<style>
 		body { 
 			margin: 0;
-/*			width: 100%;
-			height: 100%;
-			position: absolute;
-			top: 0;
-			left: 0;
-			overflow: hidden;*/
 		} 
-		canvas {
-/*			width: 100VW;
-			height: 100VH;
-			position: absolute;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			left: 0;
-			margin: auto;*/
-		}
 		:-webkit-full-screen #myCanvas {
 			width: 100%;
 			height: 100%;
@@ -51,6 +35,13 @@
 <body>
 	
 	<canvas id="myCanvas" width="640" height="360"></canvas>
+
+<!-- 	<div>
+		<h3>старт: пробел </h3>
+		<h3>управление: стрелки влево и вправо </h3>
+		<h3>полноэкранный режим: Enter </h3>
+		<h3>выход из полноэкранного режима: Esc или Enter </h3>
+	</div> -->
 
 
 
@@ -144,7 +135,6 @@ var game = {
 				this.ctx.drawImage(this.sprites.block, element.x, element.y)	
 			}
 		}, this);
-
 
 		this.ctx.fillText("SCORE: " + this.score, 15, this.height - 15)
 	},
