@@ -8,7 +8,7 @@ function preload() {
     game.load.image('backgroundSea', 'assets/bgSea.png');
     game.load.image('backgroundSky', 'assets/bgSky.png');
     game.load.image('backgroundGround', 'assets/bgGround.png');
-    game.load.spritesheet('mySubmarine', 'assets/mySubmarine.png, 45, 45, 9');
+    game.load.spritesheet('mySubmarine', 'assets/mySubmarine.png,45,45,9');
 
 }
 
