@@ -5,15 +5,15 @@ function preload() {
 
     game.load.image('myTorpedo', 'assets/myTorpedo.png');
     game.load.image('enemyTorpedo', 'assets/enemyTorpedo.png');
-    game.load.image('Sea', 'assets/bgSea.png');
-    game.load.image('Sky', 'assets/bgSky.png');
-    game.load.image('Ground', 'assets/bgGround.png');
+    game.load.image('sea', 'assets/bgSea.png');
+    game.load.image('sky', 'assets/bgSky.png');
+    game.load.image('ground', 'assets/bgGround.png');
 
 }
 
-var Sky;
-var Sea;
-var Ground;
+var sky;
+var sea;
+var ground;
 
 
 function create() {
@@ -21,17 +21,18 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     //  The scrolling starfield background
-    Sea = game.add.image(0, 0, 'bgSea');
-    Sky = game.add.tileSprite(0, 0, 640, 57, 'Sky');  
-    Ground = game.add.tileSprite(0, 0, 640, 216, 'Ground');  
+    Sea = game.add.image(0, 0, 'sea');
+    Sky = game.add.tileSprite(0, 0, 640, 57, 'sky');  
+    Ground = game.add.tileSprite(0, 0, 640, 216, 'ground');  
 }
 
 
 function update() {
 
     //  Scroll the background
-    Sky.tilePosition.x -= 1;
-    Ground.tileSprite.x -= 1.5;
+
+    sky.tilePosition.x -= 1;
+    ground.tileSprite.x -= 1.5;
 
 }
 
