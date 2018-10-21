@@ -9,7 +9,7 @@ function preload() {
     game.load.image('backgroundSky', 'assets/bgSky.png');
     game.load.image('backgroundGround', 'assets/bgGround.png');
     game.load.spritesheet('mySubmarine', 'assets/mySub45x45.png, 45, 45, 9');
-    game.load.image('hhhh', 'assets/mySub45x45.png');
+
 
 }
 
@@ -17,7 +17,7 @@ var backgroundSky;
 var backgroundSea;
 var backgroundGround;
 var mySubmarine;
-var h;
+
 
 
 function create() {
@@ -26,7 +26,7 @@ function create() {
 
 
     backgroundSea = game.add.image(0, 0, 'backgroundSea');
-    h = game.add.image(50, 50, 'hhhh');
+ 
 
     //  The scrolling backgroundSky backgroundGround
     backgroundSky = game.add.tileSprite(0, 0, 640, 58, 'backgroundSky');  
