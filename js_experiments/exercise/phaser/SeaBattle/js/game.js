@@ -8,22 +8,28 @@ function preload() {
     game.load.image('backgroundSea', 'assets/bgSea.png');
     game.load.image('backgroundSky', 'assets/bgSky.png');
     game.load.image('backgroundGround', 'assets/bgGround.png');
+    game.load.sprite('mySubmarine', 'assets/mySubmarine.png, 45, 45');
 
 }
 
 var backgroundSky;
 var backgroundSea;
 var backgroundGround;
+var mySubmarine;
 
 
 function create() {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    //  The scrolling starfield background
+
     backgroundSea = game.add.image(0, 0, 'backgroundSea');
+
+    //  The scrolling backgroundSky backgroundGround
     backgroundSky = game.add.tileSprite(0, 0, 640, 58, 'backgroundSky');  
-    backgroundGround = game.add.tileSprite(0, 216, 640, 144, 'backgroundGround');  
+    backgroundGround = game.add.tileSprite(0, 216, 640, 144, 'backgroundGround');
+
+    mySubmarine = game.add.sprite(100, 100, 45, 45, 'mySubmarine');  
 }
 
 
