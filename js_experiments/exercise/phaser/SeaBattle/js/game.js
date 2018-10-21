@@ -1,5 +1,5 @@
 // инициализируем Phaser. В этой строке мы указываем размер окна (800x600), тип рендера (в данном случае автоматический выбор между WebGL и Canvas), название и основные функции 
-var game = new Phaser.Game(640, 320, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update}); 
+var game = new Phaser.Game(640, 360, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update}); 
   
 // объявляем переменную для нашего будущего спрайта 
 var image; 
