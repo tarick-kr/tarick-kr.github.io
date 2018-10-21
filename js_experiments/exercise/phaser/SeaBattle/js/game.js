@@ -42,7 +42,7 @@ function update() {
 
     //  Scroll the background
     backgroundSky.tilePosition.x -= 1;
-    backgroundGround.tilePosition.x -= 1.5;
+    backgroundGround.tilePosition.x -= 2;
 
 
 }
