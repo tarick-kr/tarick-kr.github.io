@@ -36,20 +36,20 @@
 <body>
     <div id="game"></div>
     <script type="text/javascript">
-        // var Clay = Clay || {};
-        // Clay.gameKey = "gflappybird";
-        // Clay.readyFunctions = [];
-        // Clay.ready = function(fn) {
-        //     Clay.readyFunctions.push(fn);
-        // };
+        var Clay = Clay || {};
+        Clay.gameKey = "gflappybird";
+        Clay.readyFunctions = [];
+        Clay.ready = function(fn) {
+            Clay.readyFunctions.push(fn);
+        };
 
-        // (function() {
-        //     var clay = document.createElement("script");
-        //     clay.async = true;
-        //     clay.src = ("https:" == document.location.protocol ? "https://" : "http://") + "clay.io/api/api-leaderboard-achievement.js";
-        //     var tag = document.getElementsByTagName("script")[0];
-        //     tag.parentNode.insertBefore(clay, tag);
-        // })();
+        (function() {
+            var clay = document.createElement("script");
+            clay.async = true;
+            clay.src = ("https:" == document.location.protocol ? "https://" : "http://") + "clay.io/api/api-leaderboard-achievement.js";
+            var tag = document.getElementsByTagName("script")[0];
+            tag.parentNode.insertBefore(clay, tag);
+        })();
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
     <script src="js/phaser_ce_2.11.1.js"></script>
