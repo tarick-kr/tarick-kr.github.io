@@ -6,7 +6,7 @@ function preload() {
     game.load.image('myTorpedo', 'assets/myTorpedo.png');
     game.load.image('enemyTorpedo', 'assets/enemyTorpedo.png');
     game.load.image('backgroundSea', 'assets/bgSea.png');
-    game.load.image('backgroundSky', 'assets/backgroundSky.png');
+    game.load.image('backgroundSky', 'assets/bgSky.png');
 
 }
 
