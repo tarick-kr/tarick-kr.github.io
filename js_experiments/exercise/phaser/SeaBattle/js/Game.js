@@ -29,7 +29,7 @@ function create() {
     backgroundSky = game.add.tileSprite(0, 0, 640, 58, 'backgroundSky');  
     backgroundGround = game.add.tileSprite(0, 216, 640, 144, 'backgroundGround');
 
-    mySubmarine = game.add.sprit(100, 100, 'mySubmarine');
+    mySubmarine = game.add.sprite(100, 100, 'mySubmarine');
     var move = mySubmarine.animations.add('move');
     mySubmarine.animations.play('move', 30, true); 
 }
