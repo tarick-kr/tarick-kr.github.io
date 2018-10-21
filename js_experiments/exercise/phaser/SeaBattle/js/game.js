@@ -34,7 +34,7 @@ function create() {
 
     mySubmarine = game.add.sprite(100, 100, 'mySubmarine');
     var move = mySubmarine.animations.add('move');
-    mySubmarine.animations.play('move', 30, true); 
+    mySubmarine.animations.play('move', 60, true); 
 }
 
 
