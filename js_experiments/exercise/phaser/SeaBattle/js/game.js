@@ -5,7 +5,6 @@ function preload() {
     game.load.image('starfield', 'assets/backgroundSea.png');
 }
 
-
 var starfield;
 
 function create() {
@@ -20,4 +19,13 @@ function update() {
 
     //  Scroll the background
     starfield.tilePosition.y += 2;
+}
+
+function render() {
+
+    // for (var i = 0; i < aliens.length; i++)
+    // {
+    //     game.debug.body(aliens.children[i]);
+    // }
+
 }
