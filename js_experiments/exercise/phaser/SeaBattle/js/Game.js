@@ -27,7 +27,7 @@ function create() {
 
     //  The scrolling backgroundSky backgroundGround
     backgroundSky = game.add.tileSprite(0, 0, 640, 58, 'backgroundSky');  
-    backgroundGround = game.add.tileSprite(0, 216, 640, 144, 'backgroundGround');
+    backgroundGround = game.add.tileSprite(0, 264, 640, 96, 'backgroundGround');
 
     mySubmarine = game.add.sprite(100, 100, 'mySubmarine');
     var move = mySubmarine.animations.add('move');
