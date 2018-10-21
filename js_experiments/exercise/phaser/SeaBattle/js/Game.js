@@ -8,7 +8,7 @@ function preload() {
     game.load.image('backgroundSea', 'assets/bgSea.png');
     game.load.image('backgroundSky', 'assets/bgSky.png');
     game.load.image('backgroundGround', 'assets/bgGround.png');
-    game.load.sprite('mySubmarine', 'assets/mySubmarine.png, 45, 45');
+    game.load.spritesheet('mySubmarine', 'assets/mySubmarine.png, 45, 45');
 
 }
 
@@ -29,7 +29,9 @@ function create() {
     backgroundSky = game.add.tileSprite(0, 0, 640, 58, 'backgroundSky');  
     backgroundGround = game.add.tileSprite(0, 216, 640, 144, 'backgroundGround');
 
-    mySubmarine = game.add.sprite(100, 100, 45, 45, 'mySubmarine');  
+    mySubmarine = game.add.sprit(100, 100, 'mySubmarine');
+    var move = mySubmarine.animations.add('move');
+    mySubmarine.animations.play('move', 30, true); 
 }
 
 
