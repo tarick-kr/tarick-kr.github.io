@@ -23,7 +23,7 @@ function create() {
     //  The scrolling starfield background
     backgroundSea = game.add.image(0, 0, 'backgroundSea');
     backgroundSky = game.add.tileSprite(0, 0, 640, 58, 'backgroundSky');  
-    backgroundGround = game.add.tileSprite(0, 0, 640, 216, 'backgroundGround');  
+    backgroundGround = game.add.tileSprite(0, 216, 640, 144, 'backgroundGround');  
 }
 
 
