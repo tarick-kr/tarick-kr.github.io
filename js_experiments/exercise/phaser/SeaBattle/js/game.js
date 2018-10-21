@@ -5,7 +5,7 @@ function preload() {
 
     game.load.image('myTorpedo', 'assets/myTorpedo.png');
     game.load.image('enemyTorpedo', 'assets/enemyTorpedo.png');
-    game.load.image('backgroundSea', 'assets/backgroundSea.png');
+    game.load.image('backgroundSea', 'assets/bgSea.png');
     game.load.image('backgroundSky', 'assets/backgroundSky.png');
 
 }
@@ -33,10 +33,6 @@ function update() {
 
 function render() {
 
-    // for (var i = 0; i < aliens.length; i++)
-    // {
-    //     game.debug.body(aliens.children[i]);
-    // }
 
 }
 
