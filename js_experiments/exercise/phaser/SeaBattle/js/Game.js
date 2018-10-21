@@ -20,23 +20,18 @@ function create() {
 
     //  The scrolling starfield background
     backgroundSea = game.add.image(0, 0, 'backgroundSea');
-    backgroundSky = game.add.tileSprite(0, 0, 640, 58, 'backgroundSky');  
+    backgroundSky = game.add.tileSprite(0, 0, 640, 57, 'backgroundSky');  
 }
 
 
 function update() {
 
     //  Scroll the background
-    backgroundSky.tilePosition.x -= 2;
+    backgroundSky.tilePosition.x -= 1;
 
 }
 
 function render() {
-
-    // for (var i = 0; i < aliens.length; i++)
-    // {
-    //     game.debug.body(aliens.children[i]);
-    // }
 
 }
 
