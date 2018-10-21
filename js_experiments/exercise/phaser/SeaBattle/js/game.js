@@ -5,15 +5,13 @@ function preload() {
 
     game.load.image('myTorpedo', 'assets/myTorpedo.png');
     game.load.image('enemyTorpedo', 'assets/enemyTorpedo.png');
-    game.load.image('sea', 'assets/bgSea.png');
-    game.load.image('sky', 'assets/bgSky.png');
-    game.load.image('ground', 'assets/bgGround.png');
+    game.load.image('backgroundSea', 'assets/backgroundSea.png');
+    game.load.image('backgroundSky', 'assets/backgroundSky.png');
 
 }
 
-var sky;
-var sea;
-var ground;
+var backgroundSky;
+var backgroundSea;
 
 
 function create() {
@@ -21,22 +19,24 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     //  The scrolling starfield background
-    // sea = game.add.image(0, 0, 'sea');
-    sky = game.add.tileSprite(0, 0, 640, 57, 'sky');  
-    // ground = game.add.tileSprite(0, 0, 640, 216, 'ground');  
+    backgroundSea = game.add.image(0, 0, 'backgroundSea');
+    backgroundSky = game.add.tileSprite(0, 0, 640, 58, 'backgroundSky');  
 }
 
 
 function update() {
 
     //  Scroll the background
-
-    sky.tilePosition.x -= 1;
-    // ground.tileSprite.x -= 1.5;
+    backgroundSky.tilePosition.x -= 1;
 
 }
 
 function render() {
+
+    // for (var i = 0; i < aliens.length; i++)
+    // {
+    //     game.debug.body(aliens.children[i]);
+    // }
 
 }
 
