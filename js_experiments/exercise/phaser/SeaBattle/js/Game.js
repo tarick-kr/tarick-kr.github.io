@@ -19,9 +19,8 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     //  The scrolling starfield background
-    backgroundSky = game.add.tileSprite(0, 0, 640, 58, 'backgroundSky');
     backgroundSea = game.add.image(0, 0, 'backgroundSea');
-  
+    backgroundSky = game.add.tileSprite(0, 0, 640, 58, 'backgroundSky');  
 }
 
 
