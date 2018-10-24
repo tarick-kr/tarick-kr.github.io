@@ -17,8 +17,7 @@ var backgroundSky;
 var backgroundSea;
 var backgroundGround;
 var mySubmarine;
-
-
+var speed = 2;
 
 function create() {
 
@@ -30,11 +29,15 @@ function create() {
 
     //  The scrolling backgroundSky backgroundGround
     backgroundSky = game.add.tileSprite(0, 0, 640, 58, 'backgroundSky');  
-    backgroundGround = game.add.tileSprite(0, 264, 640, 96, 'backgroundGround');
+    
 
     mySubmarine = game.add.sprite(100, 100, 'mySubmarine');
     var move = mySubmarine.animations.add('move');
-    mySubmarine.animations.play('move', 60, true); 
+    mySubmarine.animations.play('move', 60, true);
+    mySubmarine.anchor.setTo(0.5, 0.5);
+    game.physics.enable(mySubmarine, Phaser.Physics.ARCADE);
+
+    backgroundGround = game.add.tileSprite(0, 264, 640, 96, 'backgroundGround');
 }
 
 
@@ -42,9 +45,38 @@ function update() {
 
     //  Scroll the background
     backgroundSky.tilePosition.x -= 1;
-    backgroundGround.tilePosition.x -= 2;
+    backgroundGround.tilePosition.x -= 3;    
 
+    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
+        mySubmarine.x -= speed;
+    }
+    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+        mySubmarine.x += speed;
+    }
+    else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+        mySubmarine.y -= speed;
+        mySubmarine.angle = -3;
+    }
+    else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
+        mySubmarine.y += speed;
+        mySubmarine.angle = 3;
+    }
+    else{
+        mySubmarine.angle = 0;
+    }
 
+    if (mySubmarine.x - mySubmarine.width/2 <= 0){
+        mySubmarine.x = mySubmarine.width/2;
+    }
+    if (mySubmarine.x + mySubmarine.width/2 >= game.width){
+        mySubmarine.x = game.width - mySubmarine.width/2;
+    }
+    if (mySubmarine.y  <= 58){
+        mySubmarine.y = 58;
+    }
+    if (mySubmarine.y >= 310){
+        mySubmarine.y = 310;
+    }
 }
 
 function render() {
