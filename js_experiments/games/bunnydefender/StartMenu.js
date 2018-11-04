@@ -13,7 +13,7 @@ BunnyDefender.StartMenu.prototype = {
 		startBG.inputEnabled = true;
 		startBG.events.onInputDown.addOnce(this.startGame, this);
 		
-		startPrompt = this.add.bitmapText(this.world.centerX-155, this.world.centerY+180, 'eightbitwonder', 'Touch to Start!', 24);
+		startPrompt = this.add.bitmapText(this.world.centerX-155, this.world.centerY+180, 'eightbitwonder', 'Нажмите чтобы начать! ', 24);
 	},
 
 	startGame: function (pointer) {
