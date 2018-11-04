@@ -98,7 +98,7 @@ BunnyDefender.Game.prototype = {
             r.scale.y = scale;
             this.physics.enable(r, Phaser.Physics.ARCADE);
             r.enableBody = true;
-            r.body.velocity.y = this.rnd.integerInRange(200, 400);
+            r.body.velocity.y = this.rnd.integerInRange(50, 80);
             r.animations.add('Fall');
             r.animations.play('Fall', 24, true);
             r.checkWorldBounds = true;
@@ -116,16 +116,16 @@ BunnyDefender.Game.prototype = {
     respawnRock: function(r) {
         if(this.gameover == false){
             r.reset(this.rnd.integerInRange(0, this.world.width), this.rnd.realInRange(-1500, 0));
-            r.body.velocity.y = this.rnd.integerInRange(200, 400);
+            r.body.velocity.y = this.rnd.integerInRange(50, 200);
         }
     },
     
     buildEmitter:function() {
         this.burst = this.add.emitter(0, 0, 80);
         this.burst.minParticleScale = 0.3;
-        this.burst.maxParticleScale = 1.2;
-        this.burst.minParticleSpeed.setTo(-30, 30);
-        this.burst.maxParticleSpeed.setTo(30, -30);
+        this.burst.maxParticleScale = 1.0;
+        this.burst.minParticleSpeed.setTo(-20, 20);
+        this.burst.maxParticleSpeed.setTo(20, -20);
         this.burst.makeParticles('explosion');
         this.input.onDown.add(this.fireBurst, this);
     },
@@ -136,7 +136,7 @@ BunnyDefender.Game.prototype = {
             this.boom.volume = 0.2;
             this.burst.emitX = pointer.x;
             this.burst.emitY = pointer.y;
-            this.burst.start(true, 2000, null, 20);
+            this.burst.start(true, 1000, null, 20);
         }
     },
     
@@ -161,7 +161,7 @@ BunnyDefender.Game.prototype = {
             this.music.stop();
             this.countdown.setText('Кроликов больше нет');
             this.style = { font: "45px Roboto", fill: "#ffffff" };
-            this.overmessage = this.add.text(this.world.centerX-180, this.world.centerY-40, 'ИГРА ОКОНЧЕНА\n\n' + this.secondsElapsed, this.style);
+            this.overmessage = this.add.text(this.world.centerX-180, this.world.centerY-40, 'ИГРА ОКОНЧЕНА\n\n' + this.secondsElapsed + ' секунд', this.style);
             this.overmessage.align = "center";
             this.overmessage.inputEnabled = true;
             this.overmessage.events.onInputDown.addOnce(this.quitGame, this);
