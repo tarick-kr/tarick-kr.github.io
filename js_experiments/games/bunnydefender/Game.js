@@ -13,6 +13,7 @@ BunnyDefender.Game = function(game) {
     this.ouch;
     this.boom;
     this.ding;
+    this.style;
 };
 
 BunnyDefender.Game.prototype = {
@@ -44,7 +45,9 @@ BunnyDefender.Game.prototype = {
         this.buildBunnies();
         this.buildSpaceRocks();
         this.buildEmitter();
-        this.countdown = this.add.bitmapText(10, 10, 'minnie', 'Осталось кроликов ' + this.totalBunnies, 20);
+        // this.countdown = this.add.bitmapText(10, 10, 'minnie', 'Осталось кроликов ' + this.totalBunnies, 20);
+        this.style = { font: "32px Roboto", fill: "#ffffff" };
+        this.countdown = this.add.text(10, 10, 'Осталось кроликов ' + this.totalBunnies, this.style);
         this.timer.start();
     },
     
@@ -157,7 +160,8 @@ BunnyDefender.Game.prototype = {
             this.gameover = true;
             this.music.stop();
             this.countdown.setText('Кроликов больше нет');
-            this.overmessage = this.add.bitmapText(this.world.centerX-180, this.world.centerY-40, 'minnie', 'ИГРА ОКОНЧЕНА\n\n' + this.secondsElapsed, 42);
+            this.style = { font: "45px Roboto", fill: "#ffffff" };
+            this.overmessage = this.add.text(this.world.centerX-180, this.world.centerY-40, 'ИГРА ОКОНЧЕНА\n\n' + this.secondsElapsed, this.style);
             this.overmessage.align = "center";
             this.overmessage.inputEnabled = true;
             this.overmessage.events.onInputDown.addOnce(this.quitGame, this);

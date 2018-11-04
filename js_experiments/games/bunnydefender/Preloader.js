@@ -2,6 +2,7 @@ BunnyDefender.Preloader = function(game) {
     this.preloadBar = null;
     this.titleText = null;
     this.ready = false;
+    // this.style = { font: "44px Arial", fill: "#ffffff" };
 };
 
 BunnyDefender.Preloader.prototype = {
@@ -13,7 +14,8 @@ BunnyDefender.Preloader.prototype = {
 		this.titleText = this.add.image(this.world.centerX, this.world.centerY-220, 'titleimage');
 		this.titleText.anchor.setTo(0.5, 0.5);
         this.load.image('titlescreen', 'images/TitleBG.png');
-        this.load.bitmapFont('minnie', 'fonts/minnie.png', 'fonts/minnie.fnt');
+        // this.style = { font: "32px Arial", fill: "#ffffff" };
+        // this.load.bitmapFont('minnie', 'fonts/minnie.png', 'fonts/minnie.fnt');
         this.load.image('hill', 'images/hill.png');
         this.load.image('sky', 'images/sky.png');
         this.load.atlasXML('bunny', 'images/spritesheets/bunny.png', 'images/spritesheets/bunny.xml');
