@@ -98,7 +98,7 @@ BunnyDefender.Game.prototype = {
             r.scale.y = scale;
             this.physics.enable(r, Phaser.Physics.ARCADE);
             r.enableBody = true;
-            r.body.velocity.y = this.rnd.integerInRange(50, 80);
+            r.body.velocity.y = this.rnd.integerInRange(100, 300);
             r.animations.add('Fall');
             r.animations.play('Fall', 24, true);
             r.checkWorldBounds = true;
@@ -136,7 +136,7 @@ BunnyDefender.Game.prototype = {
             this.boom.volume = 0.2;
             this.burst.emitX = pointer.x;
             this.burst.emitY = pointer.y;
-            this.burst.start(true, 1000, null, 20);
+            this.burst.start(true, 500, null, 20);
         }
     },
     
