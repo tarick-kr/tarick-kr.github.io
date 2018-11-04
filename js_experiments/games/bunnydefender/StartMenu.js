@@ -18,7 +18,6 @@ BunnyDefender.StartMenu.prototype = {
 		startPrompt.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
 		startPrompt.aligh = "center";
 
-		// startPrompt = this.add.bitmapText(this.world.centerX-155, this.world.centerY+180, 'minnie', 'Нажмите чтобы начать! ', 24);
 	},
 
 	startGame: function (pointer) {

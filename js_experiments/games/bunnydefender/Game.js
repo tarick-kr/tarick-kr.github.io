@@ -45,7 +45,6 @@ BunnyDefender.Game.prototype = {
         this.buildBunnies();
         this.buildSpaceRocks();
         this.buildEmitter();
-        // this.countdown = this.add.bitmapText(10, 10, 'minnie', 'Осталось кроликов ' + this.totalBunnies, 20);
         this.style = { font: "32px Roboto", fill: "#ffffff" };
         this.countdown = this.add.text(10, 10, 'Осталось кроликов ' + this.totalBunnies, this.style);
         this.timer.start();
@@ -55,7 +54,7 @@ BunnyDefender.Game.prototype = {
         this.bunnygroup = this.add.group();
         this.bunnygroup.enableBody = true;
         for(var i=0; i<this.totalBunnies; i++) {
-            var b = this.bunnygroup.create(this.rnd.integerInRange(-10, this.world.width-50), this.rnd.integerInRange(this.world.height-180, this.world.height-60), 'bunny', 'Bunny0000');
+            var b = this.bunnygroup.create(this.rnd.integerInRange(50, this.world.width-50), this.rnd.integerInRange(this.world.height-180, this.world.height-60), 'bunny', 'Bunny0000');
             b.anchor.setTo(0.5, 0.5);
             b.body.moves = false;
             b.animations.add('Rest', this.game.math.numberArray(1,58));
@@ -91,16 +90,20 @@ BunnyDefender.Game.prototype = {
     
     buildSpaceRocks: function() {
         this.spacerockgroup = this.add.group();
+        
         for(var i=0; i<this.totalSpacerocks; i++) {
-            var r = this.spacerockgroup.create(this.rnd.integerInRange(0, this.world.width), this.rnd.realInRange(-1500, 0), 'spacerock', 'SpaceRock0000');
+            var r = this.spacerockgroup.create(this.rnd.integerInRange(50, 440), this.rnd.realInRange(-2000, 0), 'spacerock', 'SpaceRock0000');
+            console.log(r);
             var scale = this.rnd.realInRange(0.3, 1.0);
             r.scale.x = scale;
             r.scale.y = scale;
+            r.anchor.x = 0.5;
+            r.anchor.y = 0.5;
             this.physics.enable(r, Phaser.Physics.ARCADE);
             r.enableBody = true;
-            r.body.velocity.y = this.rnd.integerInRange(100, 300);
+            r.body.velocity.y = this.rnd.integerInRange(100, 350);
             r.animations.add('Fall');
-            r.animations.play('Fall', 24, true);
+            r.animations.play('Fall', 20, true);
             r.checkWorldBounds = true;
             r.events.onOutOfBounds.add(this.resetRock, this);
         }
@@ -136,7 +139,7 @@ BunnyDefender.Game.prototype = {
             this.boom.volume = 0.2;
             this.burst.emitX = pointer.x;
             this.burst.emitY = pointer.y;
-            this.burst.start(true, 500, null, 20);
+            this.burst.start(true, 800, null, 10);
         }
     },
     
