@@ -44,8 +44,8 @@ BunnyDefender.Game.prototype = {
         this.countSpeed = 1;
         this.deltaSpeedMin = 1;
         this.deltaSpeedMax = 1;
-        this.minVel = 100;
-        this.maxVel = 350;
+        this.minVel = 50;
+        this.maxVel = 200;
 
         this.countLevel = 1;
       
@@ -236,8 +236,8 @@ BunnyDefender.Game.prototype = {
         this.deltaSpeedMin = 1 + this.countSpeed / 10;
         this.deltaSpeedMax = 1 + this.countSpeed / 2 / 10;
 
-        this.minVel = 100;
-        this.maxVel = 350;
+        this.minVel = 50;
+        this.maxVel = 200;
         this.minVel = this.minVel * this.deltaSpeedMin;
         this.maxVel = this.maxVel * this.deltaSpeedMax;
 
