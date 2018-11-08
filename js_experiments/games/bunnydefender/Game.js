@@ -6,6 +6,8 @@ BunnyDefender.Game = function(game) {
     this.burst;
     this.gameover;
     this.countdown;
+    this.level;
+    this.countLevel;
     this.overmessage;
     this.secondsElapsed;
     this.timer;
@@ -14,6 +16,12 @@ BunnyDefender.Game = function(game) {
     this.boom;
     this.ding;
     this.style;
+    this.deltaSpeedMin;
+    this.deltaSpeedMax;
+    this.timerSpeed;
+    this.countSpeed;
+    this.minVel;
+    this.maxVel;
 };
 
 BunnyDefender.Game.prototype = {
@@ -24,15 +32,25 @@ BunnyDefender.Game.prototype = {
         this.timer = this.time.create(false);
         this.timer.loop(1000, this.updateSeconds, this);
         this.totalBunnies = 20;
-        this.totalSpacerocks = 13;
+        this.totalSpacerocks = 20;
         
         this.music = this.add.audio('game_audio');
         this.music.play('', 0, 0.3, true);
         this.ouch = this.add.audio('hurt_audio');
         this.boom = this.add.audio('explosion_audio');
         this.ding = this.add.audio('select_audio');
-        
+
+
+        this.countSpeed = 1;
+        this.deltaSpeedMin = 1;
+        this.deltaSpeedMax = 1;
+        this.minVel = 100;
+        this.maxVel = 350;
+
+        this.countLevel = 1;
+      
         this.buildWorld();
+   
     },
     
     updateSeconds: function() {
@@ -46,8 +64,10 @@ BunnyDefender.Game.prototype = {
         this.buildSpaceRocks();
         this.buildEmitter();
         this.style = { font: "32px Roboto", fill: "#ffffff" };
-        this.countdown = this.add.text(10, 10, 'Осталось кроликов ' + this.totalBunnies, this.style);
+        this.countdown = this.add.text(10, 50, 'Осталось кроликов ' + this.totalBunnies, this.style);
+        this.level = this.add.text(10, 10, 'LEVEL ' + this.countLevel, this.style);
         this.timer.start();
+        this.speedGame();
     },
     
     buildBunnies: function() {
@@ -92,8 +112,7 @@ BunnyDefender.Game.prototype = {
         this.spacerockgroup = this.add.group();
         
         for(var i=0; i<this.totalSpacerocks; i++) {
-            var r = this.spacerockgroup.create(this.rnd.integerInRange(50, 440), this.rnd.realInRange(-2000, 0), 'spacerock', 'SpaceRock0000');
-            console.log(r);
+            var r = this.spacerockgroup.create(this.rnd.integerInRange(50, this.world.width-50), this.rnd.realInRange(-2000, 0), 'spacerock', 'SpaceRock0000');
             var scale = this.rnd.realInRange(0.3, 1.0);
             r.scale.x = scale;
             r.scale.y = scale;
@@ -101,7 +120,7 @@ BunnyDefender.Game.prototype = {
             r.anchor.y = 0.5;
             this.physics.enable(r, Phaser.Physics.ARCADE);
             r.enableBody = true;
-            r.body.velocity.y = this.rnd.integerInRange(100, 350);
+            r.body.velocity.y = this.rnd.realInRange(this.minVel, this.maxVel);
             r.animations.add('Fall');
             r.animations.play('Fall', 20, true);
             r.checkWorldBounds = true;
@@ -118,8 +137,8 @@ BunnyDefender.Game.prototype = {
     
     respawnRock: function(r) {
         if(this.gameover == false){
-            r.reset(this.rnd.integerInRange(0, this.world.width), this.rnd.realInRange(-1500, 0));
-            r.body.velocity.y = this.rnd.integerInRange(50, 200);
+            r.reset(this.rnd.integerInRange(50, this.world.width-50), this.rnd.realInRange(-2000, 0));
+            r.body.velocity.y = this.rnd.integerInRange(this.minVel, this.maxVel);
         }
     },
     
@@ -161,10 +180,12 @@ BunnyDefender.Game.prototype = {
     checkBunniesLeft: function() {
         if(this.totalBunnies <= 0){
             this.gameover = true;
+            this.timerSpeed.stop();
+            this.timer.stop();
             this.music.stop();
             this.countdown.setText('Кроликов больше нет');
             this.style = { font: "45px Roboto", fill: "#ffffff" };
-            this.overmessage = this.add.text(this.world.centerX-180, this.world.centerY-40, 'ИГРА ОКОНЧЕНА\n\n' + this.secondsElapsed + ' секунд', this.style);
+            this.overmessage = this.add.text(this.world.centerX-180, this.world.centerY-120, 'ИГРА ОКОНЧЕНА\n\n' + this.secondsElapsed + ' сек\n\n' + 'LEVEL ' + this.countLevel, this.style);
             this.overmessage.align = "center";
             this.overmessage.inputEnabled = true;
             this.overmessage.events.onInputDown.addOnce(this.quitGame, this);
@@ -175,6 +196,7 @@ BunnyDefender.Game.prototype = {
     
     quitGame:function(pointer) {
         this.ding.play();
+
         this.state.start('StartMenu');
     },
     
@@ -197,6 +219,32 @@ BunnyDefender.Game.prototype = {
         bunnyghost.checkWorldBounds = true;
         bunnyghost.body.velocity.y = -800;
     },
+
+
+    speedGame: function() {
+        this.timerSpeed = this.time.create(false);
+        this.timerSpeed.loop(15000, this.updateCountSpeed, this);
+        this.timerSpeed.start();
+    },
+
+    updateCountSpeed: function() {
+   
+        this.countSpeed++;
+        
+        this.totalSpacerocks += 5;        
+        this.ding.play();
+        this.deltaSpeedMin = 1 + this.countSpeed / 10;
+        this.deltaSpeedMax = 1 + this.countSpeed / 2 / 10;
+
+        this.minVel = 100;
+        this.maxVel = 350;
+        this.minVel = this.minVel * this.deltaSpeedMin;
+        this.maxVel = this.maxVel * this.deltaSpeedMax;
+
+        this.countLevel++;
+        this.level.setText('LEVEL ' + this.countLevel);
+
+    },
     
     
     
@@ -204,24 +252,22 @@ BunnyDefender.Game.prototype = {
         this.physics.arcade.overlap(this.spacerockgroup, this.burst, this.burstCollision, null, this);
         this.physics.arcade.overlap(this.spacerockgroup, this.bunnygroup, this.bunnyCollision, null, this);
         this.physics.arcade.overlap(this.bunnygroup, this.burst, this.friendlyFire, null, this);
+    },
+
+    render: function() {
+        // this.game.debug.text('timer: ' + this.secondsElapsed, 50, 200);
+        // this.game.debug.text('timerSpeed: ' + this.timerSpeed.duration.toFixed(0), 50, 250);
+        // this.game.debug.text('countSpeed: ' + this.countSpeed, 50, 300);
+        // this.game.debug.text('deltaSpeedMin: ' + this.deltaSpeedMin, 50, 350);        
+        // this.game.debug.text('deltaSpeedMax: ' + this.deltaSpeedMax, 50, 400);        
+        // this.game.debug.text('minVel: ' + this.minVel, 50, 450);
+        // this.game.debug.text('maxVel: ' + this.maxVel, 50, 500);
+        // this.game.debug.text('totalSpacerocks: ' + this.totalSpacerocks, 50, 550);
+        // this.game.debug.text('countLevel: ' + this.countLevel, 50, 550);
+
     }
+  
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
 };
