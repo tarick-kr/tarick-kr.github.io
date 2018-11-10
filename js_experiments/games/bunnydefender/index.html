@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width">
     <link rel="icon" sizes="196x196" href="bunny.png">
 	<title>Защитник кроликов</title>
+    <link src="fonts/12521.otf">
     <script src="libs/phaser.js"></script>
     <script src="Boot.js"></script>
     <script src="Preloader.js"></script>
@@ -17,9 +18,22 @@
 			margin: 0;
 			background-color: #000000;
         }
+        @font-face {
+            font-family: Minnie;
+            src: url('./fonts/minnie.eot');
+            src: url('./fonts/vrzb.eot?#iefix') format('eot'),
+            url('./fonts/minnie.woff') format('woff'),
+            url('./fonts/minnie.ttf') format('truetype'),
+            url('./fonts/minnie.svg') format('svg');
+            font-weight: normal;
+            font-style: normal;
+            }
 	</style>
 </head>
 <body>
+    <div class="font_preload hidden">
+        <span style="font-family: Minnie"></span>
+    </div>
     <div id="gameContainer"></div>
     <script type="text/javascript">
         window.onload = function() {

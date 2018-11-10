@@ -63,7 +63,7 @@ BunnyDefender.Game.prototype = {
         this.buildBunnies();
         this.buildSpaceRocks();
         this.buildEmitter();
-        this.style = { font: "32px Roboto", fill: "#ffffff" };
+        this.style = { font: "36px Minnie", fill: "#ffffff" };
         this.countdown = this.add.text(10, 50, 'Осталось кроликов ' + this.totalBunnies, this.style);
         this.level = this.add.text(10, 10, 'LEVEL ' + this.countLevel, this.style);
         this.timer.start();
@@ -184,7 +184,7 @@ BunnyDefender.Game.prototype = {
             this.timer.stop();
             this.music.stop();
             this.countdown.setText('Кроликов больше нет');
-            this.style = { font: "45px Roboto", fill: "#ffffff" };
+            this.style = { font: "36px Minnie", fill: "#ffffff" };
             this.overmessage = this.add.text(this.world.centerX-180, this.world.centerY-120, 'ИГРА ОКОНЧЕНА\n\n' + this.secondsElapsed + ' сек\n\n' + 'LEVEL ' + this.countLevel, this.style);
             this.overmessage.align = "center";
             this.overmessage.inputEnabled = true;
@@ -245,9 +245,7 @@ BunnyDefender.Game.prototype = {
         this.level.setText('LEVEL ' + this.countLevel);
 
     },
-    
-    
-    
+
     update: function() {
         this.physics.arcade.overlap(this.spacerockgroup, this.burst, this.burstCollision, null, this);
         this.physics.arcade.overlap(this.spacerockgroup, this.bunnygroup, this.bunnyCollision, null, this);
@@ -264,10 +262,5 @@ BunnyDefender.Game.prototype = {
         // this.game.debug.text('maxVel: ' + this.maxVel, 50, 500);
         // this.game.debug.text('totalSpacerocks: ' + this.totalSpacerocks, 50, 550);
         // this.game.debug.text('countLevel: ' + this.countLevel, 50, 550);
-
     }
-  
-    
-
-    
 };

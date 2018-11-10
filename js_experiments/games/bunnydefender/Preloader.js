@@ -22,7 +22,9 @@ BunnyDefender.Preloader.prototype = {
         this.load.audio('explosion_audio', 'audio/explosion.mp3');
         this.load.audio('hurt_audio', 'audio/hurt.mp3');
         this.load.audio('select_audio', 'audio/select.mp3');
-        this.load.audio('game_audio', 'audio/bgm.mp3');
+        this.load.audio('game_audio', 'audio/getting_it_done.mp3');
+
+
 	},
 
 	create: function () {
