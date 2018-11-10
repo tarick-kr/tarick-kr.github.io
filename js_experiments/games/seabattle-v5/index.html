@@ -36,7 +36,21 @@
     <div id="gameContainer"></div>
     <script type="text/javascript">
         window.onload = function() {
-            var game = new Phaser.Game(1920, 1080, Phaser.CANVAS, 'gameContainer');
+
+            var conf = {
+                width: 1920,
+                height: 1080,
+                renderer: Phaser.CANVAS,
+                parent: 'gameContainer',
+                transparent: false,
+                antialias: false,
+                // state: this,
+                scaleMode: Phaser.ScaleManager.SHOW_ALL,
+                backgroundColor: '#0088ff',
+            };
+
+            var game = new Phaser.Game(conf);
+            // var game = new Phaser.Game(1920, 1080, Phaser.CANVAS, 'gameContainer');
             game.state.add('Boot', BattleSea.Boot);
             game.state.add('Preloader', BattleSea.Preloader);
             game.state.add('StartMenu', BattleSea.StartMenu);

@@ -7,7 +7,7 @@ BattleSea.Preloader = function(game) {
 BattleSea.Preloader.prototype = {
 	
 	preload: function () {
-		this.preloadBar = this.add.sprite(this.world.centerX, this.world.centerY, 'preloaderBar');
+		this.preloadBar = this.add.sprite(this.world.centerX, this.world.centerY+180, 'preloaderBar');
 		this.preloadBar.anchor.setTo(0.5, 0.5);
 		this.load.setPreloadSprite(this.preloadBar);
 		this.titleText = this.add.image(this.world.centerX, this.world.centerY-220, 'titleimage');
@@ -28,6 +28,7 @@ BattleSea.Preloader.prototype = {
 	},
 
 	create: function () {
+        this.stage.backgroundColor = '#0088ff';
 		this.preloadBar.cropEnabled = false;
 	},
 
