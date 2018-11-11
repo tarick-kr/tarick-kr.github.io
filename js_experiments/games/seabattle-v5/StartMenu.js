@@ -1,5 +1,6 @@
 BattleSea.StartMenu = function(game) {
     this.startBG;
+    this.titleSub;
     this.startPrompt;
     this.ding;
     this.style;
@@ -13,6 +14,11 @@ BattleSea.StartMenu.prototype = {
 		startBG = this.add.image(0, 0, 'titlescreen');
 		startBG.inputEnabled = true;
 		startBG.events.onInputDown.addOnce(this.startGame, this);
+
+        titleSub = this.add.sprite(this.world.centerX, this.world.centerY-50, 'titleSubmarine');
+        titleSub.anchor.setTo(0.5, 0.5);
+        titleSub.animations.add('move', [0,1,2,3,4,5,6,7,8], 40, true);
+        titleSub.animations.play('move');
 
 		this.style = { font: "84px Minnie", fill: "#ffffff" };
 

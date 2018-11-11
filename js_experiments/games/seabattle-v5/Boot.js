@@ -4,9 +4,11 @@ BattleSea.Boot = function(game) {};
 
 BattleSea.Boot.prototype = {
     preload: function() {
-        this.load.image('preloaderBar', 'images/loader_bar2.png');
-        this.load.image('titleimage', 'images/titleImage2.png');
-        this.load.image('titleSubmarine', 'images/titleSubmarine.png');
+        this.load.image('preloaderBar', 'images/loaderBar.png');
+        this.load.image('titleText', 'images/titleText.png');
+        this.load.image('prelodSubmarine', 'images/titleSubmarine.png');
+        
+
 
     },
     
