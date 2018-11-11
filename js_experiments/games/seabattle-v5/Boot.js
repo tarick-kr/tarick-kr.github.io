@@ -4,13 +4,14 @@ BattleSea.Boot = function(game) {};
 
 BattleSea.Boot.prototype = {
     preload: function() {
-        this.load.image('preloaderBar', 'images/loader_bar.png');
-        this.load.image('titleimage', 'images/TitleImage2.png');
+        this.load.image('preloaderBar', 'images/loader_bar2.png');
+        this.load.image('titleimage', 'images/titleImage2.png');
+        this.load.image('titleSubmarine', 'images/titleSubmarine.png');
+
     },
     
     create: function() {
 
-		this.stage.backgroundColor = '#0088ff';    	
         this.input.maxPointers = 1;
 		this.stage.disableVisibilityChange = false;
 		this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -20,11 +21,11 @@ BattleSea.Boot.prototype = {
 		this.scale.pageAlignVertically = true;
 		this.stage.forcePortrait = false;
 		this.stage.forceLandscape = true;
+
 		this.scale.setScreenSize(true);
 
 		this.input.addPointer();
 
-        
         this.state.start('Preloader');
     }
 }
