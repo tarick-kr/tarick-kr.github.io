@@ -33,6 +33,7 @@ BattleSea.Preloader.prototype = {
         this.load.audio('shoot_audio', 'audio/shoot.wav');
         this.load.audio('game_audio', 'audio/bgm.mp3');
         this.load.audio('select_audio', 'audio/select.mp3');
+        this.load.audio('start_audio', 'audio/start.mp3');
         // this.load.audio('timerBoom_audio', 'audio/timerboom.flac');
 	},
 
