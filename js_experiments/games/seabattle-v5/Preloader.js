@@ -18,6 +18,7 @@ BattleSea.Preloader.prototype = {
         this.prelodSub = this.add.image(this.world.centerX, this.world.centerY, 'prelodSubmarine');
         this.prelodSub.anchor.setTo(0.5, 0.5);
         this.load.spritesheet('titleSubmarine', 'images/submarineSprite623x404.png', 623, 404, 9);
+
         this.load.image('bg', 'images/bg/bg.png');
         this.load.image('bgBackGround', 'images/bg/bgBackGround.png');
         this.load.image('bgFrontGround', 'images/bg/bgFrontGround.png');
@@ -26,8 +27,9 @@ BattleSea.Preloader.prototype = {
         this.load.image('bgSky', 'images/bg/bgSky.png');
         this.load.image('myTorpedo', 'images/myTorpedo.png');
         this.load.image('enemyTorpedo', 'images/enemyTorpedo.png');
-        this.load.spritesheet('mySub', 'images/mySub78x45.png', 78, 45, 9);
-        this.load.spritesheet('enemySub', 'images/enemySub78x45.png', 78, 45, 9);
+        // this.load.spritesheet('mySub', 'images/mySub78x45.png', 78, 45, 9);
+        this.load.spritesheet('mySub', 'images/mySub311.5x202.png', 311.5, 202, 9);
+
         this.load.audio('explosion_audio', 'audio/explosion.mp3');
         this.load.audio('gameOver_audio', 'audio/gameover.wav');
         this.load.audio('shoot_audio', 'audio/shoot.wav');

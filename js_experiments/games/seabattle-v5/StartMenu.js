@@ -16,7 +16,7 @@ BattleSea.StartMenu.prototype = {
 	
 	create: function () {
         this.startMenu = true;
-        this.startMusic = this.add.audio('start_audio', 0.1, true);
+        this.startMusic = this.add.audio('start_audio', 0.05, true);
 
         this.ding = this.add.audio('select_audio');
         
@@ -69,22 +69,13 @@ BattleSea.StartMenu.prototype = {
             bubble.scale.y = scale;
             bubble.anchor.x = 0.5;
             bubble.anchor.y = 0.5;
-            // this.bX = this.bubble.x;
             this.physics.enable(bubble, Phaser.Physics.ARCADE);
             bubble.enableBody = true;
             bubble.body.velocity.y = this.rnd.integerInRange(-400, -80);
-            // bubble.body.velocity.x = this.rnd.integerInRange(-50, 50);
-            // bubble.reversBubbleX;
             bubble.checkWorldBounds = true;
             bubble.events.onOutOfBounds.add(this.resetBubbleY, this);
         }
     },
-
-    // reversBubbleX: function(bubble) {
-    // 	if(bubble.x >= 50) {
-
-    // 	}
-    // },
 
     resetBubbleY: function(bubble) {
         if(bubble.y < this.world.height) {
