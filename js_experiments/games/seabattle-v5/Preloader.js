@@ -26,8 +26,8 @@ BattleSea.Preloader.prototype = {
         this.load.image('bgFrontSea', 'images/bg/bgFrontSea.png');
         this.load.image('bgSky', 'images/bg/bgSky.png');
         this.load.image('myTorpedo', 'images/myTorpedo.png');
+        this.load.image('flash', 'images/flash.png');
         this.load.image('enemyTorpedo', 'images/enemyTorpedo.png');
-        // this.load.spritesheet('mySub', 'images/mySub78x45.png', 78, 45, 9);
         this.load.spritesheet('mySub', 'images/mySub311.5x202.png', 311.5, 202, 9);
 
         this.load.audio('explosion_audio', 'audio/explosion.mp3');

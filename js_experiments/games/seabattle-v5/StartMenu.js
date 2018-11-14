@@ -18,7 +18,7 @@ BattleSea.StartMenu.prototype = {
         this.startMenu = true;
         this.startMusic = this.add.audio('start_audio', 0.05, true);
 
-        this.ding = this.add.audio('select_audio');
+        this.ding = this.add.audio('select_audio', 0.05, false);
         
 		startBG = this.add.image(0, 0, 'titlescreen');
 		startBG.inputEnabled = true;
