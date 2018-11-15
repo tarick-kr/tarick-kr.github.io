@@ -113,12 +113,17 @@ BattleSea.Game.prototype = {
 
         // Создание игрока
         this.player = this.add.sprite(100, 300, 'titleSubmarine');
+        this.physics.arcade.enable(this.player);
+        // Изменение физического размера тела
+        this.player.body.setSize(580, 300, 5, 12);
+
         this.player.anchor.setTo(0.5, 0.5); 
         this.player.scale.setTo(0.25, 0.25);
         this.player.animations.add('move', [0,1,2,3,4,5,6,7,8], 60, true);
         this.player.animations.play('move');
 
-        this.physics.arcade.enable(this.player);
+
+
 
 
     },
@@ -132,7 +137,7 @@ BattleSea.Game.prototype = {
             //Звук выстрела
             this.shoot.play('', 0, 0.05, false);
 
-            myTorpedo = this.myTorpeds.getFirstDead();
+            this.myTorpedo = this.myTorpeds.getFirstDead();
 
 
             var timer = this.game.time.create(false);
@@ -144,8 +149,8 @@ BattleSea.Game.prototype = {
             this.flash.scale.setTo(0.1, 0.1);
 
 
-            myTorpedo.reset(this.player.x + 120, this.player.y + 30);
-            myTorpedo.body.velocity.x = 500;
+            this.myTorpedo.reset(this.player.x + 120, this.player.y + 30);
+            this.myTorpedo.body.velocity.x = 500;
 
         }
     },
@@ -206,8 +211,8 @@ BattleSea.Game.prototype = {
 
     render: function() {
 
-        // this.game.debug.spriteInfo(player, 50, 400);
-        this.game.debug.body(this.player);
+        // this.game.debug.spriteInfo(this.player, 50, 400);
+        // this.game.debug.body(this.player);
 
     }
 };
