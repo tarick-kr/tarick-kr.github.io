@@ -9,11 +9,8 @@ BattleSea.Game = function(game) {
     this.shoot;
     
     // Управление
-    this.upKey;
-    this.downKey;
-    this.leftKey;
-    this.rightKey;
-    this.fireKey;
+    this.cursors;
+    this.fireButton;
     
     // Фон игры
     this.bg;
@@ -55,13 +52,9 @@ BattleSea.Game.prototype = {
         this.shoot = this.add.audio('shoot_audio');
 
         //Создане 'кнопок' для управления игроком
-        upKey = this.input.keyboard.addKey(Phaser.Keyboard.UP);
-        downKey = this.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-        leftKey = this.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-        rightKey = this.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
-        //Создане 'кнопки' выстрела
-        fireKey = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        cursors = this.input.keyboard.createCursorKeys();
+        fireButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
         this.buildWorldGame();
     },
@@ -168,24 +161,22 @@ BattleSea.Game.prototype = {
         groundBack.tilePosition.x -= 2.5;          
         groundFront.tilePosition.x -= 3;
 
-        //Запуск функции выстрела при нажатии пробела
-        if (fireKey.isDown){
-            this.fire();
-        }; 
-        
-        // Управление лодкой
-        if (upKey.isDown){
-            this.player.y -= this.speed;
+        // // Управление лодкой
+        if (cursors.left.isDown){
+            this.player.x -= this.speed;
         }
-        if (downKey.isDown){
-            this.player.y += this.speed;
-        }
-        if (rightKey.isDown){
+        else if (cursors.right.isDown){
             this.player.x += this.speed;
         }
-        if (leftKey.isDown){
-            this.player.x -= this.speed;
-        };
+        if (cursors.up.isDown){
+            this.player.y -= this.speed;
+        }
+        else if (cursors.down.isDown){
+            this.player.y += this.speed;
+        }
+        if (fireButton.isDown){
+            this.fire();
+        }
 
         //Ограничение перемещения лодки
         if (this.player.x <= (0 + this.player.width/2)){
@@ -201,12 +192,12 @@ BattleSea.Game.prototype = {
             this.player.y = 100;
         }
 
-        // условие перекрытия объектов (лодки и торпеды)
-        if (this.physics.arcade.overlap(this.myTorpeds, this.player, null, null, this)) {
+        // // условие перекрытия объектов (лодки и торпеды)
+        // if (this.physics.arcade.overlap(this.myTorpeds, this.player, null, null, this)) {
             
-            // какой-то код ????
+        //     // какой-то код ????
 
-        }
+        // }
     },
 
     render: function() {
