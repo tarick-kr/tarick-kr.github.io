@@ -194,7 +194,7 @@ BattleSea.Game.prototype = {
 
     killBoom: function() {
 
-        console.log('boom');
+        console.log('БАБАХ');
 
         // this.boomBoom.kill();
     },
@@ -243,9 +243,11 @@ BattleSea.Game.prototype = {
         for (i = 0; i < this.enemies.length; ++i) {
             for (k = 0; k < this.myTorpeds.length; ++k) {
                 if(this.physics.arcade.collide(this.myTorpeds[k], this.enemies[i], null, null, this)) {
+                    console.log('БАБАХ');
                     this.enemies[i].kill();
                     this.myTorpeds[k].kill();
                     this.explosion(this.enemies[i].x, this.enemies[i].y, this.killBoom);
+                    
                 }
             }
         }
