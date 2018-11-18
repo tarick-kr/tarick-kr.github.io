@@ -29,6 +29,7 @@ BattleSea.Preloader.prototype = {
         this.load.image('flash', 'images/flash.png');
         this.load.image('enemyTorpedo', 'images/enemyTorpedo.png');
         this.load.spritesheet('mySub', 'images/mySub311.5x202.png', 311.5, 202, 9);
+        this.load.spritesheet('boomBoom', 'images/boom222x222.png', 222, 222, 4);
 
         this.load.audio('explosion_audio', 'audio/explosion.mp3');
         this.load.audio('gameOver_audio', 'audio/gameover.wav');
