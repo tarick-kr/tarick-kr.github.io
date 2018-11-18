@@ -141,7 +141,7 @@ BattleSea.Game.prototype = {
     },
 
     resetEnemy: function(enemy) {
-        // console.log(this.enemies);
+
         var i;
         for (i = 0; i < this.enemies.length; ++i) {
 
@@ -181,22 +181,15 @@ BattleSea.Game.prototype = {
         this.flash.kill();
     },
 
-    explosion: function(x, y, callback) {
+    explosion: function(x, y) {
         this.boomBoom = this.add.sprite(x, y, 'boomBoom');
         this.physics.arcade.enable(this.boomBoom);
         this.boomBoom.enableBody = true;
         this.boomBoom.anchor.setTo(0.5, 0.5); 
         this.boomBoom.scale.setTo(0.8, 0.8);
         this.boomBoom.animations.add('move');
-        this.boomBoom.animations.play('move', [0,1,2,3,2,1,0], 15, false);
-        callback();
-    },
+        this.boomBoom.animations.play('move', [0,1,2,3,2,1,0], 10, true);
 
-    killBoom: function() {
-
-        console.log('БАБАХ');
-
-        // this.boomBoom.kill();
     },
  
     update: function() {
@@ -243,10 +236,9 @@ BattleSea.Game.prototype = {
         for (i = 0; i < this.enemies.length; ++i) {
             for (k = 0; k < this.myTorpeds.length; ++k) {
                 if(this.physics.arcade.collide(this.myTorpeds[k], this.enemies[i], null, null, this)) {
-                    console.log('БАБАХ');
                     this.enemies[i].kill();
                     this.myTorpeds[k].kill();
-                    this.explosion(this.enemies[i].x, this.enemies[i].y, this.killBoom);
+                    this.explosion(this.enemies[i].x, this.enemies[i].y);
                     
                 }
             }
