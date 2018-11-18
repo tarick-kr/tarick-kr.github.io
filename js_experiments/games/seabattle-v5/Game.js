@@ -49,10 +49,9 @@ BattleSea.Game.prototype = {
         this.nextFireTime = 0;
         this.enemies = [];
         this.myTorpeds = [];
-        // this.boomBoom = null;
 
         this.music = this.add.audio('game_audio');
-        this.music.play('', 0, 0.05, true);
+        this.music.play('', 0, 0.06, true);
         this.endGame = this.add.audio('gameOver_audio');
         this.boom = this.add.audio('explosion_audio');
         this.ding = this.add.audio('select_audio');
@@ -85,9 +84,6 @@ BattleSea.Game.prototype = {
 
         // Создание заднего плана дна
         groundBack = this.add.tileSprite(0, 0, 1920, 1080, 'bgBackGround');
-
-        // // Создание группы торпед игрока
-        // this.buildMyTorpeds();
 
         // Создание игока
         this.buildPlayer();
@@ -141,10 +137,8 @@ BattleSea.Game.prototype = {
     },
 
     resetEnemy: function(enemy) {
-
         var i;
         for (i = 0; i < this.enemies.length; ++i) {
-
             if(this.enemies[i].x < 0) {
                 this.enemies[i].kill();   
             }
@@ -158,7 +152,7 @@ BattleSea.Game.prototype = {
             this.nextFireTime = this.time.now + this.fireRate;
 
             //Звук выстрела
-            this.shoot.play('', 0, 0.05, false);
+            this.shoot.play('', 0, 0.07, false);
 
             this.myTorpedo = this.add.sprite(this.player.x + 120, this.player.y + 30, 'myTorpedo');
             this.physics.enable(this.myTorpedo, Phaser.Physics.ARCADE);
@@ -182,6 +176,7 @@ BattleSea.Game.prototype = {
     },
 
     explosion: function(x, y) {
+        this.boom.play('', 0, 0.03, false);
         this.boomBoom = this.add.sprite(x, y, 'boomBoom');
         this.physics.arcade.enable(this.boomBoom);
         this.boomBoom.enableBody = true;
