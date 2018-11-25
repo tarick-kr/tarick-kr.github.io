@@ -37,7 +37,7 @@ BattleSea.StartMenu.prototype = {
 		this.totalBubblesAll = 50;
 		this.buildBubbles();
 		this.buildBubblesAll();
-		// this.startMusic.play();
+		this.startMusic.play();
 
 	},
 
@@ -104,7 +104,7 @@ BattleSea.StartMenu.prototype = {
     },
 
 	startGame: function (pointer) {
-        // this.ding.play();
+        this.ding.play();
         this.startMusic.stop();
 		this.state.start('Game');
 	}
