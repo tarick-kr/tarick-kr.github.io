@@ -353,6 +353,7 @@ BattleSea.Game.prototype = {
                 this.enemies[i].kill();
                 this.explosion(this.player.x, this.player.y);
                 this.gameover = true;
+                this.music.stop();
                 this.state.start('StartMenu');
             }
         }
@@ -365,6 +366,7 @@ BattleSea.Game.prototype = {
                 this.enemiesTorpeds[i].kill();
                 this.explosion(this.player.x, this.player.y);
                 this.gameover = true;
+                this.music.stop();
                 this.state.start('StartMenu');
             }
         }
