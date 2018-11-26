@@ -30,7 +30,8 @@ BattleSea.StartMenu.prototype = {
         titleSub.animations.play('move');
 
 		this.style = { font: "84px Minnie", fill: "#ffffff" };
-		startPrompt = this.add.text(this.world.centerX-550, this.world.centerY+250,'Нажмите чтобы начать!', this.style);
+		startPrompt = this.add.text(this.world.centerX, this.world.centerY+300,'Нажмите чтобы начать!', this.style);
+        startPrompt.anchor.setTo(0.5, 0.5);
 		startPrompt.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
 
 		this.totalBubbles = 200;

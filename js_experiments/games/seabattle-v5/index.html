@@ -11,6 +11,7 @@
     <script src="Preloader.js"></script>
     <script src="StartMenu.js"></script>
     <script src="Game.js"></script>
+    <script src="GameOver.js"></script>
 	<style>
 		body {
 			padding: 0;
@@ -43,6 +44,7 @@
             game.state.add('Preloader', BattleSea.Preloader);
             game.state.add('StartMenu', BattleSea.StartMenu);
             game.state.add('Game', BattleSea.Game);
+            game.state.add('GameOver', BattleSea.GameOver);
             game.state.start('Boot');
         }
         

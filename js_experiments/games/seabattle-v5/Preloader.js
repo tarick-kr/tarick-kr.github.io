@@ -30,13 +30,15 @@ BattleSea.Preloader.prototype = {
         this.load.image('enemyTorpedo', 'images/enemyTorpedo.png');
         this.load.spritesheet('mySub', 'images/mySub311.5x202.png', 311.5, 202, 9);
         this.load.spritesheet('boomBoom', 'images/boom222x222.png', 222, 222, 4);
+        this.load.image('green-bar', 'images/healthBarGreen.png');
+        this.load.image('red-bar', 'images/healthBarRed.png');
 
         this.load.audio('explosion_audio', 'audio/explosion.mp3');
         this.load.audio('gameOver_audio', 'audio/gameover.wav');
         this.load.audio('shoot_audio', 'audio/shoot.wav');
-        this.load.audio('game_audio', 'audio/bgm.mp3');
+        this.load.audio('game_audio', ['audio/bgm.mp3', 'audio/bgm.ogg']);
         this.load.audio('select_audio', 'audio/select.mp3');
-        this.load.audio('start_audio', 'audio/start.mp3');
+        this.load.audio('start_audio', ['audio/start.mp3', 'audio/start.ogg']);
         // this.load.audio('timerBoom_audio', 'audio/timerboom.flac');
 	},
 
@@ -45,7 +47,7 @@ BattleSea.Preloader.prototype = {
 	},
 
 	update: function () {
-        if(this.cache.isSoundDecoded('game_audio') && this.ready == false) {
+        if(this.cache.isSoundDecoded('game_audio') && this.cache.isSoundDecoded('start_audio') && this.ready == false) {
             this.ready = true;
             this.state.start('StartMenu');
         }

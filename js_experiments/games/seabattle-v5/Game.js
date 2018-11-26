@@ -46,6 +46,9 @@ BattleSea.Game = function(game) {
     this.enemiesByDistanceX;
     this.distanceX;
 
+    this.healthBar;
+    this.backgroundBar;
+
 };
 
 BattleSea.Game.prototype = {
@@ -63,7 +66,6 @@ BattleSea.Game.prototype = {
         this.enemiesTorpeds = [];
         this.enemyFlashes = [];
         this.enemiesByDistanceX = [];
-        
 
         this.music = this.add.audio('game_audio');
         this.music.play('', 0, 0.06, true);
@@ -109,6 +111,14 @@ BattleSea.Game.prototype = {
 
         //Создание переднего плана дна
         groundFront = this.add.tileSprite(0, 0, 1920, 1080, 'bgFrontGround');
+
+        backgroundBar = this.game.add.image(20, 20, 'red-bar');
+        backgroundBar.fixedToCamera = true;
+        backgroundBar.scale.setTo(0.4, 0.3);
+        this.healthBar = this.game.add.image(20, 20, 'green-bar');
+        this.healthBar.fixedToCamera = true;
+        this.healthBar.scale.setTo(0.4, 0.3);
+
     },
 
     buildPlayer: function() {
@@ -123,6 +133,8 @@ BattleSea.Game.prototype = {
         this.player.scale.setTo(0.25, 0.25);
         this.player.animations.add('move', [0,1,2,3,4,5,6,7,8], 60, true);
         this.player.animations.play('move');
+        this.player.health = 100;
+        this.player.maxHealth = 100;
     },
 
     buildEnemies: function() {
@@ -252,6 +264,21 @@ BattleSea.Game.prototype = {
         this.boomBoom.animations.add('move');
         this.boomBoom.animations.play('move', [0,1,2,3,2,1,0], 10, true);
     },
+
+    damage: function() {
+        this.player.damage(20);
+        this.healthBar.scale.setTo(0.4 * this.player.health / this.player.maxHealth, 0.3);
+        if (this.player.alive == false){
+
+            this.gameOver();
+        }
+    },
+
+    gameOver: function() {
+        this.music.stop();
+        this.endGame.play();
+        this.state.start('GameOver');
+    },
  
     update: function() {
 
@@ -349,12 +376,9 @@ BattleSea.Game.prototype = {
 
         for (var i = 0; i < this.enemies.length; ++i) {
             if(this.physics.arcade.overlap(this.enemies[i], this.player, null, null, this)) {
-                this.player.kill();
                 this.enemies[i].kill();
-                this.explosion(this.player.x, this.player.y);
-                this.gameover = true;
-                this.music.stop();
-                this.state.start('StartMenu');
+                this.explosion(this.enemies[i].x, this.enemies[i].y);
+                this.damage();
             }
         }
 
@@ -362,12 +386,9 @@ BattleSea.Game.prototype = {
 
         for (var i = 0; i < this.enemiesTorpeds.length; ++i) {
             if(this.physics.arcade.overlap(this.enemiesTorpeds[i], this.player, null, null, this)) {
-                this.player.kill();
                 this.enemiesTorpeds[i].kill();
                 this.explosion(this.player.x, this.player.y);
-                this.gameover = true;
-                this.music.stop();
-                this.state.start('StartMenu');
+                this.damage();
             }
         }
 
@@ -470,6 +491,7 @@ BattleSea.Game.prototype = {
         // this.game.debug.spriteInfo(this.player, 50, 400);
         // this.game.debug.body(this.player);
         // this.game.debug.body(this.enemy, 'rgba(0,255,0,0.4)', false);
+        // this.game.debug.soundInfo(this.music, 50, 200);
 
 
     }
