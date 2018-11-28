@@ -57,7 +57,7 @@ BattleSea.Game.prototype = {
 
         this.gameover = false;
         this.speed = 5;
-        this.fireRate = 1500;
+        this.fireRate = 2000;
         this.nextFireTime = 0;
         this.fireEnemyRate = 2500;
         this.nextEnemyFireTime = 1500;
@@ -112,12 +112,22 @@ BattleSea.Game.prototype = {
         //Создание переднего плана дна
         groundFront = this.add.tileSprite(0, 0, 1920, 1080, 'bgFrontGround');
 
-        backgroundBar = this.game.add.image(20, 20, 'red-bar');
+        // Шкала состояния игрока
+        // Уровень жизни
+        mySubTopBar = this.add.image(20, 10, 'mySubTopBar');
+        backgroundBar = this.game.add.image(120, 35, 'red-bar');
         backgroundBar.fixedToCamera = true;
         backgroundBar.scale.setTo(0.4, 0.3);
-        this.healthBar = this.game.add.image(20, 20, 'green-bar');
+        this.healthBar = this.game.add.image(120, 35, 'green-bar');
         this.healthBar.fixedToCamera = true;
         this.healthBar.scale.setTo(0.4, 0.3);
+        myTorpedsTopBar = this.add.image(410, 40, 'myTorpedo');
+        myTorpedsTopBar.scale.setTo(1.8, 1.8);
+        this.clockTopBar = this.add.sprite(490, 20, 'clockTopBar');
+        this.clockTopBar.scale.setTo(0.5, 0.5);
+        this.clockTopBar.animations.add('move', [0,1,2,3,4,5,6,7,8,9,10], 10/this.fireRate*1000, false);
+        this.clockTopBar.animations.play('move');
+
 
     },
 
@@ -247,6 +257,9 @@ BattleSea.Game.prototype = {
             this.flash = this.add.image(this.player.x + 100, this.player.y + 30, 'flash');
             this.flash.anchor.setTo(0.5, 0.5);
             this.flash.scale.setTo(0.1, 0.1);
+
+            this.clockTopBar.animations.play('move');
+
         }
     },
 
