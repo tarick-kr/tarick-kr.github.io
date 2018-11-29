@@ -48,6 +48,7 @@ BattleSea.Game = function(game) {
 
     this.healthBar;
     this.backgroundBar;
+    this.countKilledEntmies;
 
 };
 
@@ -66,6 +67,7 @@ BattleSea.Game.prototype = {
         this.enemiesTorpeds = [];
         this.enemyFlashes = [];
         this.enemiesByDistanceX = [];
+        this.totalKilledEnemies = 0;
 
         this.music = this.add.audio('game_audio');
         this.music.play('', 0, 0.06, true);
@@ -127,6 +129,24 @@ BattleSea.Game.prototype = {
         this.clockTopBar.scale.setTo(0.5, 0.5);
         this.clockTopBar.animations.add('move', [0,1,2,3,4,5,6,7,8,9,10], 10/this.fireRate*1000, false);
         this.clockTopBar.animations.play('move');
+
+
+
+        this.style = { font: "36px Minnie", fill: "#ffffff" };
+        if (this.totalKilledEnemies < 10) {
+            this.countKilledEntmies = this.add.text(this.world.width - 190, 25, '' + this.totalKilledEnemies + ' x', this.style);            
+        }
+        else {
+            this.countKilledEntmies = this.add.text(this.world.width - 500, 25, '' + this.totalKilledEnemies + ' x', this.style);
+        }
+
+        this.countKilledEntmies.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);   
+        enemySubTopBar = this.add.image(this.world.width - 20, 10, 'mySubTopBar');
+        enemySubTopBar.scale.setTo(-1, 1);
+
+        console.log(this.totalKilledEnemies);
+
+
 
 
     },
@@ -287,6 +307,11 @@ BattleSea.Game.prototype = {
         }
     },
 
+    updateTotalKilledEnemies: function() {
+        this.totalKilledEnemies ++;
+        this.countKilledEntmies.setText('' + this.totalKilledEnemies + ' x');
+    },
+
     gameOver: function() {
         this.music.stop();
         this.endGame.play();
@@ -341,9 +366,11 @@ BattleSea.Game.prototype = {
         for (var i = 0; i < this.enemies.length; ++i) {
             for (var j = 0; j < this.myTorpeds.length; ++j) {
                 if(this.physics.arcade.overlap(this.myTorpeds[j], this.enemies[i], null, null, this)) {
+                    this.updateTotalKilledEnemies();
                     this.enemies[i].kill();
                     this.myTorpeds[j].kill();
                     this.explosion(this.enemies[i].x, this.enemies[i].y);
+ 
                 }
             }
         }
@@ -389,9 +416,11 @@ BattleSea.Game.prototype = {
 
         for (var i = 0; i < this.enemies.length; ++i) {
             if(this.physics.arcade.overlap(this.enemies[i], this.player, null, null, this)) {
+                this.updateTotalKilledEnemies();
                 this.enemies[i].kill();
                 this.explosion(this.enemies[i].x, this.enemies[i].y);
                 this.damage();
+
             }
         }
 
