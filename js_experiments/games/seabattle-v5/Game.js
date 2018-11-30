@@ -130,25 +130,11 @@ BattleSea.Game.prototype = {
         this.clockTopBar.animations.add('move', [0,1,2,3,4,5,6,7,8,9,10], 10/this.fireRate*1000, false);
         this.clockTopBar.animations.play('move');
 
-
-
         this.style = { font: "36px Minnie", fill: "#ffffff" };
-        if (this.totalKilledEnemies < 10) {
-            this.countKilledEntmies = this.add.text(this.world.width - 190, 25, '' + this.totalKilledEnemies + ' x', this.style);            
-        }
-        else {
-            this.countKilledEntmies = this.add.text(this.world.width - 500, 25, '' + this.totalKilledEnemies + ' x', this.style);
-        }
-
+        this.countKilledEntmies = this.add.text(this.world.width - 190, 25, '' + this.totalKilledEnemies + ' x', this.style);            
         this.countKilledEntmies.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);   
         enemySubTopBar = this.add.image(this.world.width - 20, 10, 'mySubTopBar');
         enemySubTopBar.scale.setTo(-1, 1);
-
-        console.log(this.totalKilledEnemies);
-
-
-
-
     },
 
     buildPlayer: function() {
@@ -179,8 +165,6 @@ BattleSea.Game.prototype = {
 
     generateEnemy: function() {
         var xPos = this.world.width + 200;
-        // var yPos = this.game.rnd.integerInRange(100, 200);
-        // var yPos = this.game.rnd.integerInRange(this.world.height-200, this.world.height-95);
         var yPos = this.game.rnd.integerInRange(100, this.world.height-95);
         this.enemy = this.add.sprite(xPos, yPos, 'titleSubmarine');
         this.physics.enable(this.enemy, Phaser.Physics.ARCADE);
@@ -309,7 +293,15 @@ BattleSea.Game.prototype = {
 
     updateTotalKilledEnemies: function() {
         this.totalKilledEnemies ++;
-        this.countKilledEntmies.setText('' + this.totalKilledEnemies + ' x');
+
+        if (this.totalKilledEnemies < 10) {
+            this.countKilledEntmies.position.setTo(this.world.width - 190, 25);
+            this.countKilledEntmies.setText('' + this.totalKilledEnemies + ' x');            
+        }
+        else {
+            this.countKilledEntmies.position.setTo(this.world.width - 225, 25);
+            this.countKilledEntmies.setText('' + this.totalKilledEnemies + ' x');
+        }
     },
 
     gameOver: function() {
