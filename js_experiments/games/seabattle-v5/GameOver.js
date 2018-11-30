@@ -77,7 +77,8 @@ BattleSea.GameOver.prototype = {
         //Создание переднего плана дна
         groundFront = this.add.tileSprite(0, 0, 1920, 1080, 'bgFrontGround');
 
-        backgroundBar = this.game.add.image(20, 20, 'red-bar');
+        mySubTopBar = this.add.image(20, 10, 'mySubTopBar');
+        backgroundBar = this.game.add.image(120, 35, 'red-bar');
         backgroundBar.fixedToCamera = true;
         backgroundBar.scale.setTo(0.4, 0.3);
 
