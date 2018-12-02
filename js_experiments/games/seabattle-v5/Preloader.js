@@ -29,11 +29,15 @@ BattleSea.Preloader.prototype = {
         this.load.image('flash', 'images/flash.png');
         this.load.image('enemyTorpedo', 'images/enemyTorpedo.png');
         this.load.image('mySubTopBar', 'images/mySubTopBar.png');
-        this.load.spritesheet('mySub', 'images/mySub311.5x202.png', 311.5, 202, 9);
+        // this.load.spritesheet('mySub', 'images/mySub311.5x202.png', 311.5, 202, 9);
+        this.load.spritesheet('mySub', 'images/mySub155x100.png', 155, 100, 9);
+        this.load.spritesheet('enemySub', 'images/enemySub155x100.png', 155, 100, 9);
         this.load.spritesheet('boomBoom', 'images/boom222x222.png', 222, 222, 5);
         this.load.spritesheet('clockTopBar', 'images/clockTopBar.png', 100, 100, 10);
         this.load.image('green-bar', 'images/healthBarGreen.png');
         this.load.image('red-bar', 'images/healthBarRed.png');
+        this.load.image('moneyBox', 'images/moneyBox.png');
+        this.load.image('money', 'images/money.png');
 
         this.load.audio('explosion_audio', 'audio/explosion.mp3');
         this.load.audio('gameOver_audio', 'audio/gameover.wav');

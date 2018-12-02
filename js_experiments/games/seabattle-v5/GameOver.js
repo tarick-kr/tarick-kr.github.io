@@ -49,8 +49,6 @@ BattleSea.GameOver.prototype = {
     
     buildWorldGame: function() {
 
-        console.log('GameOver');
-
         this.physics.startSystem(Phaser.Physics.ARCADE);
 
         // Создание заднего фона

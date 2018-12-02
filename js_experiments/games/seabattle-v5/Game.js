@@ -49,6 +49,9 @@ BattleSea.Game = function(game) {
     this.healthBar;
     this.backgroundBar;
     this.countKilledEntmies;
+    this.totalEnemies;
+    this.monBox;
+    this.totalMoney;
 
 };
 
@@ -68,6 +71,9 @@ BattleSea.Game.prototype = {
         this.enemyFlashes = [];
         this.enemiesByDistanceX = [];
         this.totalKilledEnemies = 0;
+        this.totalEnemies = 0;
+        this.totalMoney = 0;
+        this.moneyBoxes = [];
 
         this.music = this.add.audio('game_audio');
         this.music.play('', 0, 0.06, true);
@@ -92,24 +98,37 @@ BattleSea.Game.prototype = {
         // Создание заднего фона
         bg = this.add.image(0, 0, 'bg');
 
+
         // Создание неба
         backgroundSky = this.add.tileSprite(0, 0, 1920, 58, 'bgSky');
-        backgroundSky.scale.setTo(1.2, 1.8);  
+        backgroundSky.scale.setTo(1.2, 1.8); 
+
 
         // Создание заднего плана моря
         seaBack = this.add.tileSprite(0, 0, 1920, 1080, 'bgBackSea');
 
+
         // Создание переднего плана моря
         seaFront = this.add.tileSprite(0, 0, 1920, 1080, 'bgFrontSea');
 
+        this.ground = this.add.group();
+
         // Создание заднего плана дна
         groundBack = this.add.tileSprite(0, 0, 1920, 1080, 'bgBackGround');
+        this.ground.add(groundBack);        
+
+
+        this.buildMoneyBox();
 
         // Создание игока
         this.buildPlayer();
 
+
+
         // Создание противникв
         this.buildEnemies();
+
+
 
         //Создание переднего плана дна
         groundFront = this.add.tileSprite(0, 0, 1920, 1080, 'bgFrontGround');
@@ -130,7 +149,16 @@ BattleSea.Game.prototype = {
         this.clockTopBar.animations.add('move', [0,1,2,3,4,5,6,7,8,9,10], 10/this.fireRate*1000, false);
         this.clockTopBar.animations.play('move');
 
-        this.style = { font: "36px Minnie", fill: "#ffffff" };
+        this.style = { font: "36px Minnie", fill: "#ffffff" };        
+
+        moneyTopBar = this.add.image(570, 22, 'money');
+        moneyTopBar.scale.setTo(0.7, 0.7);
+        this.countMoney = this.add.text(640, 30, 'x ' + this.totalMoney, this.style);            
+        this.countMoney.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2); 
+
+
+
+
         this.countKilledEntmies = this.add.text(this.world.width - 190, 25, '' + this.totalKilledEnemies + ' x', this.style);            
         this.countKilledEntmies.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);   
         enemySubTopBar = this.add.image(this.world.width - 20, 10, 'mySubTopBar');
@@ -140,13 +168,13 @@ BattleSea.Game.prototype = {
     buildPlayer: function() {
 
         // Создание игрока
-        this.player = this.add.sprite(100, 300, 'titleSubmarine');
+        this.player = this.add.sprite(100, 300, 'mySub');
         this.physics.arcade.enable(this.player);
         // Изменение физического размера тела
-        this.player.body.setSize(580, 300, 5, 12);
+        this.player.body.setSize(140, 76, 5, 14);
 
         this.player.anchor.setTo(0.5, 0.5); 
-        this.player.scale.setTo(0.25, 0.25);
+        // this.player.scale.setTo(1.8, 1.8);
         this.player.animations.add('move', [0,1,2,3,4,5,6,7,8], 60, true);
         this.player.animations.play('move');
         this.player.health = 100;
@@ -158,22 +186,24 @@ BattleSea.Game.prototype = {
             var timer = this.game.time.create(false);
             timer.loop(this.rnd.integerInRange(2500, 4000), this.generateEnemy, this);
             timer.start();
-
-
         }
     },
 
+
+
     generateEnemy: function() {
+        this.totalEnemies ++;
         var xPos = this.world.width + 200;
         var yPos = this.game.rnd.integerInRange(100, this.world.height-95);
-        this.enemy = this.add.sprite(xPos, yPos, 'titleSubmarine');
+        this.enemy = this.add.sprite(xPos, yPos, 'enemySub');
         this.physics.enable(this.enemy, Phaser.Physics.ARCADE);
         this.enemy.anchor.setTo(0.5, 0.5);
-        this.enemy.scale.setTo(-0.25, 0.25); 
+        // this.enemy.scale.setTo(-1, 1); 
+        // this.enemy.scale.setTo(-0.25, 0.25); 
         this.enemy.body.bounce.set(0.1, 0.7);
         this.enemy.animations.add('move', [0,1,2,3,4,5,6,7,8], 60, true);
         this.enemy.animations.play('move');
-        this.enemy.body.setSize(580, 300, -2, 12);
+        this.enemy.body.setSize(140, 76, -5, 14);
         this.enemy.enableBody = true;
         this.enemy.body.velocity.x = this.rnd.integerInRange(-400, -150);
         this.enemies.push(this.enemy);
@@ -184,7 +214,41 @@ BattleSea.Game.prototype = {
 
         this.fireEnemy();
 
+    },
 
+
+    buildMoneyBox: function() {
+        if(this.gameover == false){
+            var timer = this.game.time.create(false);
+            timer.loop(this.rnd.integerInRange(50000, 80000), this.generateMoneyBox, this);
+            timer.start();
+        }
+    },
+
+    generateMoneyBox: function() {
+        this.monBox = this.add.sprite(this.world.width + 200, this.world.height-75, 'moneyBox');
+        this.physics.enable(this.monBox, Phaser.Physics.ARCADE);
+        this.monBox.anchor.setTo(0.5, 0.5);
+        this.monBox.body.bounce.set(0.1, 0.7);
+        this.monBox.enableBody = true;
+        this.monBox.body.velocity.x = -150;
+        this.moneyBoxes.push(this.monBox);
+        this.monBox.checkWorldBounds = true;
+        this.monBox.events.onOutOfBounds.add(this.resetMonBox, this);
+        this.ground.add(this.monBox);
+    },
+
+    resetMonBox: function(monBox) {
+        for (var i = 0; i < this.moneyBoxes.length; ++i) {
+            if(this.moneyBoxes[i].x - this.monBox.width/2 < 0) {
+                this.moneyBoxes[i].kill();   
+            }
+        }
+    },  
+
+    takeMoney: function(s) {
+        this.totalMoney += s;
+        this.countMoney.setText('x ' + this.totalMoney); 
     },
 
     resetEnemy: function(enemy) {
@@ -287,7 +351,7 @@ BattleSea.Game.prototype = {
         this.healthBar.scale.setTo(0.4 * this.player.health / this.player.maxHealth, 0.3);
         if (this.player.alive == false){
 
-            this.gameOver();
+            this.gameOver('', 0, 0.06, false);
         }
     },
 
@@ -312,10 +376,14 @@ BattleSea.Game.prototype = {
  
     update: function() {
 
+
+        // console.log(this.totalEnemies);
+
+
         // Прокрутка заднего фона
         backgroundSky.tilePosition.x -= 1;
         seaBack.tilePosition.x -= 1.5;          
-        seaFront.tilePosition.x -= 2;          
+        seaFront.tilePosition.x -= 2;  
         groundBack.tilePosition.x -= 2.5;          
         groundFront.tilePosition.x -= 3;
 
@@ -362,6 +430,7 @@ BattleSea.Game.prototype = {
                     this.enemies[i].kill();
                     this.myTorpeds[j].kill();
                     this.explosion(this.enemies[i].x, this.enemies[i].y);
+                    this.takeMoney(10);
  
                 }
             }
@@ -412,6 +481,7 @@ BattleSea.Game.prototype = {
                 this.enemies[i].kill();
                 this.explosion(this.enemies[i].x, this.enemies[i].y);
                 this.damage();
+                this.takeMoney(10);
 
             }
         }
@@ -421,8 +491,18 @@ BattleSea.Game.prototype = {
         for (var i = 0; i < this.enemiesTorpeds.length; ++i) {
             if(this.physics.arcade.overlap(this.enemiesTorpeds[i], this.player, null, null, this)) {
                 this.enemiesTorpeds[i].kill();
-                this.explosion(this.player.x, this.player.y);
+                this.explosion(this.enemiesTorpeds[i].x, this.enemiesTorpeds[i].y);
                 this.damage();
+            }
+        }
+
+        // Игрока с сундуком
+
+        for (var i = 0; i < this.moneyBoxes.length; ++i) {
+            if(this.physics.arcade.overlap(this.moneyBoxes[i], this.player, null, null, this)) {
+                this.moneyBoxes[i].kill();
+                this.ding.play();
+                this.takeMoney(100);
             }
         }
 
@@ -526,6 +606,7 @@ BattleSea.Game.prototype = {
         // this.game.debug.body(this.player);
         // this.game.debug.body(this.enemy, 'rgba(0,255,0,0.4)', false);
         // this.game.debug.soundInfo(this.music, 50, 200);
+        // this.game.debug.spriteInfo('Sprite z-depth: ' + this.monBox, 200, 200);
 
 
     }
