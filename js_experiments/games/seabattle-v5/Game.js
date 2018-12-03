@@ -156,9 +156,6 @@ BattleSea.Game.prototype = {
         this.countMoney = this.add.text(640, 30, 'x ' + this.totalMoney, this.style);            
         this.countMoney.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2); 
 
-
-
-
         this.countKilledEntmies = this.add.text(this.world.width - 190, 25, '' + this.totalKilledEnemies + ' x', this.style);            
         this.countKilledEntmies.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);   
         enemySubTopBar = this.add.image(this.world.width - 20, 10, 'mySubTopBar');

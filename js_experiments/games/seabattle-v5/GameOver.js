@@ -24,8 +24,8 @@ BattleSea.GameOver = function(game) {
     this.enemiesByDistanceX;
     this.distanceX;
 
-    this.healthBar;
-    this.backgroundBar;
+    this.totalKilledEnemies;
+
 
 };
 
@@ -69,24 +69,53 @@ BattleSea.GameOver.prototype = {
         // Создание заднего плана дна
         groundBack = this.add.tileSprite(0, 0, 1920, 1080, 'bgBackGround');
 
+        
+        this.gameOverEnemies = this.add.group();
+
         // Создание противникв
         this.buildEnemies();
+
+        this.gameOverWindow = this.add.group();
 
         //Создание переднего плана дна
         groundFront = this.add.tileSprite(0, 0, 1920, 1080, 'bgFrontGround');
 
-        mySubTopBar = this.add.image(20, 10, 'mySubTopBar');
-        backgroundBar = this.game.add.image(120, 35, 'red-bar');
-        backgroundBar.fixedToCamera = true;
-        backgroundBar.scale.setTo(0.4, 0.3);
+        // mySubTopBar = this.add.image(20, 10, 'mySubTopBar');
+        // backgroundBar = this.game.add.image(120, 35, 'red-bar');
+        // backgroundBar.fixedToCamera = true;
+        // backgroundBar.scale.setTo(0.4, 0.3);
+
+
+
 
         this.style = { font: "84px Minnie", fill: "#ffffff" };
-        gameOverPrompt1 = this.add.text(this.world.centerX, this.world.centerY - 100,'Игра окончена', this.style);
+        this.style2 = { font: "50px Minnie", fill: "#ffffff" };
+        gameOverPrompt1 = this.add.text(this.world.centerX, this.world.centerY - 200,'Игра окончена', this.style);
         gameOverPrompt1.anchor.setTo(0.5, 0.5);
-        gameOverPrompt1.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);        
-        gameOverPrompt2 = this.add.text(this.world.centerX, this.world.centerY + 100,'Нажмите чтобы продолжить', this.style);
+        gameOverPrompt1.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2); 
+        this.gameOverWindow.add(gameOverPrompt1);
+
+        gameOverEnemySub = this.add.image(this.world.centerX - 190, this.world.centerY - 50, 'mySubTopBar');
+        gameOverEnemySub.anchor.setTo(0.5, 0.5);
+        gameOverEnemySub.scale.setTo(-1, 1);
+        gameOverTotalKilledEnemies = this.add.text(this.world.centerX - 150, this.world.centerY - 70, ' x ' + this.totalKilledEnemies, this.style2);
+        gameOverTotalKilledEnemies.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
+        this.gameOverWindow.add(gameOverEnemySub);
+        this.gameOverWindow.add(gameOverTotalKilledEnemies);
+
+        gameOverMoney = this.add.image(this.world.centerX - 190, this.world.centerY + 40, 'money');
+        gameOverMoney.anchor.setTo(0.5, 0.5);
+        gameOverTotalMoney = this.add.text(this.world.centerX - 150, this.world.centerY + 20, ' x ' + this.totalMoney, this.style2);
+        gameOverTotalMoney.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2); 
+        this.gameOverWindow.add(gameOverMoney);
+        this.gameOverWindow.add(gameOverTotalMoney);
+
+        gameOverPrompt2 = this.add.text(this.world.centerX, this.world.centerY + 200,'Нажмите чтобы продолжить', this.style);
         gameOverPrompt2.anchor.setTo(0.5, 0.5);
-        gameOverPrompt2.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);   
+        gameOverPrompt2.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
+        this.gameOverWindow.add(gameOverPrompt2);
+
+
     },
 
 
@@ -101,20 +130,21 @@ BattleSea.GameOver.prototype = {
     generateEnemy: function() {
         var xPos = this.world.width + 200;
         var yPos = this.game.rnd.integerInRange(100, this.world.height-95);
-        this.enemy = this.add.sprite(xPos, yPos, 'titleSubmarine');
+        this.enemy = this.add.sprite(xPos, yPos, 'enemySub');
         this.physics.enable(this.enemy, Phaser.Physics.ARCADE);
         this.enemy.anchor.setTo(0.5, 0.5);
-        this.enemy.scale.setTo(-0.25, 0.25); 
+        // this.enemy.scale.setTo(-0.25, 0.25); 
         this.enemy.body.bounce.set(0.1, 0.7);
         this.enemy.animations.add('move', [0,1,2,3,4,5,6,7,8], 60, true);
         this.enemy.animations.play('move');
-        this.enemy.body.setSize(580, 300, -2, 12);
+        this.enemy.body.setSize(140, 76, -5, 14);
         this.enemy.enableBody = true;
         this.enemy.body.velocity.x = this.rnd.integerInRange(-400, -150);
         this.enemies.push(this.enemy);
         this.enemy.checkWorldBounds = true;
         this.enemy.events.onOutOfBounds.add(this.resetEnemy, this);
         this.distanceX = Math.abs(this.enemy.width * 2);
+        this.gameOverEnemies.add(this.enemy);
 
     },
 
