@@ -40,6 +40,11 @@
 
             var game = new Phaser.Game(1920, 1080, Phaser.AUTO, 'gameContainer');
 
+            game.global = {
+                totalKilledEnemies : 0,
+                totalMoney : 0
+            }
+
             game.state.add('Boot', BattleSea.Boot);
             game.state.add('Preloader', BattleSea.Preloader);
             game.state.add('StartMenu', BattleSea.StartMenu);

@@ -24,7 +24,7 @@ BattleSea.GameOver = function(game) {
     this.enemiesByDistanceX;
     this.distanceX;
 
-    this.totalKilledEnemies;
+    // this.totalKilledEnemies;
 
 
 };
@@ -37,6 +37,7 @@ BattleSea.GameOver.prototype = {
         this.enemies = [];
         this.enemiesByDistanceX = [];
 
+
         // this.music = this.add.audio('game_audio');
         // this.music.play('', 0, 0.06, true);
         // this.endGame = this.add.audio('gameOver_audio');
@@ -48,6 +49,8 @@ BattleSea.GameOver.prototype = {
     },
     
     buildWorldGame: function() {
+
+        console.log('gameover ' + this);
 
         this.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -95,17 +98,17 @@ BattleSea.GameOver.prototype = {
         gameOverPrompt1.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2); 
         this.gameOverWindow.add(gameOverPrompt1);
 
-        gameOverEnemySub = this.add.image(this.world.centerX - 190, this.world.centerY - 50, 'mySubTopBar');
+        gameOverEnemySub = this.add.image(this.world.centerX - 90, this.world.centerY - 50, 'mySubTopBar');
         gameOverEnemySub.anchor.setTo(0.5, 0.5);
         gameOverEnemySub.scale.setTo(-1, 1);
-        gameOverTotalKilledEnemies = this.add.text(this.world.centerX - 150, this.world.centerY - 70, ' x ' + this.totalKilledEnemies, this.style2);
+        gameOverTotalKilledEnemies = this.add.text(this.world.centerX - 50, this.world.centerY - 70, ' x ' + this.game.global.totalKilledEnemies, this.style2);
         gameOverTotalKilledEnemies.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
         this.gameOverWindow.add(gameOverEnemySub);
         this.gameOverWindow.add(gameOverTotalKilledEnemies);
 
-        gameOverMoney = this.add.image(this.world.centerX - 190, this.world.centerY + 40, 'money');
+        gameOverMoney = this.add.image(this.world.centerX - 90, this.world.centerY + 40, 'money');
         gameOverMoney.anchor.setTo(0.5, 0.5);
-        gameOverTotalMoney = this.add.text(this.world.centerX - 150, this.world.centerY + 20, ' x ' + this.totalMoney, this.style2);
+        gameOverTotalMoney = this.add.text(this.world.centerX - 50, this.world.centerY + 20, ' x ' + this.game.global.totalMoney, this.style2);
         gameOverTotalMoney.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2); 
         this.gameOverWindow.add(gameOverMoney);
         this.gameOverWindow.add(gameOverTotalMoney);
