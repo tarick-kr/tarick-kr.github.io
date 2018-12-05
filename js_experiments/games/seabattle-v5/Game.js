@@ -55,6 +55,7 @@ BattleSea.Game = function(game) {
     this.totalMoney;
 
     this.ship;
+    this.shipAlive;
 
     this.borderUp;
     this.borderDown;
@@ -96,6 +97,8 @@ BattleSea.Game.prototype = {
         cursors = this.input.keyboard.createCursorKeys();
         fireButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
+        this.countShip = 0;
+
         this.buildWorldGame();
 
     },
@@ -133,7 +136,7 @@ BattleSea.Game.prototype = {
         this.buildPlayer();
 
 
-        this.buildMyShip();
+        // this.buildMyShip();
 
 
 
@@ -172,6 +175,17 @@ BattleSea.Game.prototype = {
         this.countKilledEntmies.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);   
         enemySubTopBar = this.add.image(this.world.width - 20, 10, 'mySubTopBar');
         enemySubTopBar.scale.setTo(-1, 1);
+
+        
+
+        // for (var i = 1; i < 30; i++) {
+        //     var g = i % 9;
+
+        //     console.log(g);
+        // }
+
+
+
     },
 
     buildPlayer: function() {
@@ -189,10 +203,9 @@ BattleSea.Game.prototype = {
         this.player.maxHealth = 100;
     },
 
-    buildMyShip: function() {
-
-        // Создание игрока
-        this.ship = this.add.sprite(200, 110, 'myShip');
+    generateMyShip: function() {
+        // Создание игрока 
+        this.ship = this.add.sprite(-360, 110, 'myShip');
         this.physics.arcade.enable(this.ship);
         // Изменение физического размера тела
         // this.ship.body.setSize(140, 76, 5, 14);
@@ -201,6 +214,7 @@ BattleSea.Game.prototype = {
         this.ship.scale.setTo(0.6, 0.6);
         this.ship.animations.add('move', [0,1,2,3,4,5,6,7,8], 10, true);
         this.ship.animations.play('move');
+        this.ship.body.velocity.x = 100;
         // this.ship.health = 500;
         // this.ship.maxHealth = 500;
     },
@@ -275,7 +289,7 @@ BattleSea.Game.prototype = {
 
     resetEnemy: function(enemy) {
         for (var i = 0; i < this.enemies.length; ++i) {
-            if(this.enemies[i].x - this.enemy.width/2 < 0) {
+            if(this.enemies[i].x - this.enemy.width < 0) {
                 this.enemies[i].kill();   
             }
         }
@@ -509,7 +523,7 @@ BattleSea.Game.prototype = {
         for (var i = 0; i < this.enemiesTorpeds.length; ++i) {
             if(this.physics.arcade.overlap(this.enemiesTorpeds[i], this.player, null, null, this)) {
                 this.enemiesTorpeds[i].kill();
-                this.explosion(this.enemiesTorpeds[i].x, this.enemiesTorpeds[i].y);
+                this.explosion(this.enemiesTorpeds[i].x-50, this.enemiesTorpeds[i].y);
                 this.damage();
             }
         }
@@ -615,6 +629,31 @@ BattleSea.Game.prototype = {
                 }
             }
         }
+
+
+
+
+        if(this.gameover == false){
+
+            if(((this.game.global.totalKilledEnemies+1) % 26 == 0) && this.countShip === 0){
+                this.generateMyShip();
+                this.countShip ++;
+
+            }
+        }
+
+
+        if (typeof this.ship !== "undefined") {
+
+            if (this.ship.x > (this.game.width + this.ship.width/2)){
+                this.countShip = 0;
+                this.ship.kill();
+            }
+        }
+
+
+
+
 
     },
 
