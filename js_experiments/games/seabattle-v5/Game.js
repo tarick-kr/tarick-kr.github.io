@@ -54,11 +54,19 @@ BattleSea.Game = function(game) {
     this.monBox;
     this.totalMoney;
 
+    this.ship;
+
+    this.borderUp;
+    this.borderDown;
+
 };
 
 BattleSea.Game.prototype = {
     
     create: function() {
+
+        this.borderUp = 165;
+        this.borderDown = this.game.height - 95;
 
         this.gameover = false;
         this.speed = 5;
@@ -101,8 +109,8 @@ BattleSea.Game.prototype = {
 
 
         // Создание неба
-        backgroundSky = this.add.tileSprite(0, 0, 1920, 58, 'bgSky');
-        backgroundSky.scale.setTo(1.2, 1.8); 
+        backgroundSky = this.add.tileSprite(0, 0, 1920, 110, 'bgSky');
+        backgroundSky.scale.setTo(1.2, 1.5); 
 
 
         // Создание заднего плана моря
@@ -123,6 +131,9 @@ BattleSea.Game.prototype = {
 
         // Создание игока
         this.buildPlayer();
+
+
+        this.buildMyShip();
 
 
 
@@ -157,28 +168,41 @@ BattleSea.Game.prototype = {
         this.countMoney = this.add.text(640, 30, 'x ' + this.game.global.totalMoney, this.style);            
         this.countMoney.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2); 
 
-        // this.countKilledEntmies = this.add.text(this.world.width - 190, 25, '' + this.totalKilledEnemies + ' x', this.style);            
         this.countKilledEntmies = this.add.text(this.world.width - 190, 25, '' + this.game.global.totalKilledEnemies + ' x', this.style);            
         this.countKilledEntmies.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);   
         enemySubTopBar = this.add.image(this.world.width - 20, 10, 'mySubTopBar');
         enemySubTopBar.scale.setTo(-1, 1);
-        console.log('game ' + this);
     },
 
     buildPlayer: function() {
 
         // Создание игрока
-        this.player = this.add.sprite(100, 300, 'mySub');
+        this.player = this.add.sprite(100, 350, 'mySub');
         this.physics.arcade.enable(this.player);
         // Изменение физического размера тела
         this.player.body.setSize(140, 76, 5, 14);
 
         this.player.anchor.setTo(0.5, 0.5); 
-        // this.player.scale.setTo(1.8, 1.8);
         this.player.animations.add('move', [0,1,2,3,4,5,6,7,8], 60, true);
         this.player.animations.play('move');
         this.player.health = 100;
         this.player.maxHealth = 100;
+    },
+
+    buildMyShip: function() {
+
+        // Создание игрока
+        this.ship = this.add.sprite(200, 110, 'myShip');
+        this.physics.arcade.enable(this.ship);
+        // Изменение физического размера тела
+        // this.ship.body.setSize(140, 76, 5, 14);
+
+        this.ship.anchor.setTo(0.5, 0.5); 
+        this.ship.scale.setTo(0.6, 0.6);
+        this.ship.animations.add('move', [0,1,2,3,4,5,6,7,8], 10, true);
+        this.ship.animations.play('move');
+        // this.ship.health = 500;
+        // this.ship.maxHealth = 500;
     },
 
     buildEnemies: function() {
@@ -194,13 +218,11 @@ BattleSea.Game.prototype = {
     generateEnemy: function() {
         this.totalEnemies ++;
         var xPos = this.world.width + 200;
-        var yPos = this.game.rnd.integerInRange(100, this.world.height-95);
+        var yPos = this.game.rnd.integerInRange(this.borderUp, this.borderDown);
         this.enemy = this.add.sprite(xPos, yPos, 'enemySub');
         this.physics.enable(this.enemy, Phaser.Physics.ARCADE);
         this.enemy.anchor.setTo(0.5, 0.5);
-        // this.enemy.scale.setTo(-1, 1); 
-        // this.enemy.scale.setTo(-0.25, 0.25); 
-        this.enemy.body.bounce.set(0.1, 0.7);
+        // this.enemy.body.bounce.set(0.1, 0.7);
         this.enemy.animations.add('move', [0,1,2,3,4,5,6,7,8], 60, true);
         this.enemy.animations.play('move');
         this.enemy.body.setSize(140, 76, -5, 14);
@@ -355,19 +377,6 @@ BattleSea.Game.prototype = {
         }
     },
 
-    // updateTotalKilledEnemies: function() {
-    //     this.totalKilledEnemies ++;
-
-    //     if (this.totalKilledEnemies < 10) {
-    //         this.countKilledEntmies.position.setTo(this.world.width - 190, 25);
-    //         this.countKilledEntmies.setText('' + this.totalKilledEnemies + ' x');            
-    //     }
-    //     else {
-    //         this.countKilledEntmies.position.setTo(this.world.width - 225, 25);
-    //         this.countKilledEntmies.setText('' + this.totalKilledEnemies + ' x');
-    //     }
-    // },
-
     updateTotalKilledEnemies: function() {
         this.game.global.totalKilledEnemies ++;
 
@@ -388,10 +397,6 @@ BattleSea.Game.prototype = {
     },
  
     update: function() {
-
-
-        // console.log(this.totalEnemies);
-
 
         // Прокрутка заднего фона
         backgroundSky.tilePosition.x -= 1;
@@ -424,11 +429,11 @@ BattleSea.Game.prototype = {
         if (this.player.x >= (this.game.width - this.player.width/2)){
             this.player.x = this.game.width - this.player.width/2;
         }
-        if (this.player.y >= (this.game.height - 95)){
-            this.player.y = this.game.height - 95;
+        if (this.player.y >= (this.borderDown)){
+            this.player.y = this.borderDown;
         }
-        if (this.player.y <= 100){
-            this.player.y = 100;
+        if (this.player.y <= this.borderUp){
+            this.player.y = this.borderUp;
         }
 
 
@@ -529,8 +534,8 @@ BattleSea.Game.prototype = {
         });
 
         for (var k = 0; k < this.enemiesByDistanceX.length; k++){
-            var topClearance = 100 + this.enemiesByDistanceX[k].height + this.enemiesByDistanceX[k].height/2;
-            var bottomClearance = this.world.height - 95 - this.enemiesByDistanceX[k].height - this.enemiesByDistanceX[k].height/2;
+            var topClearance = this.borderUp + this.enemiesByDistanceX[k].height + this.enemiesByDistanceX[k].height/2;
+            var bottomClearance = this.borderDown - this.enemiesByDistanceX[k].height - this.enemiesByDistanceX[k].height/2;
             var enemyTopK = this.enemiesByDistanceX[k].y - this.enemiesByDistanceX[k].height/2;
             var enemyBottomK = this.enemiesByDistanceX[k].y + this.enemiesByDistanceX[k].height/2;
             var enemyLeftK = this.enemiesByDistanceX[k].x - Math.abs(this.enemiesByDistanceX[k].width/2);

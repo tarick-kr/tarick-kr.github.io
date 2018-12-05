@@ -34,6 +34,7 @@ BattleSea.Preloader.prototype = {
         this.load.spritesheet('enemySub', 'images/enemySub155x100.png', 155, 100, 9);
         this.load.spritesheet('boomBoom', 'images/boom222x222.png', 222, 222, 5);
         this.load.spritesheet('clockTopBar', 'images/clockTopBar.png', 100, 100, 10);
+        this.load.spritesheet('myShip', 'images/myShip560x190.png', 560, 190, 9);
         this.load.image('green-bar', 'images/healthBarGreen.png');
         this.load.image('red-bar', 'images/healthBarRed.png');
         this.load.image('moneyBox', 'images/moneyBox.png');
