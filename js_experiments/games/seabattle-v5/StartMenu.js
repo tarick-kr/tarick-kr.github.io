@@ -36,6 +36,8 @@ BattleSea.StartMenu.prototype = {
 
 		this.totalBubbles = 200;
 		this.totalBubblesAll = 50;
+        this.game.global.totalMoney = 0;
+        this.game.global.totalKilledEnemies = 0;
 		this.buildBubbles();
 		this.buildBubblesAll();
 		this.startMusic.play();

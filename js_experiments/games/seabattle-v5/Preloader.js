@@ -39,6 +39,7 @@ BattleSea.Preloader.prototype = {
         this.load.image('red-bar', 'images/healthBarRed.png');
         this.load.image('moneyBox', 'images/moneyBox.png');
         this.load.image('money', 'images/money.png');
+        this.load.image('addHealth', 'images/addHealth.png');
 
         this.load.audio('explosion_audio', 'audio/explosion.mp3');
         this.load.audio('gameOver_audio', 'audio/gameover.wav');
