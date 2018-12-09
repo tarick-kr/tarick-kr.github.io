@@ -753,7 +753,7 @@ BattleSea.Game.prototype = {
 
         if(this.gameover == false){
 
-            if(((this.game.global.totalKilledEnemies+1) % 5 == 0) && this.game.global.countShip === 0){
+            if(((this.game.global.totalKilledEnemies+1) % 21 == 0) && this.game.global.countShip === 0){
                 this.generateMyShip();
                 this.game.global.countShip ++;
             }
@@ -762,7 +762,7 @@ BattleSea.Game.prototype = {
 
         if (typeof this.ship !== "undefined") {
 
-            // if ( ((Math.round(this.game.width/2)-5) <= Math.round(this.ship.x) < (Math.round(this.game.width/2)+5) ) && (this.game.global.countAddHealth === 0) ) {
+           
             if ( (Math.round(this.ship.x) >= (Math.round(this.game.width/2)-5)) && (Math.round(this.ship.x) < (Math.round(this.game.width/2)+5)) && (this.game.global.countAddHealth === 0) ) {
 
                 this.generateAddHealth();
