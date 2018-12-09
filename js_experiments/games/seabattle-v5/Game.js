@@ -242,8 +242,16 @@ BattleSea.Game.prototype = {
 
     generateEnemy: function() {
         this.totalEnemies ++;
-        var xPos = this.world.width + 200;
-        var yPos = this.game.rnd.integerInRange(this.borderUp, this.borderDown);
+
+        if (this.myShips.length !== 0) {
+            var xPos = this.world.width + 200;
+            var yPos = this.game.rnd.integerInRange(this.borderUp+55, this.borderDown);
+        }else{
+            var xPos = this.world.width + 200;
+            var yPos = this.game.rnd.integerInRange(this.borderUp, this.borderDown);            
+        }
+
+
         this.enemy = this.add.sprite(xPos, yPos, 'enemySub');
         this.physics.enable(this.enemy, Phaser.Physics.ARCADE);
         this.enemy.anchor.setTo(0.5, 0.5);
@@ -652,11 +660,6 @@ BattleSea.Game.prototype = {
         }
 
 
-
-        // this.physics.arcade.collide(this.player, this.ship, this.onCollidePlayerShip(), null, this);
-        // this.physics.arcade.collide(this.player, this.ship);
-        // this.physics.arcade.overlap(this.player, this.ship);
-
         // Определяем противников, которые могут между собой столкнуться и выбираем для них направление движения
 
         // Создаём новый массив противнтков в котором противники будут отсортированы по возрастанию координаты Х
@@ -753,7 +756,7 @@ BattleSea.Game.prototype = {
 
         if(this.gameover == false){
 
-            if(((this.game.global.totalKilledEnemies+1) % 21 == 0) && this.game.global.countShip === 0){
+            if(((this.game.global.totalKilledEnemies+1) % 20 == 0) && this.game.global.countShip === 0){
                 this.generateMyShip();
                 this.game.global.countShip ++;
             }
