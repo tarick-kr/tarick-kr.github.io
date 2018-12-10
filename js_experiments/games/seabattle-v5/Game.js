@@ -63,6 +63,8 @@ BattleSea.Game = function(game) {
     this.addHealths;
     this.addHealth;
 
+    this.dust;
+
 };
 
 BattleSea.Game.prototype = {
@@ -84,9 +86,7 @@ BattleSea.Game.prototype = {
         this.enemiesTorpeds = [];
         this.enemyFlashes = [];
         this.enemiesByDistanceX = [];
-        // this.totalKilledEnemies = 0;
         this.totalEnemies = 0;
-        // this.totalMoney = 0;
         this.moneyBoxes = [];
         this.addHealths = [];
 
@@ -96,6 +96,7 @@ BattleSea.Game.prototype = {
         this.boom = this.add.audio('explosion_audio');
         this.ding = this.add.audio('select_audio');
         this.shoot = this.add.audio('shoot_audio');
+        this.dustSound = this.add.audio('dust_audio');
 
         // Создане 'кнопок' для управления игроком
 
@@ -136,6 +137,8 @@ BattleSea.Game.prototype = {
 
 
         this.buildMoneyBox();
+
+
 
         // Создание игока
         this.buildPlayer();
@@ -390,6 +393,10 @@ BattleSea.Game.prototype = {
         this.flash.kill();
     },
 
+    killExplosion: function() {
+        this.boomBoom.kill();
+    },
+
     explosion: function(x, y) {
         this.boom.play('', 0, 0.03, false);
         this.boomBoom = this.add.sprite(x, y, 'boomBoom');
@@ -407,7 +414,35 @@ BattleSea.Game.prototype = {
         this.healthBar.scale.setTo(0.4 * this.player.health / this.player.maxHealth, 0.3);
         if (this.player.alive == false){
 
-            this.gameOver('', 0, 0.06, false);
+            this.explosion(this.player.x, this.player.y);
+
+            var timer1 = this.game.time.create(false);
+            timer1.add(100, this.killExplosion, this);
+            timer1.start();
+
+            var timer2 = this.game.time.create(false);
+            timer2.add(400, this.gameOver, this);
+            timer2.start();
+        }
+    },
+
+    damageDust: function() {
+        this.player.damage(0.1);
+        this.healthBar.scale.setTo(0.4 * this.player.health / this.player.maxHealth, 0.3);
+
+        if (this.player.alive == false){
+
+            this.dust.visible = false;
+            this.explosion(this.player.x, this.player.y);
+
+            var timer1 = this.game.time.create(false);
+            timer1.add(100, this.killExplosion, this);
+            timer1.start();
+
+            var timer2 = this.game.time.create(false);
+            timer2.add(400, this.gameOver, this);
+            timer2.start();
+            
         }
     },
 
@@ -460,11 +495,24 @@ BattleSea.Game.prototype = {
 
     updateCountAddHealth: function() {
         this.game.global.countAddHealth = 0;
-        // console.log(this.game.global.countAddHealth);
+    },
+
+    generateDust: function(x) {
+        this.game.global.dustActive ++;
+
+        this.dust = this.add.sprite(x, this.borderDown+10, 'submarineDust');
+        this.physics.enable(this.dust, Phaser.Physics.ARCADE);
+        this.dust.anchor.setTo(0.5, 0.5); 
+        this.dust.scale.setTo(0.5, 0.35)
+        this.dust.animations.add('move', [0,1,2,3,4,5,6,7,8], 20, true);
+        this.dust.animations.play('move');
+        this.dustSound.play('', 0, 0.06, true);
+        this.ground.add(this.dust);
     },
 
     gameOver: function() {
         this.music.stop();
+        this.dustSound.stop();
         this.endGame.play();
         this.state.start('GameOver');
     },
@@ -521,6 +569,7 @@ BattleSea.Game.prototype = {
                     }
                     if (this.player.y >= (this.borderDown)){
                         this.player.y = this.borderDown;
+                        this.damageDust();
                     }
                     if (this.player.y <= 220) {
                         this.player.y = 220;
@@ -536,6 +585,7 @@ BattleSea.Game.prototype = {
                     }
                     if (this.player.y >= (this.borderDown)){
                         this.player.y = this.borderDown;
+                        this.damageDust();
                     }
                     if (this.player.y <= this.borderUp){
                         this.player.y = this.borderUp;
@@ -552,12 +602,34 @@ BattleSea.Game.prototype = {
             if (this.player.x >= (this.game.width - this.player.width/2)){
                 this.player.x = this.game.width - this.player.width/2;
             }
-            if (this.player.y >= (this.borderDown)){
+            if (this.player.y >= this.borderDown){
                 this.player.y = this.borderDown;
+                this.damageDust();
             }
             if (this.player.y <= this.borderUp){
                 this.player.y = this.borderUp;
             }
+        }
+
+        if (this.player.y >= this.borderDown && this.game.global.dustActive === 0) {
+            this.generateDust(this.player.x - this.player.width);
+
+            // console.log(this.dust);
+        }
+
+        if (this.player.y < this.borderDown) {
+
+            if (typeof this.dust !== 'undefined') {
+                this.game.global.dustActive = 0;
+                this.dust.visible = false;
+                this.dustSound.stop();
+                // console.log(this.dust);                
+            }
+        }
+
+        if (typeof this.dust !== 'undefined') {
+            this.dust.x = this.player.x - this.player.width;
+
         }
 
 
@@ -766,7 +838,9 @@ BattleSea.Game.prototype = {
         if (typeof this.ship !== "undefined") {
 
            
-            if ( (Math.round(this.ship.x) >= (Math.round(this.game.width/2)-5)) && (Math.round(this.ship.x) < (Math.round(this.game.width/2)+5)) && (this.game.global.countAddHealth === 0) ) {
+            if ( (Math.round(this.ship.x) >= (Math.round(this.game.width/2)-5)) && 
+                 (Math.round(this.ship.x) < (Math.round(this.game.width/2)+5))  && 
+                 (this.game.global.countAddHealth === 0) ) {
 
                 this.generateAddHealth();
             }

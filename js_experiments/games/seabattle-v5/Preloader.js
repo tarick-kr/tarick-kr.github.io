@@ -35,6 +35,7 @@ BattleSea.Preloader.prototype = {
         this.load.spritesheet('boomBoom', 'images/boom222x222.png', 222, 222, 5);
         this.load.spritesheet('clockTopBar', 'images/clockTopBar.png', 100, 100, 10);
         this.load.spritesheet('myShip', 'images/myShip560x190.png', 560, 190, 9);
+        this.load.spritesheet('submarineDust', 'images/largeSubmarineDustSprite.png', 300, 200, 9);
         this.load.image('green-bar', 'images/healthBarGreen.png');
         this.load.image('red-bar', 'images/healthBarRed.png');
         this.load.image('moneyBox', 'images/moneyBox.png');
@@ -47,6 +48,7 @@ BattleSea.Preloader.prototype = {
         this.load.audio('game_audio', ['audio/bgm.mp3', 'audio/bgm.ogg']);
         this.load.audio('select_audio', 'audio/select.mp3');
         this.load.audio('start_audio', ['audio/start.mp3', 'audio/start.ogg']);
+        this.load.audio('dust_audio', ['audio/dust.wav']);
         // this.load.audio('timerBoom_audio', 'audio/timerboom.flac');
 	},
 
