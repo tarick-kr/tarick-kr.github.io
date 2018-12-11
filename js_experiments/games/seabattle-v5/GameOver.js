@@ -98,17 +98,17 @@ BattleSea.GameOver.prototype = {
         gameOverPrompt1.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2); 
         this.gameOverWindow.add(gameOverPrompt1);
 
-        gameOverEnemySub = this.add.image(this.world.centerX - 90, this.world.centerY - 50, 'mySubTopBar');
+        gameOverEnemySub = this.add.image(this.world.centerX - 100, this.world.centerY - 50, 'enemySubTopBar');
+        gameOverEnemySub.scale.setTo(0.7, 0.7);
         gameOverEnemySub.anchor.setTo(0.5, 0.5);
-        gameOverEnemySub.scale.setTo(-1, 1);
-        gameOverTotalKilledEnemies = this.add.text(this.world.centerX - 50, this.world.centerY - 70, ' x ' + this.game.global.totalKilledEnemies, this.style2);
+        gameOverTotalKilledEnemies = this.add.text(this.world.centerX - 30, this.world.centerY - 70, ' x ' + this.game.global.totalKilledEnemies, this.style2);
         gameOverTotalKilledEnemies.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
         this.gameOverWindow.add(gameOverEnemySub);
         this.gameOverWindow.add(gameOverTotalKilledEnemies);
 
-        gameOverMoney = this.add.image(this.world.centerX - 90, this.world.centerY + 40, 'money');
+        gameOverMoney = this.add.image(this.world.centerX - 100, this.world.centerY + 40, 'money');
         gameOverMoney.anchor.setTo(0.5, 0.5);
-        gameOverTotalMoney = this.add.text(this.world.centerX - 50, this.world.centerY + 20, ' x ' + this.game.global.totalMoney, this.style2);
+        gameOverTotalMoney = this.add.text(this.world.centerX - 30, this.world.centerY + 20, ' x ' + this.game.global.totalMoney, this.style2);
         gameOverTotalMoney.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2); 
         this.gameOverWindow.add(gameOverMoney);
         this.gameOverWindow.add(gameOverTotalMoney);
@@ -136,11 +136,11 @@ BattleSea.GameOver.prototype = {
         this.enemy = this.add.sprite(xPos, yPos, 'enemySub');
         this.physics.enable(this.enemy, Phaser.Physics.ARCADE);
         this.enemy.anchor.setTo(0.5, 0.5);
-        // this.enemy.scale.setTo(-0.25, 0.25); 
-        this.enemy.body.bounce.set(0.1, 0.7);
-        this.enemy.animations.add('move', [0,1,2,3,4,5,6,7,8], 60, true);
+        // this.enemy.animations.add('move', [0,1,2,3,4,5,6,7,8], 60, true);
+        this.enemy.animations.add('move', [0,1,2,3], 10, true);
         this.enemy.animations.play('move');
-        this.enemy.body.setSize(140, 76, -5, 14);
+        this.enemy.scale.setTo(0.7, 0.7);
+        this.enemy.body.setSize(280, 78, -20, 6);
         this.enemy.enableBody = true;
         this.enemy.body.velocity.x = this.rnd.integerInRange(-400, -150);
         this.enemies.push(this.enemy);

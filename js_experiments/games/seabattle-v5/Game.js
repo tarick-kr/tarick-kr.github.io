@@ -219,10 +219,10 @@ BattleSea.Game.prototype = {
         this.countMoney.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2); 
 
         // Отрисовка кол-ва уничтоженных противников
-        this.countKilledEntmies = this.add.text(this.world.width - 190, 25, '' + this.game.global.totalKilledEnemies + ' x', this.style);            
+        this.countKilledEntmies = this.add.text(this.world.width - 240, 25, '' + this.game.global.totalKilledEnemies + ' x', this.style);            
         this.countKilledEntmies.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);   
-        enemySubTopBar = this.add.image(this.world.width - 20, 10, 'mySubTopBar');
-        enemySubTopBar.scale.setTo(-1, 1);
+        enemySubTopBar = this.add.image(this.world.width - 148, 13, 'enemySubTopBar');
+        enemySubTopBar.scale.setTo(0.7, 0.7);
     },
 
     buildPlayer: function() {
@@ -303,9 +303,10 @@ BattleSea.Game.prototype = {
         this.enemy = this.add.sprite(xPos, yPos, 'enemySub');
         this.physics.enable(this.enemy, Phaser.Physics.ARCADE);
         this.enemy.anchor.setTo(0.5, 0.5);
-        this.enemy.animations.add('move', [0,1,2,3,4,5,6,7,8], 60, true);
+        this.enemy.animations.add('move', [0,1,2,3], 10, true);
         this.enemy.animations.play('move');
-        this.enemy.body.setSize(140, 76, -5, 14);
+        this.enemy.scale.setTo(0.7, 0.7);
+        this.enemy.body.setSize(280, 78, -20, 6);
         this.enemy.enableBody = true;
         this.enemy.body.velocity.x = this.rnd.integerInRange(-400, -150);
         this.enemies.push(this.enemy);
@@ -553,11 +554,11 @@ BattleSea.Game.prototype = {
         this.game.global.totalKilledEnemies ++;
 
         if (this.game.global.totalKilledEnemies < 10) {
-            this.countKilledEntmies.position.setTo(this.world.width - 190, 25);
+            this.countKilledEntmies.position.setTo(this.world.width - 240, 25);
             this.countKilledEntmies.setText('' + this.game.global.totalKilledEnemies + ' x');            
         }
         else {
-            this.countKilledEntmies.position.setTo(this.world.width - 225, 25);
+            this.countKilledEntmies.position.setTo(this.world.width - 268, 25);
             this.countKilledEntmies.setText('' + this.game.global.totalKilledEnemies + ' x');
         }
     },
@@ -963,13 +964,17 @@ BattleSea.Game.prototype = {
 
     render: function() {
 
+
+        // for (var i = 0; i < this.enemies.length; ++i) {
+        //     this.game.debug.body(this.enemies[i], 'rgba(0,255,0,0.4)', false);
+        // }
+
         // this.game.debug.spriteInfo(this.player, 50, 400);
         // this.game.debug.spriteInfo(this.ship, 50, 400);
         // this.game.debug.body(this.player);
         // if (typeof this.ship !== "undefined") {
         //     this.game.debug.body(this.ship);
         // }
-        // this.game.debug.body(this.enemy, 'rgba(0,255,0,0.4)', false);
         // this.game.debug.soundInfo(this.music, 50, 200);
         // this.game.debug.spriteInfo('Sprite z-depth: ' + this.monBox, 200, 200);
 
