@@ -40,12 +40,14 @@
 
             var game = new Phaser.Game(1920, 1080, Phaser.AUTO, 'gameContainer');
 
+            // ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ( доступные по вызову this.game.global.......)
+
             game.global = {
-                totalKilledEnemies : 0,
-                totalMoney : 0,
-                countShip : 0,
-                countAddHealth : 0,
-                dustActive : 0
+                totalKilledEnemies : 0, // кол-во уничтоженных противников
+                totalMoney : 0,         // кол-во денег
+                shipActive : 0,         // флаг наличия корабля (своего)
+                addHealthActive : 0,    // флаг наличия объекта добавляющего жизнь
+                dustActive : 0          // флаг наличия пыли (при косании дна)
             }
 
             game.state.add('Boot', BattleSea.Boot);
