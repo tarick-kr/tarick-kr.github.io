@@ -11,7 +11,8 @@ BattleSea.Game = function(game) {
     this.boom;
     this.ding;
     this.shoot;
-    this.dustSound
+    this.dustSound;
+    this.pikBoom;
 
     // Фон игры
     this.bg;
@@ -104,6 +105,14 @@ BattleSea.Game = function(game) {
     this.ship;
     this.myShips; // массив своих кораблей
 
+
+    this.enemyShip;
+    this.enemiesShips;
+    this.xPosGenerateBomb;
+
+    this.bomb;
+    this.bombs;
+
     //============================================
 
 };
@@ -131,9 +140,10 @@ BattleSea.Game.prototype = {
         this.enemiesByDistanceX = [];
 
         this.myShips = [];
-
+        this.enemiesShips = [];
         this.moneyBoxes = [];
         this.addHealths = [];
+        this.bombs = [];
 
         this.music = this.add.audio('game_audio');
         this.music.play('', 0, 0.06, true);
@@ -142,6 +152,7 @@ BattleSea.Game.prototype = {
         this.ding = this.add.audio('select_audio');
         this.shoot = this.add.audio('shoot_audio');
         this.dustSound = this.add.audio('dust_audio');
+        this.pikBoom = this.add.audio('timerBoom_audio');
 
         // Создане 'кнопок' для управления игроком
 
@@ -181,6 +192,9 @@ BattleSea.Game.prototype = {
 
         // Создание игока
         this.buildPlayer();
+
+        // Функция запускающая процесс создания корблей противник
+        this.buildEnemyShips();        
 
         // Функция запускающая процесс создания противников
         this.buildEnemies();
@@ -241,18 +255,34 @@ BattleSea.Game.prototype = {
 
     generateMyShip: function() {
 
+        console.log("функция generateMyShip запущена");
+
+        console.log(this.game.global.enemyShipActive);    
+
         // Создание корабля
 
-        this.ship = this.add.sprite(-360, 110, 'myShip');
-        this.physics.enable(this.ship, Phaser.Physics.ARCADE);
-        this.ship.anchor.setTo(0.5, 0.5); 
-        this.ship.scale.setTo(0.6, 0.6);
-        this.ship.animations.add('move', [0,1,2,3,4,5,6,7,8], 10, true);
-        this.ship.animations.play('move');
-        this.ship.body.velocity.x = 100;
-        this.myShips.push(this.ship);
-        this.ship.checkWorldBounds = true;
-        this.ship.events.onOutOfBounds.add(this.resetMyShip, this);
+        if(this.game.global.enemyShipActive === 0){
+            this.game.global.shipActive ++;
+            // console.log(this.game.global.shipActive);
+            this.ship = this.add.sprite(-360, 110, 'myShip');
+            this.physics.enable(this.ship, Phaser.Physics.ARCADE);
+            this.ship.anchor.setTo(0.5, 0.5); 
+            this.ship.scale.setTo(0.6, 0.6);
+            this.ship.animations.add('move', [0,1,2,3,4,5,6,7,8], 10, true);
+            this.ship.animations.play('move');
+            this.ship.body.velocity.x = 100;
+            this.myShips.push(this.ship);
+            this.ship.checkWorldBounds = true;
+            this.ship.events.onOutOfBounds.add(this.resetMyShip, this);
+        }else{
+            this.pauseGenerateMyShip();
+        }
+    },
+
+    pauseGenerateMyShip: function() {
+        console.log("функция pauseGenerateMyShip запущена")
+        this.game.global.shipActive ++;
+        this.game.time.events.add(Phaser.Timer.SECOND * 10, this.generateMyShip, this);
     },
 
     resetMyShip: function(ship) {
@@ -272,6 +302,7 @@ BattleSea.Game.prototype = {
         // Обнуление флага наличия корабля в игре
 
         this.game.global.shipActive = 0;
+        console.log("updateshipActive " + this.game.global.shipActive);
     },
 
     buildEnemies: function() {
@@ -292,7 +323,7 @@ BattleSea.Game.prototype = {
         this.totalEnemies ++;
 
         // Координа по оси Y зависит от наличия корабля в игре
-        if (this.myShips.length !== 0) {
+        if (this.game.global.shipActive !== 0) {
             var xPos = this.world.width + 200;
             var yPos = this.game.rnd.integerInRange(this.borderTop+55, this.borderBottom);
         }else{
@@ -324,7 +355,7 @@ BattleSea.Game.prototype = {
         // Уничтожение противника при выходе за границы мира
 
         for (var i = 0; i < this.enemies.length; ++i) {
-            if(this.enemies[i].x - this.enemy.width < 0) {
+            if(this.enemies[i].x - this.enemy.width < -300) {
                 this.enemies[i].kill();   
             }
         }
@@ -419,7 +450,189 @@ BattleSea.Game.prototype = {
                 this.moneyBoxes[i].kill();   
             }
         }
-    },  
+    }, 
+
+    buildEnemyShips: function() {
+
+        // Функция запускающая процесс создания кораблей противника
+
+        if(this.gameover == false){
+            var timer = this.game.time.create(false);
+            // timer.loop(this.rnd.integerInRange(20000, 30000), this.generateEnemyShips, this);
+            timer.loop(this.rnd.integerInRange(40000, 60000), this.generateEnemyShips, this);
+            timer.start();
+        } 
+    },
+
+    generateEnemyShips: function() {
+
+        // Создание корабля противника
+
+        console.log("функция generateEnemyShips запущена");
+        console.log(this.game.global.shipActive);
+
+        if (this.game.global.shipActive === 0) {
+            this.game.global.enemyShipActive ++;
+            this.enemyShip = this.add.sprite(this.world.width + 360, 110, 'enemyShip');
+            this.physics.enable(this.enemyShip, Phaser.Physics.ARCADE);
+            this.enemyShip.animations.add('move', [0,1,2,3,4,5,6,7,8], 10, true);
+            this.enemyShip.animations.play('move');
+            this.enemyShip.anchor.setTo(0.5, 0.5);
+            this.enemyShip.scale.setTo(0.6, 0.6);
+            this.enemyShip.enableBody = true;
+            this.enemyShip.body.velocity.x = -200;
+            this.enemiesShips.push(this.enemyShip);
+            this.enemyShip.checkWorldBounds = true;
+            this.enemyShip.events.onOutOfBounds.add(this.resetEnemyShip, this);
+            this.xPosGenerateBomb = this.game.rnd.integerInRange(300, this.world.width-200);
+        }else{
+            this.pauseGenerateEnemyShip();
+        }
+
+    },
+
+    pauseGenerateEnemyShip: function() {
+        console.log("функция pauseGenerateEnemyShip запущена")
+        this.game.global.enemyShipActive ++;
+        this.game.time.events.add(Phaser.Timer.SECOND * 10, this.generateEnemyShips, this);
+    },
+
+    resetEnemyShip: function(enemyShip) {
+
+        // Уничтожение корабля противника при выходе за границы мира
+
+        for (var i = 0; i < this.enemiesShips.length; ++i) {
+            if(this.enemiesShips[i].x - this.enemyShip.width/2 < 0) {
+                this.enemiesShips.length = 0;  
+                this.updateEnemyShipActive();
+            }
+        }
+    },
+
+    updateEnemyShipActive: function() {
+        this.game.global.enemyShipActive = 0;
+    },
+
+    generateBomb: function() {
+
+        // Создание глубинной бомбы
+
+        this.game.global.bombActive ++;
+        this.game.global.bombActivated = 0;
+
+        this.bomb = this.add.sprite(this.enemyShip.x, this.enemyShip.y, 'bomb');
+        this.physics.arcade.enable(this.bomb);
+        this.bomb.anchor.setTo(0.5, 0.5);
+        this.bomb.scale.setTo(0.8, 0.8);
+        this.bomb.enableBody = true;
+        this.bomb.body.velocity.y = 90;
+        this.bomb.body.velocity.x = -30;
+        this.bombs.push(this.bomb);
+        this.bomb.checkWorldBounds = true;
+        this.bomb.events.onOutOfBounds.add(this.resetBomb, this);
+        this.timerBomb();
+    },
+
+    timerBomb: function() {
+
+        // Создание таймера бомбы (отображающегося в игре)
+
+        this.countBomb = this.game.rnd.integerInRange(2, 8);
+        this.bombTimer = this.time.create(false);
+        this.bombTimer.loop(1000, this.updateCountBomb, this);
+        this.bombTimer.start();
+        this.style = { font: "25px Minnie", fill: "#ffffff" };
+        this.counterBomb = this.add.text(this.bomb.x, this.bomb.y, '' + this.countBomb, this.style);
+        this.counterBomb.anchor.setTo(0.5, 0.5);
+        this.pikBoom.play('', 0, 0.08, false);
+    },
+
+    updateCountBomb: function() {
+
+        // Обновление секунд в таймере бомбы
+
+        this.countBomb--;
+        this.counterBomb.setText('' + this.countBomb);
+    },
+
+    resizeBomb: function() {
+
+        // Изменение размера бомбы
+
+        var timer1 = this.game.time.create(false);
+        timer1.add(150, this.explosionBomb, this);
+        timer1.start();
+
+        var timer2 = this.game.time.create(false);
+        timer2.add(80, this.killAll, this);
+        timer2.start();
+
+        var timer3 = this.game.time.create(false);
+        timer3.add(100, this.killBomb, this);
+        timer3.start();
+
+        for (var i = 0; i < this.bombs.length; i++) {
+            this.bombs[i].anchor.setTo(0.5, 0.5);
+            this.bombs[i].body.setSize(450, 450, 0, 0);
+        }
+    },
+
+    killAll: function() {
+
+        // Уничтожение всего, что попало в поле действия бомбы
+
+        for (var i = 0; i < this.enemies.length; ++i) {
+            for (var j = 0; j < this.bombs.length; ++j) {
+                if(this.physics.arcade.overlap(this.bombs[j], this.enemies[i], null, null, this)) {
+
+                    this.enemies[i].kill();
+                    this.explosion(this.enemies[i].x, this.enemies[i].y);
+                    this.bombs[j].kill();
+                }
+            }
+        }
+
+        for (var i = 0; i < this.bombs.length; ++i) {
+            if(this.physics.arcade.overlap(this.bombs[i], this.player, null, null, this)) {
+                this.damage(50);
+                this.bombs[i].kill();
+            }
+        }
+    },
+
+    killBomb: function() {
+
+        // Уничтожение бомбы
+
+        for (var i = 0; i < this.bombs.length; ++i) {
+
+            this.bombs[i].kill();
+        }
+    },
+
+    explosionBomb: function() {
+
+        // Создание взрыва бомбы
+
+        this.explosion(this.counterBomb.x, this.counterBomb.y);
+        this.game.global.bombActivated ++;
+        this.game.global.bombActive = 0;
+        this.counterBomb.destroy();
+        this.pikBoom.stop();
+        this.bombTimer.stop();
+    },
+
+    resetBomb: function(bomb) {
+
+        // Уничтожение глубинной бомбы при выходе за границы мира
+
+        for (var i = 0; i < this.bombs.length; ++i) {
+            if(this.bombs[i].x - this.bomb.width/2 < 0) {
+                this.game.global.bombActive = 0;
+                this.bombs[i].kill();   
+            }
+        }
+    },
 
     takeMoney: function(s) {
 
@@ -480,6 +693,10 @@ BattleSea.Game.prototype = {
         this.boomBoom.scale.setTo(0.8, 0.8);
         this.boomBoom.animations.add('move');
         this.boomBoom.animations.play('move', [0,1,2,3,2,1,0], 10, true);
+
+        var timer = this.game.time.create(false);
+        timer.add(100, this.killExplosion, this);
+        timer.start();
     },
 
     killExplosion: function() {
@@ -489,24 +706,20 @@ BattleSea.Game.prototype = {
         this.boomBoom.kill();
     },
 
-    damage: function() {
+    damage: function(a) {
 
-        // Уменьшение жизни игрока при столкновении с торпедой или противником
+        // Уменьшение жизни игрока при столкновении с торпедой, противником или бомбой
 
-        this.player.damage(20);
+        this.player.damage(a);
 
         this.healthBar.scale.setTo(0.4 * this.player.health / this.player.maxHealth, 0.3);
         if (this.player.alive == false){
 
             this.explosion(this.player.x, this.player.y);
 
-            var timer1 = this.game.time.create(false);
-            timer1.add(100, this.killExplosion, this);
-            timer1.start();
-
-            var timer2 = this.game.time.create(false);
-            timer2.add(400, this.gameOver, this);
-            timer2.start();
+            var timer = this.game.time.create(false);
+            timer.add(400, this.gameOver, this);
+            timer.start();
         }
     },
 
@@ -523,13 +736,9 @@ BattleSea.Game.prototype = {
             this.dust.visible = false;
             this.explosion(this.player.x, this.player.y);
 
-            var timer1 = this.game.time.create(false);
-            timer1.add(100, this.killExplosion, this);
-            timer1.start();
-
-            var timer2 = this.game.time.create(false);
-            timer2.add(400, this.gameOver, this);
-            timer2.start();
+            var timer = this.game.time.create(false);
+            timer.add(400, this.gameOver, this);
+            timer.start();
             
         }
     },
@@ -623,7 +832,7 @@ BattleSea.Game.prototype = {
         this.endGame.play();
         this.state.start('GameOver');
     },
- 
+
     update: function() {
 
         // Прокрутка заднего фона
@@ -793,6 +1002,17 @@ BattleSea.Game.prototype = {
             }
         }
 
+        // Противника с бомбой
+
+        for (var i = 0; i < this.enemies.length; ++i) {
+            for (var j = 0; j < this.bombs.length; ++j) {
+                if(this.physics.arcade.overlap(this.bombs[j], this.enemies[i], null, null, this)) {
+                    
+                    this.resizeBomb();
+                }
+            }
+        }
+
         // Противника с игроком
 
         for (var i = 0; i < this.enemies.length; ++i) {
@@ -800,7 +1020,7 @@ BattleSea.Game.prototype = {
                 this.updateTotalKilledEnemies();
                 this.enemies[i].kill();
                 this.explosion(this.enemies[i].x, this.enemies[i].y);
-                this.damage();
+                this.damage(20);
                 this.takeMoney(10);
 
             }
@@ -812,7 +1032,16 @@ BattleSea.Game.prototype = {
             if(this.physics.arcade.overlap(this.enemiesTorpeds[i], this.player, null, null, this)) {
                 this.enemiesTorpeds[i].kill();
                 this.explosion(this.enemiesTorpeds[i].x-50, this.enemiesTorpeds[i].y);
-                this.damage();
+                this.damage(20);
+            }
+        }
+
+        // Игрока с бомбой
+
+        for (var i = 0; i < this.bombs.length; ++i) {
+            if(this.physics.arcade.overlap(this.bombs[i], this.player, null, null, this)) {
+                
+                this.resizeBomb();
             }
         }
 
@@ -836,6 +1065,7 @@ BattleSea.Game.prototype = {
             }
         }
 
+        // =====================================================================================================
 
         // Определяем противников, которые могут между собой столкнуться и выбираем для них направление движения
 
@@ -924,17 +1154,18 @@ BattleSea.Game.prototype = {
         }
 
 
-        // После создания 20 противников запускать функцию создания корабля
+        // После уничтожения 10 противников запускать функцию создания корабля
 
         if(this.gameover == false){
 
-            if(((this.game.global.totalKilledEnemies+1) % 20 == 0) && this.game.global.shipActive === 0){
+            if(((this.game.global.totalKilledEnemies+1) % 11 == 0) && (this.game.global.shipActive === 0)){
                 this.generateMyShip();
-                this.game.global.shipActive ++;
+                
+                // console.log(this.game.global.shipActive);
             }
         }
 
-        // При существовании корабля когда он на середине ширины мира запустить функцию сздания объекта добавляющего жизнь
+        // При существовании корабля когда он на середине ширины мира запустить функцию создания объекта добавляющего жизнь
 
         if (typeof this.ship !== "undefined") {
 
@@ -960,6 +1191,53 @@ BattleSea.Game.prototype = {
             }
         }
 
+
+        // Запуск функции генерации глубинной бомбы
+
+        if (this.game.global.enemyShipActive !== 0) {
+        // if (typeof this.enemiesShips.length !== 0) {
+
+            for (var i = 0; i < this.enemiesShips.length; i++) {
+
+                if ( ((Math.round(this.enemiesShips[i].x) == this.xPosGenerateBomb)     || 
+                      (Math.round(this.enemiesShips[i].x) == this.xPosGenerateBomb + 1) ||
+                      (Math.round(this.enemiesShips[i].x) == this.xPosGenerateBomb + 2) ||
+                      (Math.round(this.enemiesShips[i].x) == this.xPosGenerateBomb + 3) ||
+                      (Math.round(this.enemiesShips[i].x) == this.xPosGenerateBomb + 4) ||
+                      (Math.round(this.enemiesShips[i].x) == this.xPosGenerateBomb + 5)) && 
+                      this.game.global.bombActive === 0 ) {
+
+                      this.generateBomb();
+                }
+            }
+        }       
+
+        // Перемещение глубинной бомбы
+
+        if (this.game.global.bombActive !== 0) {
+
+            for (var i = 0; i < this.bombs.length; i++) {
+                this.counterBomb.x = this.bombs[i].x;
+                this.counterBomb.y = this.bombs[i].y;
+
+                // Перемещение глубинной бомбы при косании дна
+
+                if (this.bombs[i].body.y >= this.borderBottom) {
+                    this.bombs[i].body.y = this.borderBottom;
+                    this.bombs[i].body.velocity.x = -150;
+                }
+
+                if (this.bombs[i].body.y >= this.borderBottom-100) {
+                    this.ground.add(this.bombs[i]);                
+                }
+            }
+        }
+
+        // Условие самопроизвольного запуска взрыва бомбы
+
+        if ( this.countBomb == 0 && this.game.global.bombActivated == 0) {
+            this.resizeBomb();
+        }
     },
 
     render: function() {
@@ -972,9 +1250,17 @@ BattleSea.Game.prototype = {
         // this.game.debug.spriteInfo(this.player, 50, 400);
         // this.game.debug.spriteInfo(this.ship, 50, 400);
         // this.game.debug.body(this.player);
+        
         // if (typeof this.ship !== "undefined") {
         //     this.game.debug.body(this.ship);
         // }
+
+        // if (this.bombs.length !== 0) {
+        //     for (var i = 0; i < this.bombs.length; i++) {
+        //         this.game.debug.body(this.bombs[i]);
+        //     }
+        // }
+
         // this.game.debug.soundInfo(this.music, 50, 200);
         // this.game.debug.spriteInfo('Sprite z-depth: ' + this.monBox, 200, 200);
 

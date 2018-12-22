@@ -16,7 +16,7 @@ BattleSea.StartMenu.prototype = {
 	
 	create: function () {
         this.startMenu = true;
-        this.startMusic = this.add.audio('start_audio', 0.05, true);
+        this.startMusic = this.add.audio('start_audio', 0.06, true);
 
         this.ding = this.add.audio('select_audio', 0.05, false);
         
