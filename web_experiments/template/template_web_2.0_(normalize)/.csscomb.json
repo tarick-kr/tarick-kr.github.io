@@ -21,5 +21,5 @@
   "strip-spaces": true,
   "tab-size": true,
   "unitless-zero": true,
-  "vendor-prefix-align": true
+  "vendor-prefix-align": true 
 }

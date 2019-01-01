@@ -7,4 +7,5 @@ module.exports = function () {
         $.gulp.watch('./dev/static/images/svg/*.svg', $.gulp.series('svg'));
         $.gulp.watch('./dev/static/js/**/*.js', $.gulp.series('js:dev'));
     });
+    
 };
