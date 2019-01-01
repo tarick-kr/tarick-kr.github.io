@@ -1,0 +1,19 @@
+@import "utils/libs";
+@import "utils/vars";
+@import "utils/mixins";
+@import "utils/fonts";
+
+
+/*  custom  */
+html {
+  font-size: $base-font-size;
+}
+
+body {
+  background-color: $gray;
+}
+
+
+
+//Модули
+@import "modules/modules";
