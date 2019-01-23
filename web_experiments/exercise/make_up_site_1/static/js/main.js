@@ -16,7 +16,7 @@ $(document).ready(function () {
 			update: true
 		},
 		navbar: {
-			title: "<a class='header-logo--m-menu' href='#'><div class='logo-img--m-menu'><img src='/static/images/general/logo.png'></div><span class='logo-title--m-menu'>OENRIQUE</span><span class='logo-subtitle--m-menu'>UX/UI EXPERT</span></a>"
+			title: "<a class='header-logo--m-menu' href='#'><div class='logo-img--m-menu'><img src='static/images/general/logo.png'></div><span class='logo-title--m-menu'>OENRIQUE</span><span class='logo-subtitle--m-menu'>UX/UI EXPERT</span></a>"
 		}
 	});
 
