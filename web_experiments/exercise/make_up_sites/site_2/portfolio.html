@@ -5,102 +5,122 @@
     <title>Наши работы</title><!--[if IE]>
     <meta http-equiv="X-UA-Compatible" content="IE = edge"><![endif]-->
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="width">
+    <meta content="yes" name="apple-mobile-web-app-capable">
     <meta name="keywords" content="">
     <link rel="stylesheet" type="text/css" href="static/css/styles.min.css"><!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script><![endif]-->
   </head>
   <body class="page">
-    <header class="header">
-      <div class="container">
-        <div class="wrapper-header">
-          <div class="wrapper-header__left">
-            <div class="header-logo"><a class="header-logo__link" href="index.html"><img class="header-logo__img" src="static/images/general/logo.png" alt="логотип"></a></div>
+    <div id="my-page">
+      <div id="my-header">
+        <header class="header">
+          <div class="container">
+            <div class="wrapper-header">
+              <div class="wrapper-header__left">
+                <div class="header-logo"><a class="header-logo__link" href="index.html"><img class="header-logo__img" src="static/images/general/logo.png" alt="логотип"></a></div>
+              </div>
+              <div class="wrapper-header__right">
+                <nav class="header-menu">
+                  <ul class="header-menu__list">
+                    <li class="header-menu__item"><a class="header-menu__link" href="index.html">home</a></li>
+                    <li class="header-menu__item"><a class="header-menu__link" href="about.html">about</a></li>
+                    <li class="header-menu__item"><a class="header-menu__link" href="portfolio.html">portfolio</a></li>
+                    <li class="header-menu__item"><a class="header-menu__link" href="blog.html">blog</a></li>
+                    <li class="header-menu__item"><a class="header-menu__link" href="contacts.html">contact</a></li>
+                  </ul>
+                </nav>
+                <form class="header-form-search">
+                  <input class="form-search__text" placeholder="search" type="search" name="">
+                  <button class="form-search__btn" type="submit">
+                    <svg class="svg-sprite-icon icon-search-icon">
+                      <use xlink:href="static/images/svg/symbol/sprite.svg#search-icon"></use>
+                    </svg>
+                  </button>
+                </form><a class="hamburger hamburger--spring" href="#my-menu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></a>
+                <nav class="header-menu--mobile" id="my-menu" data="mmenu">
+                  <ul class="header-menu__list--mobile">
+                    <li class="header-menu__item"><a class="header-menu__link" href="index.html">home</a></li>
+                    <li class="header-menu__item"><a class="header-menu__link" href="about.html">about</a></li>
+                    <li class="header-menu__item"><a class="header-menu__link" href="portfolio.html">portfolio</a></li>
+                    <li class="header-menu__item"><a class="header-menu__link" href="blog.html">blog</a></li>
+                    <li class="header-menu__item"><a class="header-menu__link" href="contacts.html">contact</a></li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
           </div>
-          <div class="wrapper-header__right">
-            <nav class="header-menu">
-              <ul class="header-menu__list">
-                <li class="header-menu__item"><a class="header-menu__link" href="index.html">home</a></li>
-                <li class="header-menu__item"><a class="header-menu__link" href="about.html">about</a></li>
-                <li class="header-menu__item"><a class="header-menu__link" href="portfolio.html">portfolio</a></li>
-                <li class="header-menu__item"><a class="header-menu__link" href="blog.html">blog</a></li>
-                <li class="header-menu__item"><a class="header-menu__link" href="contacts.html">contact</a></li>
+        </header>
+      </div>
+      <div id="my-content">
+        <section class="s-top-banner__bg" style="background-image:url('static/images/general/portfolio/top-bg__portfolio.jpg')">
+          <div class="container">
+            <div class="top-banner__info">
+              <h1 class="top-banner__title">Latest projects</h1><span class="top-banner__subtitle">We deliver quality</span>
+            </div>
+          </div>
+        </section>
+        <section class="s-portfolio">
+          <div class="container">
+            <nav class="filter">
+              <ul class="filter__list">
+                <li class="filter__item filter__item--active"><a class="filter__link" href="javascript:void(0)">All</a></li>
+                <li class="filter__item"><a class="filter__link" href="javascript:void(0)">Logo</a></li>
+                <li class="filter__item"><a class="filter__link" href="javascript:void(0)">Mobile app</a></li>
+                <li class="filter__item"><a class="filter__link" href="javascript:void(0)">Wordpress</a></li>
+                <li class="filter__item"><a class="filter__link" href="javascript:void(0)">Web Design</a></li>
+                <li class="filter__item"><a class="filter__link" href="javascript:void(0)">UI/IX</a></li>
+                <li class="filter__item"><a class="filter__link" href="javascript:void(0)">Branding</a></li>
               </ul>
             </nav>
-            <form class="header-form-search">
-              <input class="form-search__text" placeholder="search" type="search" name="">
-              <button class="form-search__btn" type="submit">
-                <svg class="svg-sprite-icon icon-search-icon">
-                  <use xlink:href="static/images/svg/symbol/sprite.svg#search-icon"></use>
-                </svg>
-              </button>
-            </form>
+            <div class="portfolio__prev"><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-1.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-2.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-3.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-4.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-5.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-6.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-7.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-8.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-9.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-10.jpg"></a></div>
           </div>
-        </div>
+          <div class="portfolio-btn"><a class="portfolio-btn__link" href="javascript:void(0)">Load More</a></div>
+        </section>
       </div>
-    </header>
-    <section class="s-top-banner__bg" style="background-image:url('static/images/general/portfolio/top-bg__portfolio.jpg')">
-      <div class="container">
-        <div class="top-banner__info">
-          <h1 class="top-banner__title">Latest projects</h1><span class="top-banner__subtitle">We deliver quality</span>
-        </div>
+      <div id="my-footer">
+        <footer class="footer">
+          <div class="footer-logo"><a class="footer-logo__link" href="javascript:void(0)"><img class="footer-logo__img" src="static/images/general/logo.png" alt="логотип"></a></div>
+          <div class="social-menu">
+            <ul class="social-menu__list">
+              <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
+                  <svg class="svg-sprite-icon icon-fb-icon social-menu__icon">
+                    <use xlink:href="static/images/svg/symbol/sprite.svg#fb-icon"></use>
+                  </svg></a></li>
+              <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
+                  <svg class="svg-sprite-icon icon-g-plus-icon social-menu__icon">
+                    <use xlink:href="static/images/svg/symbol/sprite.svg#g-plus-icon"></use>
+                  </svg></a></li>
+              <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
+                  <svg class="svg-sprite-icon icon-tw-icon social-menu__icon">
+                    <use xlink:href="static/images/svg/symbol/sprite.svg#tw-icon"></use>
+                  </svg></a></li>
+              <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
+                  <svg class="svg-sprite-icon icon-lin-icon social-menu__icon">
+                    <use xlink:href="static/images/svg/symbol/sprite.svg#lin-icon"></use>
+                  </svg></a></li>
+              <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
+                  <svg class="svg-sprite-icon icon-drib-icon social-menu__icon">
+                    <use xlink:href="static/images/svg/symbol/sprite.svg#drib-icon"></use>
+                  </svg></a></li>
+              <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
+                  <svg class="svg-sprite-icon icon-pint-icon social-menu__icon">
+                    <use xlink:href="static/images/svg/symbol/sprite.svg#pint-icon"></use>
+                  </svg></a></li>
+              <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
+                  <svg class="svg-sprite-icon icon-insta-icon social-menu__icon">
+                    <use xlink:href="static/images/svg/symbol/sprite.svg#insta-icon"></use>
+                  </svg></a></li>
+            </ul>
+          </div>
+          <div class="footer-info"><span class="copyright">
+              <svg class="svg-sprite-icon icon-copyright-icon">
+                <use xlink:href="static/images/svg/symbol/sprite.svg#copyright-icon"></use>
+              </svg></span><span>2019</span><span class="dark-color">Mulitix theme</span><span>by themeforces. All right reserved.</span></div>
+        </footer>
       </div>
-    </section>
-    <section class="s-portfolio">
-      <div class="container">
-        <nav class="filter">
-          <ul class="filter__list">
-            <li class="filter__item filter__item--active"><a class="filter__link" href="javascript:void(0)">All</a></li>
-            <li class="filter__item"><a class="filter__link" href="javascript:void(0)">Logo</a></li>
-            <li class="filter__item"><a class="filter__link" href="javascript:void(0)">Mobile app</a></li>
-            <li class="filter__item"><a class="filter__link" href="javascript:void(0)">Wordpress</a></li>
-            <li class="filter__item"><a class="filter__link" href="javascript:void(0)">Web Design</a></li>
-            <li class="filter__item"><a class="filter__link" href="javascript:void(0)">UI/IX</a></li>
-            <li class="filter__item"><a class="filter__link" href="javascript:void(0)">Branding</a></li>
-          </ul>
-        </nav>
-        <div class="portfolio__prev"><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-1.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-2.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-3.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-4.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-5.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-6.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-7.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-8.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-9.jpg"></a><a class="portfolio__item" href="javascript:void(0)"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-10.jpg"></a></div>
-      </div>
-      <div class="portfolio-btn"><a class="portfolio-btn__link" href="javascript:void(0)">Load More</a></div>
-    </section>
-    <footer class="footer">
-      <div class="footer-logo"><a class="footer-logo__link" href="javascript:void(0)"><img class="footer-logo__img" src="static/images/general/logo.png" alt="логотип"></a></div>
-      <div class="social-menu">
-        <ul class="social-menu__list">
-          <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
-              <svg class="svg-sprite-icon icon-fb-icon social-menu__icon">
-                <use xlink:href="static/images/svg/symbol/sprite.svg#fb-icon"></use>
-              </svg></a></li>
-          <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
-              <svg class="svg-sprite-icon icon-g-plus-icon social-menu__icon">
-                <use xlink:href="static/images/svg/symbol/sprite.svg#g-plus-icon"></use>
-              </svg></a></li>
-          <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
-              <svg class="svg-sprite-icon icon-tw-icon social-menu__icon">
-                <use xlink:href="static/images/svg/symbol/sprite.svg#tw-icon"></use>
-              </svg></a></li>
-          <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
-              <svg class="svg-sprite-icon icon-lin-icon social-menu__icon">
-                <use xlink:href="static/images/svg/symbol/sprite.svg#lin-icon"></use>
-              </svg></a></li>
-          <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
-              <svg class="svg-sprite-icon icon-drib-icon social-menu__icon">
-                <use xlink:href="static/images/svg/symbol/sprite.svg#drib-icon"></use>
-              </svg></a></li>
-          <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
-              <svg class="svg-sprite-icon icon-pint-icon social-menu__icon">
-                <use xlink:href="static/images/svg/symbol/sprite.svg#pint-icon"></use>
-              </svg></a></li>
-          <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
-              <svg class="svg-sprite-icon icon-insta-icon social-menu__icon">
-                <use xlink:href="static/images/svg/symbol/sprite.svg#insta-icon"></use>
-              </svg></a></li>
-        </ul>
-      </div>
-      <div class="footer-info"><span class="copyright">
-          <svg class="svg-sprite-icon icon-copyright-icon">
-            <use xlink:href="static/images/svg/symbol/sprite.svg#copyright-icon"></use>
-          </svg></span><span>2019</span><span class="dark-color">Mulitix theme</span><span>by themeforces. All right reserved.</span></div>
-    </footer>
+    </div>
     <script src="static/js/libs.min.js"></script>
     <script src="static/js/main.min.js"></script>
   </body>
