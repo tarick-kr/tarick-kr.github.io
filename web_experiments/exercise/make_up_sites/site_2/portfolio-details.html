@@ -41,17 +41,13 @@
               <div class="wrapper-header__right">
                 <nav class="header-menu">
                   <ul class="header-menu__list">
-                    <li class="header-menu__item"><a class="header-menu__link" href="index.html">home</a></li>
+                    <li class="header-menu__item"><a class="header-menu__link current" href="index.html">home</a></li>
                     <li class="header-menu__item"><a class="header-menu__link" href="about.html">about</a></li>
                     <li class="header-menu__item"><a class="header-menu__link" href="portfolio.html">portfolio</a></li>
                     <li class="header-menu__item"><a class="header-menu__link" href="blog.html">blog</a></li>
                     <li class="header-menu__item"><a class="header-menu__link" href="contacts.html">contact</a></li>
                   </ul>
-                </nav>
-                <!--form.header-form-search-->
-                <!--  input.form-search__text(placeholder="search" type="search" name="search")-->
-                <!--  button.form-search__btn(type="submit")-->
-                <!--    +icon("search-icon")--><a class="hamburger hamburger--spring" href="#topMenu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></a>
+                </nav><a class="hamburger hamburger--spring" href="#topMenu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></a>
                 <nav class="header-menu--mobile" id="topMenu" data="mmenu">
                   <ul class="header-menu__list--mobile">
                     <li class="header-menu__item"><a class="header-menu__link" href="index.html">home</a></li>
@@ -113,10 +109,14 @@
                 </div>
               </div>
               <div class="portfolio-details__filter"><a class="portfolio__link" href="portfolio.html">
-                  <div class="wrapp"><span class="filter__title">Show all
-                      <svg class="svg-sprite-icon icon-list">
+                  <div class="wrapp"><span class="filter__title filter__title--desktop">Show all
+                      <svg class="svg-sprite-icon icon-list filter__title--desktop">
                         <use xlink:href="static/images/svg/symbol/sprite.svg#list"></use>
-                      </svg></span></div></a></div>
+                      </svg></span>
+                    <svg class="svg-sprite-icon icon-list filter__title--mobile">
+                      <use xlink:href="static/images/svg/symbol/sprite.svg#list"></use>
+                    </svg>
+                  </div></a></div>
             </div>
           </div>
           <div class="container">
@@ -135,7 +135,7 @@
                   </div>
                 </div>
                 <div class="portfolio-details__text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit.</div>
-                <div class="portfolio-details__specialty-wrapp">
+                <div class="portfolio-details__specialty-wrapp portfolio-details__specialty-wrapp--desktop">
                   <div class="portfolio-details__specialty"><span class="title-speciality">Role On Project:</span><span class="description-speciality">Project Designer, Lead Designer, Markerting Head</span></div>
                   <div class="portfolio-details__tags"><span class="title-tags">Tags:</span><span class="description-tags">Minimalism, Light</span></div>
                   <div class="portfolio-details__social">
@@ -197,6 +197,50 @@
                     <div class="gallery-portfolio__img--prev" style="background-image:url('static/images/content/portfolio-details/prev-details-img-4.jpg')"><span class="cursor__cross"></span></div>
                     <div class="gallery-portfolio__img--prev" style="background-image:url('static/images/content/portfolio-details/prev-details-img-5.jpg')"><span class="cursor__cross"></span></div>
                     <div class="gallery-portfolio__img--prev" style="background-image:url('static/images/content/portfolio-details/prev-details-img-6.jpg')"><span class="cursor__cross"></span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="portfolio-details__specialty-wrapp portfolio-details__specialty-wrapp--tablet">
+                <div class="portfolio-details__specialty"><span class="title-speciality">Role On Project:</span><span class="description-speciality">Project Designer, Lead Designer, Markerting Head</span></div>
+                <div class="portfolio-details__tags"><span class="title-tags">Tags:</span><span class="description-tags">Minimalism, Light</span></div>
+                <div class="portfolio-details__social">
+                  <div class="social-share__btn">
+                    <svg class="svg-sprite-icon icon-share">
+                      <use xlink:href="static/images/svg/symbol/sprite.svg#share"></use>
+                    </svg><span class="social-share">Share</span>
+                  </div>
+                  <div class="social-menu--portfolio">
+                    <ul class="social-menu__list">
+                      <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
+                          <svg class="svg-sprite-icon icon-fb-icon social-menu__icon">
+                            <use xlink:href="static/images/svg/symbol/sprite.svg#fb-icon"></use>
+                          </svg></a></li>
+                      <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
+                          <svg class="svg-sprite-icon icon-g-plus-icon social-menu__icon">
+                            <use xlink:href="static/images/svg/symbol/sprite.svg#g-plus-icon"></use>
+                          </svg></a></li>
+                      <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
+                          <svg class="svg-sprite-icon icon-tw-icon social-menu__icon">
+                            <use xlink:href="static/images/svg/symbol/sprite.svg#tw-icon"></use>
+                          </svg></a></li>
+                      <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
+                          <svg class="svg-sprite-icon icon-lin-icon social-menu__icon">
+                            <use xlink:href="static/images/svg/symbol/sprite.svg#lin-icon"></use>
+                          </svg></a></li>
+                      <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
+                          <svg class="svg-sprite-icon icon-drib-icon social-menu__icon">
+                            <use xlink:href="static/images/svg/symbol/sprite.svg#drib-icon"></use>
+                          </svg></a></li>
+                      <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
+                          <svg class="svg-sprite-icon icon-pint-icon social-menu__icon">
+                            <use xlink:href="static/images/svg/symbol/sprite.svg#pint-icon"></use>
+                          </svg></a></li>
+                      <li class="social-menu__item"><a class="social-menu__link" href="javascript:void(0)">
+                          <svg class="svg-sprite-icon icon-insta-icon social-menu__icon">
+                            <use xlink:href="static/images/svg/symbol/sprite.svg#insta-icon"></use>
+                          </svg>
+                          <div class="portfolio-details__preview"></div></a></li>
+                    </ul>
                   </div>
                 </div>
               </div>

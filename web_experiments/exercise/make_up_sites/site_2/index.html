@@ -41,17 +41,13 @@
               <div class="wrapper-header__right">
                 <nav class="header-menu">
                   <ul class="header-menu__list">
-                    <li class="header-menu__item"><a class="header-menu__link" href="index.html">home</a></li>
+                    <li class="header-menu__item"><a class="header-menu__link current" href="index.html">home</a></li>
                     <li class="header-menu__item"><a class="header-menu__link" href="about.html">about</a></li>
                     <li class="header-menu__item"><a class="header-menu__link" href="portfolio.html">portfolio</a></li>
                     <li class="header-menu__item"><a class="header-menu__link" href="blog.html">blog</a></li>
                     <li class="header-menu__item"><a class="header-menu__link" href="contacts.html">contact</a></li>
                   </ul>
-                </nav>
-                <!--form.header-form-search-->
-                <!--  input.form-search__text(placeholder="search" type="search" name="search")-->
-                <!--  button.form-search__btn(type="submit")-->
-                <!--    +icon("search-icon")--><a class="hamburger hamburger--spring" href="#topMenu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></a>
+                </nav><a class="hamburger hamburger--spring" href="#topMenu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></a>
                 <nav class="header-menu--mobile" id="topMenu" data="mmenu">
                   <ul class="header-menu__list--mobile">
                     <li class="header-menu__item"><a class="header-menu__link" href="index.html">home</a></li>
@@ -113,19 +109,19 @@
             <h2 class="portfolio">Portfolio</h2>
             <nav class="filter">
               <ul class="filter__list">
-                <li class="filter__item filter__item--active"><a class="filter__link" href="javascript:void(0)">All</a></li>
-                <li class="filter__item"><a class="filter__link" href="javascript:void(0)">Pop-art</a></li>
-                <li class="filter__item"><a class="filter__link" href="javascript:void(0)">Minimalism</a></li>
-                <li class="filter__item"><a class="filter__link" href="javascript:void(0)">Loft</a></li>
-                <li class="filter__item"><a class="filter__link" href="javascript:void(0)">Eco-style</a></li>
-                <li class="filter__item"><a class="filter__link" href="javascript:void(0)">High-tech</a></li>
-                <li class="filter__item"><a class="filter__link" href="javascript:void(0)">Grunge</a></li>
+                <li class="filter__item filter__item--active" data-filter="all"><a class="filter__link" href="javascript:void(0)">All</a></li>
+                <li class="filter__item" data-filter="cat1"><a class="filter__link" href="javascript:void(0)">Pop-art</a></li>
+                <li class="filter__item" data-filter="cat2"><a class="filter__link" href="javascript:void(0)">Minimalism</a></li>
+                <li class="filter__item" data-filter="cat3"><a class="filter__link" href="javascript:void(0)">Loft</a></li>
+                <li class="filter__item" data-filter="cat4"><a class="filter__link" href="javascript:void(0)">Eco-style</a></li>
+                <li class="filter__item" data-filter="cat5"><a class="filter__link" href="javascript:void(0)">High-tech</a></li>
+                <li class="filter__item" data-filter="cat6"><a class="filter__link" href="javascript:void(0)">Grunge</a></li>
               </ul>
             </nav>
             <div class="portfolio__prev">
-              <div class="portfolio__prev--col-left"><a class="portfolio__item" href="portfolio-details.html"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-1.jpg" alt="img"></a><a class="portfolio__item" href="portfolio-details.html"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-2.jpg" alt="img"></a><a class="portfolio__item" href="portfolio-details.html"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-3.jpg" alt="img"></a></div>
-              <div class="portfolio__prev--col-center"><a class="portfolio__item" href="portfolio-details.html"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-4.jpg" alt="img"></a><a class="portfolio__item" href="portfolio-details.html"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-5.jpg" alt="img"></a><a class="portfolio__item" href="portfolio-details.html"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-6.jpg" alt="img"></a><a class="portfolio__item" href="portfolio-details.html"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-7.jpg" alt="img"></a></div>
-              <div class="portfolio__prev--col-right"><a class="portfolio__item" href="portfolio-details.html"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-8.jpg" alt="img"></a><a class="portfolio__item" href="portfolio-details.html"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-9.jpg" alt="img"></a><a class="portfolio__item" href="portfolio-details.html"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-10.jpg" alt="img"></a></div>
+              <div class="portfolio__prev--col-left"><a class="portfolio__item" href="portfolio-details.html" data-filter="cat1"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-1.jpg" alt="img"></a><a class="portfolio__item" href="portfolio-details.html" data-filter="cat4"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-2.jpg" alt="img"></a><a class="portfolio__item" href="portfolio-details.html" data-filter="cat2"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-3.jpg" alt="img"></a></div>
+              <div class="portfolio__prev--col-center"><a class="portfolio__item" href="portfolio-details.html" data-filter="cat5"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-4.jpg" alt="img"></a><a class="portfolio__item" href="portfolio-details.html" data-filter="cat1"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-5.jpg" alt="img"></a><a class="portfolio__item" href="portfolio-details.html" data-filter="cat3"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-6.jpg" alt="img"></a><a class="portfolio__item" href="portfolio-details.html" data-filter="cat6"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-7.jpg" alt="img"></a></div>
+              <div class="portfolio__prev--col-right"><a class="portfolio__item" href="portfolio-details.html" data-filter="cat1"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-8.jpg" alt="img"></a><a class="portfolio__item" href="portfolio-details.html" data-filter="cat5"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-9.jpg" alt="img"></a><a class="portfolio__item" href="portfolio-details.html" data-filter="cat2"><span class="portfolio__cross"></span><img class="portfolio__img" src="static/images/content/portfolio/img-10.jpg" alt="img"></a></div>
             </div>
           </div>
           <div class="portfolio-btn"><a class="portfolio-btn__link" href="javascript:void(0)">Load More</a></div>
