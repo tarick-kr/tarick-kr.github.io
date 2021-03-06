@@ -30,7 +30,7 @@ BattleSea.StartMenu.prototype = {
         titleSub.animations.play('move');
 
 		this.style = { font: "84px Minnie", fill: "#ffffff" };
-		startPrompt = this.add.text(this.world.centerX, this.world.centerY+300,'Нажмите чтобы начать!', this.style);
+		startPrompt = this.add.text(this.world.centerX, this.world.centerY+300,'Кликните чтобы начать!', this.style);
         startPrompt.anchor.setTo(0.5, 0.5);
 		startPrompt.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
 
@@ -82,13 +82,13 @@ BattleSea.StartMenu.prototype = {
 
     resetBubbleY: function(bubble) {
         if(bubble.y < this.world.height) {
-            this.respawnBubbleY(bubble);   
+            this.respawnBubbleY(bubble);
         }
     },
 
     resetBubbleYAll: function(bubble) {
         if(bubble.y < this.world.height) {
-            this.respawnBubbleYAll(bubble);   
+            this.respawnBubbleYAll(bubble);
         }
     },
     
@@ -107,8 +107,8 @@ BattleSea.StartMenu.prototype = {
     },
 
 	startGame: function (pointer) {
-        this.ding.play();
-        this.startMusic.stop();
+    this.ding.play();
+    this.startMusic.stop();
 		this.state.start('Game');
 	}
 
